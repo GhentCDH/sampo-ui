@@ -98,7 +98,11 @@ const StringList = props => {
     firstValue = createFirstValue(data)
   }
   if (renderAsHTML) {
-    data = parser.parseHTML(data)
+    if (isArray) {
+      data = data.map((item, i) => parser.parseHTML(item))
+    } else {
+      data = parser.parseHTML(data)
+    }
   }
   return (
     <>

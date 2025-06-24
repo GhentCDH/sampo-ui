@@ -1,5 +1,5 @@
 import React from 'react'
-import ReactHtmlParser from 'react-html-parser'
+import parse from 'html-react-parser'
 import { Link } from 'react-router-dom'
 import Tooltip from '@mui/material/Tooltip'
 import { arrayToObject } from './helpers'
@@ -26,7 +26,10 @@ export default class HTMLParser {
       default:
         transform = null
     }
-    return ReactHtmlParser(html, { transform, preprocessNodes })
+    if (preprocessNodes) {
+      html = preprocessNodes(html)
+    }
+    return parse(String(html), { replace: transform })
   }
 
   preprocessNodes (nodes) {
