@@ -16,7 +16,7 @@ module.exports = function (api) {
         corejs: { version: 3, proposals: true }
       }
     ])
-    presets.push('@babel/preset-react')
+    presets.push(['@babel/preset-react', { runtime: 'classic' }])
     plugins.push('@babel/plugin-transform-runtime')
   }
   if (process.env.BABEL_ENV === 'node') {
@@ -24,14 +24,14 @@ module.exports = function (api) {
       '@babel/preset-env',
       {
         targets: {
-          node: '16'
+          node: '20'
         }
       }
     ])
   }
   // for JavaScript Standard Style library to support JSX syntax
   if (process.env.BABEL_ENV === undefined) {
-    presets.push('@babel/preset-react')
+    presets.push(['@babel/preset-react', { runtime: 'classic' }])
   }
 
   return {
