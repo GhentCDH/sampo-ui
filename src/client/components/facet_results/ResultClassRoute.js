@@ -12,7 +12,7 @@ const Deck = lazy(() => import('./Deck'))
 const ApexCharts = lazy(() => import('./ApexCharts'))
 const Network = lazy(() => import('./Network'))
 const VideoPage = lazy(() => import('../main_layout/VideoPage'))
-const WordCloud = lazy(() => import('../main_layout/WordCloud'))
+// const WordCloud = lazy(() => import('../main_layout/WordCloud'))
 const TemporalMap = lazy(() => import('./TemporalMap'))
 const BarChartRace = lazy(() => import('./BarChartRace'))
 const ExportCSV = lazy(() => import('./ExportCSV'))
@@ -437,13 +437,13 @@ const ResultClassRoute = props => {
       routeComponent = <TemporalMap {...temporalMapProps} />
       break
     }
-    case 'WordCloud': {
-      const wordCloudProps = {
-        data: perspectiveState.instanceTableData[resultClassConfig.wordCloudProperty]
-      }
-      routeComponent = <WordCloud {...wordCloudProps} />
-      break
-    }
+    // case 'WordCloud': {
+    //   const wordCloudProps = {
+    //     data: perspectiveState.instanceTableData[resultClassConfig.wordCloudProperty]
+    //   }
+    //   routeComponent = <WordCloud {...wordCloudProps} />
+    //   break
+    // }
     case 'Export': {
       const { pageType = 'facetResults' } = resultClassConfig
       const exportResultClass = resultClassConfig.resultClass
