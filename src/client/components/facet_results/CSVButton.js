@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import withStyles from '@mui/styles/withStyles';
+import withStyles from '@mui/styles/withStyles'
 import { CSVLink } from 'react-csv'
 import CloudDownloadIcon from '@mui/icons-material/CloudDownload'
 import Button from '@mui/material/Button'

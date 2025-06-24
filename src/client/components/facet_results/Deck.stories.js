@@ -50,6 +50,6 @@ export const arcLayer = () =>
       showTooltips
       mapBoxAccessToken={MAPBOX_ACCESS_TOKEN}
       mapBoxStyle={MAPBOX_STYLE}
-    />}
+    />
 
   </div>

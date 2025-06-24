@@ -18,7 +18,7 @@ export const getPaginatedResults = ({
   sortBy,
   sortDirection,
   resultFormat,
-  dynamicLangTag,
+  dynamicLangTag
 }) => {
   let q = facetResultSetQuery
   const perspectiveConfig = backendSearchConfig[resultClass]

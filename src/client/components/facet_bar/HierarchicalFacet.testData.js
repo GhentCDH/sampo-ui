@@ -2,7 +2,6 @@ export const productionPlace = {
   id: 'productionPlace',
   // predicate: defined in backend
   distinctValueCount: 0,
-  flatValues: [],
   sortBy: 'prefLabel',
   sortDirection: 'asc',
   sortButton: false,
