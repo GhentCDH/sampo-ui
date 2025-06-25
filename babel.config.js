@@ -24,7 +24,7 @@ module.exports = function (api) {
       '@babel/preset-env',
       {
         targets: {
-          node: '20'
+          node: '22'
         }
       }
     ])
