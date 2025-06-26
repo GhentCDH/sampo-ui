@@ -1,32 +1,42 @@
-FROM node:16.13.0-alpine
-ARG API_URL
-ARG MAPBOX_ACCESS_TOKEN
+# Base stage for shared setup
+FROM node:22.17-slim AS base
+WORKDIR /app
+ARG API_URL=http://localhost:3001/api/v1
+# Install dependencies for both client and server to leverage caching
+COPY client/package*.json ./client/
+COPY server/package*.json ./server/
+RUN cd client && npm install && cd ../server && npm install
 
-# Based on https://nodejs.org/en/docs/guides/nodejs-docker-webapp/
+# Client development stage
+FROM base AS client-dev
+COPY client ./client
+WORKDIR /app/client
+EXPOSE 8080
+ENV API_URL=${API_URL}
+CMD ["npm", "run", "dev"]
 
-# Create app directory
-WORKDIR /usr/src/app
+## Client production build stage
+#FROM base AS client-build
+#COPY client ./client
+#WORKDIR /app/client
+#RUN npm run build
+## Install a lightweight server for serving the build
+#RUN npm install -g serve
+#EXPOSE 8080
+#ENV API_URL=${API_URL}
+#CMD ["serve", "-s", "build", "-l", "8080"]
 
-# Install app dependencies
-# A wildcard is used to ensure both package.json AND package-lock.json are copied
-# where available (npm@5+)
-COPY package*.json ./
-COPY webpack*.js ./
-
-# Babel 7 presets and plugins
-COPY babel.config.js ./
-
-# Bundle app source
-COPY src ./src
-
-# Run the scripts defined in package.json using build arguments
-RUN npm install && \ 
-API_URL=$API_URL MAPBOX_ACCESS_TOKEN=$MAPBOX_ACCESS_TOKEN npm run build
-
+# Server development stage
+FROM base AS server-dev
+COPY server ./server
+WORKDIR /app/server
 EXPOSE 3001
+CMD ["npm", "run", "dev"]
 
-# https://github.com/nodejs/docker-node/blob/main/docs/BestPractices.md#non-root-user
-USER node
-
-# Express server handles the backend functionality and also serves the React app
-CMD ["node", "/usr/src/app/dist/server"]
+## Server production build stage
+#FROM base AS server-build
+#COPY server ./server
+#WORKDIR /app/server
+#RUN npm run build
+#EXPOSE 3001
+#CMD ["node", "dist/index.js"]

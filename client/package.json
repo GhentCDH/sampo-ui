@@ -12,7 +12,7 @@
   ],
   "scripts": {
     "build": "cross-env BABEL_ENV=browser webpack --progress --config webpack.client.prod.js",
-    "dev": "cross-env BABEL_ENV=browser webpack serve --config webpack.client.dev.js"
+    "dev": "cross-env BABEL_ENV=browser API_URL=http://localhost:3001/api/v1 webpack serve --config webpack.client.dev.js"
   },
   "dependencies": {
     "@amcharts/amcharts5": "^5.1.3",

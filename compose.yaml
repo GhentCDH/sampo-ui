@@ -1,0 +1,37 @@
+name: sampo-ui
+
+services:
+  client:
+    build:
+      context: .
+      target: client-dev
+      args:
+        API_URL: http://localhost:3001/api/v1
+    command: npm run dev
+    volumes:
+      - ./client:/app/client
+      - ./configs:/app/configs
+    ports:
+      - "8080:8080"
+    working_dir: /app/client
+    environment:
+      - BABEL_ENV=browser
+      - NODE_ENV=development
+      - API_URL=http://localhost:3001/api/v1
+    depends_on:
+      - server
+
+  server:
+    build:
+      context: .
+      target: server-dev
+    command: npm run dev
+    volumes:
+      - ./server:/app/server
+      - ./configs:/app/configs
+    ports:
+      - "3001:3001"
+    working_dir: /app/server
+    environment:
+      - BABEL_ENV=node
+      - NODE_ENV=development

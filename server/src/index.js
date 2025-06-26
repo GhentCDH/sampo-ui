@@ -53,13 +53,13 @@ createBackendSearchConfig().then(backendSearchConfig => {
   app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 
   // Express server is used to serve the React app only in production
-  let publicPath = null
-  if (!isDevelopment) {
-    // The root directory from which to serve static assets
-    publicPath = path.join(__dirname, './../public/')
-    // app.use(express.static(publicPath))
-    app.use('/', expressStaticGzip(publicPath))
-  }
+  // let publicPath = null
+  // if (!isDevelopment) {
+  //   // The root directory from which to serve static assets
+  //   publicPath = path.join(__dirname, './../public/')
+  //   // app.use(express.static(publicPath))
+  //   app.use('/', expressStaticGzip(publicPath))
+  // }
 
   // React app makes requests to these api urls
   const apiPath = '/api/v1'
@@ -382,13 +382,13 @@ createBackendSearchConfig().then(backendSearchConfig => {
   })
 
   // Express server is used to serve the React app only in production
-  if (!isDevelopment) {
-    /*  Routes are matched to a url in order of their definition
-        Redirect all the the rest for react-router to handle */
-    app.get('*', function (request, response) {
-      response.sendFile(path.join(publicPath, 'index.html'))
-    })
-  }
+  // if (!isDevelopment) {
+  //   /*  Routes are matched to a url in order of their definition
+  //       Redirect all the the rest for react-router to handle */
+  //   app.get('*', function (request, response) {
+  //     response.sendFile(path.join(publicPath, 'index.html'))
+  //   })
+  // }
 
   const servingInfo = isDevelopment
     ? 'NODE_ENV=development, so Webpack serves the React app'
