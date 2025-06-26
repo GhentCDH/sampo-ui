@@ -11,11 +11,11 @@
     "Heikki Rantala"
   ],
   "scripts": {
-    "build": "cross-env BABEL_ENV=node babel src/server --out-dir ./dist/server --copy-files",
-    "dev": "cross-env BABEL_ENV=node NODE_ENV=development nodemon -r dotenv/config src/server/index.js --exec babel-node",
-    "utils": "cross-env BABEL_ENV=node NODE_ENV=development nodemon -r dotenv/config src/server/sparql/Utils.js --exec babel-node",
-    "sitemap": "cross-env BABEL_ENV=node babel-node src/server/sitemap_generator/SitemapGenerator.js",
-    "translate": "cross-env BABEL_ENV=node babel-node src/server/translations_generator/index.js"
+    "build": "cross-env BABEL_ENV=node babel src --out-dir ./dist --copy-files",
+    "dev": "cross-env BABEL_ENV=node NODE_ENV=development nodemon -r dotenv/config src/index.js --exec babel-node",
+    "utils": "cross-env BABEL_ENV=node NODE_ENV=development nodemon -r dotenv/config src/sparql/Utils.js --exec babel-node",
+    "sitemap": "cross-env BABEL_ENV=node babel-node src/sitemap_generator/SitemapGenerator.js",
+    "translate": "cross-env BABEL_ENV=node babel-node src/translations_generator/index.js"
   },
   "dependencies": {
     "@babel/runtime": "^7.15.4",

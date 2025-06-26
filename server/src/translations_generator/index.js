@@ -3,13 +3,14 @@ import { /* flatten, */ unflatten } from 'flat'
 import fs from 'fs-extra'
 // import localeEN from '../../client/translations/sampo/localeEN'
 import dotenv from 'dotenv'
+import { loadConfig } from '../sparql/Utils'
 dotenv.config()
 
 if (!process.env.SHEETS_API_SHEET_ID) {
   throw new Error('env variable SHEETS_API_SHEET_ID missing')
 }
 
-const portalConfig = JSON.parse(fs.readFileSync('src/configs/portalConfig.json'))
+const portalConfig = loadConfig('portalConfig.json')
 
 const { readTranslationsFromGoogleSheets } = portalConfig.localeConfig
 

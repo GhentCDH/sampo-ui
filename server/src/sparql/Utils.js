@@ -1,20 +1,27 @@
-import { readFile } from 'fs/promises'
+import { readFile } from 'fs/promises';
+import path from 'path';
 import { has } from 'lodash'
 
 // import { backendSearchConfig as oldBackendSearchConfig } from './lettersampo/BackendSearchConfig'
 
 // import { placesConfig as oldPerspectiveConfig } from './lettersampo/perspective_configs/PlacesConfig'
 // import { INITIAL_STATE } from '../../client/reducers/lettersampo/placesFacets'
+const configRoot = path.join(__dirname, '..', '..', '..', 'configs'); //TODO fix for dynamic location later
+
+export const loadConfig = async (fileName) => {
+  const configPath = path.join(__dirname, '..', '..', '..', 'configs', fileName);
+  return JSON.parse(await readFile(configPath, 'utf-8'));
+}
+
 
 export const createBackendSearchConfig = async () => {
-  const portalConfigJSON = await readFile('src/configs/portalConfig.json')
-  const portalConfig = JSON.parse(portalConfigJSON)
+  const portalConfig = await loadConfig('portalConfig.json');
+
   const resultMappers = await import('./Mappers')
   const { portalID } = portalConfig
   const backendSearchConfig = {}
   for (const perspectiveID of portalConfig.perspectives.searchPerspectives) {
-    const perspectiveConfigJSON = await readFile(`src/configs/${portalID}/search_perspectives/${perspectiveID}.json`)
-    const perspectiveConfig = JSON.parse(perspectiveConfigJSON)
+    const perspectiveConfig = await loadConfig(`${portalID}/search_perspectives/${perspectiveID}.json`)
     if (!has(perspectiveConfig, 'sparqlQueriesFile')) { continue } // skip dummy perspectives
     const { sparqlQueriesFile } = perspectiveConfig
     const sparqlQueries = await import(`../sparql/${portalID}/sparql_queries/${sparqlQueriesFile}`)
@@ -98,8 +105,7 @@ export const createBackendSearchConfig = async () => {
     backendSearchConfig[perspectiveID] = perspectiveConfig
   }
   for (const perspectiveID of portalConfig.perspectives.onlyInstancePages) {
-    const perspectiveConfigJSON = await readFile(`src/configs/${portalID}/only_instance_pages/${perspectiveID}.json`)
-    const perspectiveConfig = JSON.parse(perspectiveConfigJSON)
+    const perspectiveConfig = await loadConfig(`${portalID}/only_instance_pages/${perspectiveID}.json`)
     const { sparqlQueriesFile } = perspectiveConfig
     const sparqlQueries = await import(`../sparql/${portalID}/sparql_queries/${sparqlQueriesFile}`)
     const { instanceConfig } = perspectiveConfig.resultClasses[perspectiveID]

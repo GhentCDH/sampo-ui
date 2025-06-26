@@ -51,7 +51,6 @@ import {
   updateKnowledgeGraphMetadata,
   fetchGeoJSONLayersFailed
 } from '../actions'
-// import portalConfig from '../../../configs/portalConfig.json'
 
 const portalConfig = await fetch('/configs/portalConfig.json').then(res => res.json())
 const { portalID, localeConfig, documentFinderConfig } = portalConfig

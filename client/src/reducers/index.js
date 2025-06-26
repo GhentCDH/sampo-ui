@@ -35,12 +35,10 @@ const { portalID, perspectives } = portalConfig
 const perspectiveConfig = []
 const perspectiveConfigOnlyInfoPages = []
 for (const perspectiveID of perspectives.searchPerspectives) {
-  // const { default: perspective } = await import(`../../../configs/${portalID}/search_perspectives/${perspectiveID}.json`)
   const perspective = await fetch(`/configs/${portalID}/search_perspectives/${perspectiveID}.json`).then(res => res.json())
   perspectiveConfig.push(perspective)
 }
 for (const perspectiveID of perspectives.onlyInstancePages) {
-  // const { default: perspective } = await import(`../../../configs/${portalID}/only_instance_pages/${perspectiveID}.json`)
   const perspective = await fetch(`/configs/${portalID}/only_instance_pages/${perspectiveID}.json`).then(res => res.json())
   perspectiveConfigOnlyInfoPages.push(perspective)
 }

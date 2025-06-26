@@ -231,7 +231,6 @@ export const processPortalConfig = async portalConfig => {
 export const createPerspectiveConfig = async ({ portalID, searchPerspectives }) => {
   const perspectiveConfig = []
   for (const perspectiveID of searchPerspectives) {
-    // const { default: perspective } = await import(`../../../configs/${portalID}/search_perspectives/${perspectiveID}.json`)
     const perspective = await fetch(`/configs/${portalID}/search_perspectives/${perspectiveID}.json`).then(res => res.json())
     perspectiveConfig.push(perspective)
   }
@@ -286,7 +285,6 @@ export const createPerspectiveConfig = async ({ portalID, searchPerspectives }) 
 export const createPerspectiveConfigOnlyInfoPages = async ({ portalID, onlyInstancePagePerspectives }) => {
   const perspectiveConfigOnlyInfoPages = []
   for (const perspectiveID of onlyInstancePagePerspectives) {
-    // const { default: perspective } = await import(`../../../configs/${portalID}/only_instance_pages/${perspectiveID}.json`)
     const perspective = await fetch(`/configs/${portalID}/only_instance_pages/${perspectiveID}.json`).then(res => res.json())
     perspectiveConfigOnlyInfoPages.push(perspective)
   }
