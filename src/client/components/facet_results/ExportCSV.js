@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import withStyles from '@mui/styles/withStyles';
+import withStyles from '@mui/styles/withStyles'
 import Button from '@mui/material/Button'
 import Paper from '@mui/material/Paper'
 import { stateToUrl } from '../../helpers/helpers'
@@ -60,7 +60,7 @@ class ExportCSV extends React.Component {
     constraints = constraints.replaceAll('(', '%28')
     constraints = constraints.replaceAll(')', '%29')
     constraints = constraints.replaceAll('!', '%21')
-    //console.log(constraints)
+    // console.log(constraints)
     return `${apiUrl}/faceted-search/${this.props.resultClass}/all?facetClass=${this.props.facetClass}&resultFormat=csv${constraints}`
   }
 

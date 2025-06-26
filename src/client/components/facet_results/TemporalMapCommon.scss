@@ -1,3 +1,4 @@
+@use 'sass:color';
 $main_color: rgba(36, 39, 48, 0.8);
 $secondary_color: rgb(255, 153, 51);
 
@@ -57,7 +58,7 @@ $secondary_color: rgb(255, 153, 51);
       cursor: pointer;
 
       &:hover {
-        background-color: darken($secondary_color, 5%);
+        background-color: color.scale($secondary_color, $lightness: -5%)
       }
     }
   }
@@ -90,7 +91,7 @@ $secondary_color: rgb(255, 153, 51);
           margin-left: 0.5rem;
 
           &:hover {
-            color: darken(white, 10%);
+            color: color.scale(white, $lightness: -10%);
           }
         }
       }

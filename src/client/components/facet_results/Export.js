@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import withStyles from '@mui/styles/withStyles';
+import withStyles from '@mui/styles/withStyles'
 import Button from '@mui/material/Button'
 import querystring from 'querystring'
 import intl from 'react-intl-universal'

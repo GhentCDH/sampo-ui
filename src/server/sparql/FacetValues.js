@@ -123,7 +123,7 @@ export const getFacet = async ({
     q = q.replace('<ORDER_BY>', '# no need for ordering')
 
     if (facetConfig.maxHierarchyLevel) {
-      q = q.replace(/<HIERARCHY>/g, generateHierarchyBlock({depth: facetConfig.maxHierarchyLevel}))
+      q = q.replace(/<HIERARCHY>/g, generateHierarchyBlock({ depth: facetConfig.maxHierarchyLevel }))
       q = q.replace(/<PREDICATE>/g, facetConfig.predicate)
       q = q.replace(/<PARENTPROPERTY>/g, facetConfig.parentProperty)
     } else {
@@ -336,7 +336,7 @@ export const generateHierarchyBlock = ({
             ?instance <PREDICATE>${parentPath} ?id .
           }
       `
-      if ( i < (depth - 1) ) {
+      if (i < (depth - 1)) {
         block = block + `
           UNION
         `
@@ -344,5 +344,4 @@ export const generateHierarchyBlock = ({
     }
     return (block)
   }
-
 }

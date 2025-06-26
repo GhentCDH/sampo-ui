@@ -402,7 +402,7 @@ HierarchicalFacet.propTypes = {
    * A facet should be disabled while some other facet is updating.
    */
   someFacetIsFetching: PropTypes.bool.isRequired,
-    /**
+  /**
    * A facet should be disabled while resultcount is updating.
    */
   fetchingResultCount: PropTypes.bool.isRequired,
