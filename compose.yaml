@@ -3,7 +3,7 @@ name: sampo-ui
 services:
   client:
     build:
-      context: .
+      context: ./client
       target: client-dev
       args:
         API_URL: http://localhost:3001/api/v1
@@ -23,7 +23,7 @@ services:
 
   server:
     build:
-      context: .
+      context: ./server
       target: server-dev
     command: npm run dev
     volumes:
