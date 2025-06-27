@@ -390,9 +390,9 @@ createBackendSearchConfig().then(backendSearchConfig => {
   //   })
   // }
 
-  const servingInfo = isDevelopment
-    ? 'NODE_ENV=development, so Webpack serves the React app'
-    : `Static files (e.g. the React app) will be served from ${publicPath}`
+  // const servingInfo = isDevelopment
+  //   ? 'NODE_ENV=development, so Webpack serves the React app'
+  //   : `Static files (e.g. the React app) will be served from ${publicPath}`
 
   const port = app.get('port')
 
@@ -400,7 +400,6 @@ createBackendSearchConfig().then(backendSearchConfig => {
     console.log(`
           Express server listening on port ${port}
           API path is ${apiPath}
-          ${servingInfo}
         `)
   )
 })
