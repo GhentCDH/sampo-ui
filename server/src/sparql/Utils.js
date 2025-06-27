@@ -2,20 +2,20 @@ import { readFile } from 'fs/promises';
 import path from 'path';
 import { has } from 'lodash'
 
-// import { backendSearchConfig as oldBackendSearchConfig } from './lettersampo/BackendSearchConfig'
-
-// import { placesConfig as oldPerspectiveConfig } from './lettersampo/perspective_configs/PlacesConfig'
-// import { INITIAL_STATE } from '../../client/reducers/lettersampo/placesFacets'
-const configRoot = path.join(__dirname, '..', '..', '..', 'configs'); //TODO fix for dynamic location later
-
 export const loadConfig = async (fileName) => {
   const configPath = path.join(__dirname, '..', '..', '..', 'configs', fileName);
   return JSON.parse(await readFile(configPath, 'utf-8'));
 }
 
+const loadQueryConfig = async (fileName) => {
+  const configPath = path.join(__dirname, '..', '..', '..', 'configs', fileName);
+  return await import(configPath)
+}
+
 
 export const createBackendSearchConfig = async () => {
   const portalConfig = await loadConfig('portalConfig.json');
+
 
   const resultMappers = await import('./Mappers')
   const { portalID } = portalConfig
@@ -24,10 +24,10 @@ export const createBackendSearchConfig = async () => {
     const perspectiveConfig = await loadConfig(`${portalID}/search_perspectives/${perspectiveID}.json`)
     if (!has(perspectiveConfig, 'sparqlQueriesFile')) { continue } // skip dummy perspectives
     const { sparqlQueriesFile } = perspectiveConfig
-    const sparqlQueries = await import(`../sparql/${portalID}/sparql_queries/${sparqlQueriesFile}`)
+    const sparqlQueries = await loadQueryConfig(`${portalID}/sparql_queries/${sparqlQueriesFile}`)
     if (has(perspectiveConfig, 'endpoint')) {
       const { prefixesFile } = perspectiveConfig.endpoint
-      const { prefixes } = await import(`../sparql/${portalID}/sparql_queries/${prefixesFile}`)
+      const { prefixes } = await loadQueryConfig(`${portalID}/sparql_queries/${prefixesFile}`)
       perspectiveConfig.endpoint.prefixes = prefixes
     }
     if (perspectiveConfig.searchMode === 'faceted-search') {
@@ -107,7 +107,7 @@ export const createBackendSearchConfig = async () => {
   for (const perspectiveID of portalConfig.perspectives.onlyInstancePages) {
     const perspectiveConfig = await loadConfig(`${portalID}/only_instance_pages/${perspectiveID}.json`)
     const { sparqlQueriesFile } = perspectiveConfig
-    const sparqlQueries = await import(`../sparql/${portalID}/sparql_queries/${sparqlQueriesFile}`)
+    const sparqlQueries = await loadQueryConfig(`${portalID}/sparql_queries/${sparqlQueriesFile}`)
     const { instanceConfig } = perspectiveConfig.resultClasses[perspectiveID]
     const instancePagePropertiesQueryBlockID = instanceConfig.propertiesQueryBlock
     const instancePagePropertiesQueryBlock = sparqlQueries[instancePagePropertiesQueryBlockID]
@@ -144,7 +144,7 @@ export const createBackendSearchConfig = async () => {
       }
     }
     const { prefixesFile } = perspectiveConfig.endpoint
-    const { prefixes } = await import(`../sparql/${portalID}/sparql_queries/${prefixesFile}`)
+    const { prefixes } = await loadQueryConfig(`${portalID}/sparql_queries/${prefixesFile}`)
     perspectiveConfig.endpoint.prefixes = prefixes
     backendSearchConfig[perspectiveID] = perspectiveConfig
   }
