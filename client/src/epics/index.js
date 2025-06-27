@@ -52,6 +52,7 @@ import {
   fetchGeoJSONLayersFailed
 } from '../actions'
 
+
 const portalConfig = await fetch('/configs/portalConfig.json').then(res => res.json())
 const { portalID, localeConfig, documentFinderConfig } = portalConfig
 const { documentFinderAPIUrl } = documentFinderConfig
@@ -59,10 +60,10 @@ export const availableLocales = {}
 for (const locale of localeConfig.availableLocales) {
   let localeObj
   if (locale.format && locale.format === 'js') {
-    const localeModule = await import(`../translations/${portalID}/${locale.filename}`)
+    const localeModule = await fetch(`/configs/${portalID}/translations/${locale.filename}`).then(res => res.json())
     localeObj = localeModule.default
   } else {
-    localeObj = await import(`../translations/${portalID}/${locale.filename}`)
+    localeObj = await fetch(`/configs/${portalID}/translations/${locale.filename}`).then(res => res.json())
   }
   availableLocales[locale.id] = localeObj
 }
