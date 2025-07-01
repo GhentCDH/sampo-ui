@@ -28,8 +28,6 @@ import 'leaflet.zoominfo/dist/L.Control.Zoominfo'
 import 'leaflet.zoominfo/dist/L.Control.Zoominfo.css'
 import 'leaflet-usermarker/src/leaflet.usermarker.js'
 import 'leaflet-usermarker/src/leaflet.usermarker.css'
-// import 'leaflet.gridlayer.googlemutant/Leaflet.GoogleMutant.js' // used for Google Maps basemap
-// import 'mapbox-gl-leaflet/leaflet-mapbox-gl.js' // used for National Land Survey of Finland's vectortiles background map
 
 import markerShadowIcon from '../../img/markers/marker-shadow.png'
 import markerIconViolet from '../../img/markers/marker-icon-violet.png'
@@ -315,32 +313,6 @@ class LeafletMap extends React.Component {
       tileSize: 512,
       zoomOffset: -1
     })
-
-    /*
-      Base layers from https://www.maanmittauslaitos.fi/karttakuvapalvelu/tekninen-kuvaus-wmts
-      Routed via backend.
-    */
-    // const backgroundMapNLS = L.tileLayer(`${process.env.API_URL}/nls-wmts?z={z}&x={x}&y={y}&layerID=taustakartta`, {
-    //   attribution: 'National Land Survey of Finland',
-    //   maxZoom: 18
-    // })
-    // https://github.com/mapbox/mapbox-gl-leaflet
-    // const nlsVectortilesBackgroundmap = L.mapboxGL({
-    //   accessToken: this.props.mapBoxAccessToken,
-    //   style: `${process.env.API_URL}/nls-vectortiles-open`
-    // })
-    // const topographicalMapNLS = L.tileLayer(`${process.env.API_URL}/nls-wmts-open?z={z}&x={x}&y={y}&layerID=maastokartta`, {
-    //   attribution: 'National Land Survey of Finland',
-    //   maxZoom: 18
-    // })
-    // const airMapNLS = L.tileLayer(`${process.env.API_URL}/nls-wmts-open?z={z}&x={x}&y={y}&layerID=ortokuva`, {
-    //   attribution: 'National Land Survey of Finland',
-    //   maxZoom: 18
-    // })
-
-    // const googleRoadmap = L.gridLayer.googleMutant({
-    //   type: 'roadmap'
-    // })
 
     // layer for markers
     this.resultMarkerLayer = L.layerGroup()
