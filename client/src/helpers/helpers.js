@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
-import querystring from 'querystring'
+import qs from 'qs'
 import { has, sortBy } from 'lodash'
 import intl from 'react-intl-universal'
 import { useTheme } from '@mui/material/styles'
@@ -104,8 +104,8 @@ export const stateToUrl = ({
   return params
 }
 
-export const urlToState = ({ initialState, queryString }) => {
-  const params = querystring.parse(queryString)
+export const urlToState = ({ initialState, qstr }) => {
+  const params = qs.parse(qstr)
   return params
 }
 

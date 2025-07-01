@@ -6,7 +6,7 @@ import { has } from 'lodash'
 import CircularProgress from '@mui/material/CircularProgress'
 import Box from '@mui/material/Box'
 import history from '../../History'
-import querystring from 'querystring'
+import qs from 'qs'
 import 'leaflet/dist/leaflet.css' // Official Leaflet styles
 
 // Leaflet plugins
@@ -77,8 +77,8 @@ class LeafletMap extends React.Component {
 
     // first check if page or constraints were given as url parameter
     if (this.props.location && this.props.location.search !== '') {
-      const qs = this.props.location.search.replace('?', '')
-      const parsedConstraints = querystring.parse(qs).constraints
+      const qstr = this.props.location.search.replace('?', '')
+      const parsedConstraints = qs.parse(qstr).constraints
       constraints = parsedConstraints ? JSON.parse(decodeURIComponent(parsedConstraints)) : []
     }
 

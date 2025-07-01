@@ -11,7 +11,7 @@ import TableCell from '@mui/material/TableCell'
 import IconButton from '@mui/material/IconButton'
 import CircularProgress from '@mui/material/CircularProgress'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
-import querystring from 'querystring'
+import qs from 'qs'
 import ResultTableHead from './ResultTableHead'
 import TablePagination from '@mui/material/TablePagination'
 import ResultTablePaginationActions from './ResultTablePaginationActions'
@@ -90,9 +90,9 @@ class ResultTable extends React.Component {
     if (this.props.location && this.props.location.search === '') {
       page = this.props.data.page === -1 ? 0 : this.props.data.page
     } else {
-      const qs = this.props.location.search.replace('?', '')
-      page = parseInt(querystring.parse(qs).page) ? parseInt(querystring.parse(qs).page) : 0
-      const parsedConstraints = querystring.parse(qs).constraints
+      const qstr = this.props.location.search.replace('?', '')
+      page = parseInt(qs.parse(qstr).page) ? parseInt(qs.parse(qstr).page) : 0
+      const parsedConstraints = qs.parse(qstr).constraints
       constraints = parsedConstraints ? JSON.parse(decodeURIComponent(parsedConstraints)) : []
     }
 
@@ -157,8 +157,8 @@ class ResultTable extends React.Component {
 
     // handle browser's back button
     window.onpopstate = () => {
-      const qs = this.props.location.search.replace('?', '')
-      const newPage = parseInt(querystring.parse(qs).page)
+      const qstr = this.props.location.search.replace('?', '')
+      const newPage = parseInt(qs.parse(qstr).page)
       if (newPage !== this.props.data.page) {
         this.props.updatePage(this.props.resultClass, newPage)
       }

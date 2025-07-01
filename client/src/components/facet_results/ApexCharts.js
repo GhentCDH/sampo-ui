@@ -10,7 +10,7 @@ import Select from '@mui/material/Select'
 import Typography from '@mui/material/Typography'
 import GeneralDialog from '../main_layout/GeneralDialog'
 import InstaceList from '../main_layout/InstanceList'
-import querystring from 'querystring'
+import qs from 'qs'
 import history from '../../History'
 
 const defaultPadding = 32
@@ -46,8 +46,8 @@ class ApexChart extends React.Component {
 
     // first check if page or constraints were given as url parameter
     if (this.props.location && this.props.location.search !== '') {
-      const qs = this.props.location.search.replace('?', '')
-      const parsedConstraints = querystring.parse(qs).constraints
+      const qstr = this.props.location.search.replace('?', '')
+      const parsedConstraints = qs.parse(qstr).constraints
       // do not try to import constraints twice for ApexChartsDouble components
       if (!this.props.doNotImportConstraints) constraints = parsedConstraints ? JSON.parse(decodeURIComponent(parsedConstraints)) : []
     }
