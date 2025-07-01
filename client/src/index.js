@@ -6,7 +6,7 @@ import { Router } from 'react-router-dom'
 import history from './History'
 import configureStore from './configureStore'
 import App from './components/App'
-import { availableLocales } from './epics/index.js'
+import { availableLocales } from './epics'
 import { loadLocales } from './actions'
 import { updateLocaleToPathname } from './helpers/helpers'
 import CircularProgress from '@mui/material/CircularProgress'
@@ -14,7 +14,6 @@ import './index.css'
 import '@nosferatu500/react-sortable-tree/style.css'
 import 'react-redux-toastr/lib/css/react-redux-toastr.min.css'
 import 'mapbox-gl/dist/mapbox-gl.css'
-// import portalConfig from '../../configs/portalConfig.json'
 import '@fontsource/roboto/300.css'
 import '@fontsource/roboto/400.css'
 import '@fontsource/roboto/500.css'
@@ -58,8 +57,7 @@ render(
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center'
-          }}
-          >
+          }}>
             <CircularProgress
               sx={{
                 color: layoutConfig.colorPalette.primary.main
@@ -67,7 +65,7 @@ render(
               thickness={5}
             />
           </div>
-          }
+        }
       >
         <App />
       </Suspense>

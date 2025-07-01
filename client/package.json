@@ -4,6 +4,7 @@
     "type": "git",
     "url": "https://github.com/SemanticComputing/sampo-ui"
   },
+
   "license": "MIT",
   "author": "Esko Ikkala <esko.ikkala@aalto.fi>",
   "contributors": [
@@ -80,6 +81,7 @@
     "@babel/preset-react": "^7.14.5",
     "@fortawesome/fontawesome-svg-core": "^1.2.34",
     "@fortawesome/free-solid-svg-icons": "^5.15.2",
+    "@vitejs/plugin-react": "^4.6.0",
     "babel-loader": "^8.2.2",
     "clean-webpack-plugin": "^3.0.0",
     "compression-webpack-plugin": "^7.1.2",
@@ -95,6 +97,7 @@
     "sitemap": "^6.3.5",
     "standard": "^16.0.4",
     "style-loader": "^2.0.0",
+    "vite": "^7.0.0",
     "webpack": "^5.64.4",
     "webpack-cli": "^4.8.0",
     "webpack-dev-server": "^4.6.0",
