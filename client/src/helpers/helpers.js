@@ -208,22 +208,22 @@ export const createURIfromLocalID = ({ localID, baseURI, URITemplate, localIDAsU
 }
 
 export const processPortalConfig = async portalConfig => {
-  const { layoutConfig, mapboxConfig } = portalConfig
+  const { layoutConfig, mapboxConfig, portalID } = portalConfig
   if (layoutConfig.mainPage) {
     const { bannerImage, bannerBackround } = layoutConfig.mainPage
-    const { default: bannerImageURL } = await import(/* webpackMode: "eager" */ `../img/${bannerImage}`)
-    layoutConfig.mainPage.bannerBackround = bannerBackround.replace('<BANNER_IMAGE_URL', bannerImageURL)
+    const {url: bannerImageURL} = await fetch(`/configs/${portalID}/assets/img/${bannerImage}`)
+    layoutConfig.mainPage.bannerBackround = bannerBackround.replace('<BANNER_IMAGE_URL>', bannerImageURL)
   }
   const mapboxAccessToken = process.env.MAPBOX_ACCESS_TOKEN
   if (mapboxConfig && mapboxAccessToken) {
     mapboxConfig.mapboxAccessToken = mapboxAccessToken
   }
   if (layoutConfig.topBar.logoImage) {
-    const { default: image } = await import(/* webpackMode: "eager" */ `../img/${layoutConfig.topBar.logoImage}`)
+    const {url: image} = await fetch(`/configs/${portalID}/assets/img/${layoutConfig.topBar.logoImage}`)
     layoutConfig.topBar.logoImage = image
   }
   if (layoutConfig.topBar.logoImageSecondary) {
-    const { default: image } = await import(/* webpackMode: "eager" */ `../img/${layoutConfig.topBar.logoImageSecondary}`)
+    const {url: image} = await fetch(`/configs/${portalID}/assets/img/${layoutConfig.topBar.logoImageSecondary}`)
     layoutConfig.topBar.logoImageSecondary = image
   }
 }
@@ -236,7 +236,7 @@ export const createPerspectiveConfig = async ({ portalID, searchPerspectives }) 
   }
   for (const perspective of perspectiveConfig) {
     if (has(perspective, 'frontPageImage') && perspective.frontPageImage !== null) {
-      const { default: image } = await import(/* webpackMode: "eager" */ `../img/${perspective.frontPageImage}`)
+      const { url: image } = await fetch(`/configs/${portalID}/assets/img/${perspective.frontPageImage}`)
       perspective.frontPageImage = image
     }
     if (has(perspective, 'resultClasses')) {
