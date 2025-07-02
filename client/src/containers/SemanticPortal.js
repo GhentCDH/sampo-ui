@@ -41,9 +41,6 @@ import {
 } from '../actions'
 import { filterResults } from '../selectors'
 import {
-  processPortalConfig,
-  createPerspectiveConfig,
-  createPerspectiveConfigOnlyInfoPages,
   getScreenSize,
   usePageViews
 } from '../helpers/helpers'
@@ -51,33 +48,8 @@ import * as apexChartsConfig from '../library_configs/ApexCharts/ApexChartsConfi
 import * as leafletConfig from '../library_configs/Leaflet/LeafletConfig'
 import * as networkToolsGeneral from '../library_configs/Cytoscape.js/NetworkToolsGeneral'
 import * as networkToolsPortalSpecific from '../library_configs/Cytoscape.js/NetworkToolsPortalSpecific'
-
-// ** Generate portal configuration based on JSON configs **
-// import portalConfig from '../../../configs/portalConfig.json'
-
-const portalConfig = await fetch('/configs/portalConfig.json').then(res => res.json())
-
-await processPortalConfig(portalConfig)
-const {
-  portalID,
-  rootUrl,
-  perspectives,
-  layoutConfig,
-  knowledgeGraphMetadataConfig
-} = portalConfig
-const perspectiveConfig = await createPerspectiveConfig({
-  portalID,
-  searchPerspectives: perspectives.searchPerspectives
-})
-const perspectiveConfigOnlyInfoPages = await createPerspectiveConfigOnlyInfoPages({
-  portalID,
-  onlyInstancePagePerspectives: perspectives.onlyInstancePages
-})
-const networkConfig = {
-  ...networkToolsGeneral,
-  ...networkToolsPortalSpecific
-}
-// ** portal configuration end **
+import { useConfigsStore } from '../stores/configsStore'
+import CircularProgress from '@mui/material/CircularProgress'
 
 // ** Import general components **
 const TopBar = lazy(() => import('../components/main_layout/TopBar'))
@@ -91,23 +63,50 @@ const KnowledgeGraphMetadataTable = lazy(() => import('../components/main_layout
 // ** General components end **
 
 // ** Import portal specific components **
-const Main = lazy(() => import(`../components/perspectives/Main`))
-const Footer = lazy(() => import(`../components/perspectives/Footer`))
+const Main = lazy(() => import('../components/perspectives/Main'))
+const Footer = lazy(() => import('../components/perspectives/Footer'))
 // ** Portal specific components end **
 
 /**
- * A top-level container component, which connects all Sampo-UI components to the Redux store. Also
+ * A top-level container component, which connects all Sampo-UI components to the Redux store. Also,
  * the main routes of the portal are defined here based on JSON configs, using React Router.
- * Currently it is not possible to render this component in Storybook.
+ * Currently, it is not possible to render this component in Storybook.
  */
 const SemanticPortal = props => {
+  const {
+    portalConfig,
+    perspectiveConfigs,
+    perspectiveConfigsInfoOnlyPages
+  } = useConfigsStore()
+
+  useEffect(() => {
+    useConfigsStore.getState().initConfigs()
+  }, [])
+
+  if (!portalConfig) {
+    return (
+      <CircularProgress />
+    )
+  }
+
+  const {
+    rootUrl,
+    layoutConfig,
+    knowledgeGraphMetadataConfig
+  } = portalConfig
+
+  const networkConfig = {
+    ...networkToolsGeneral,
+    ...networkToolsPortalSpecific
+  }
+
   const { error } = props
   const location = useLocation()
   const rootUrlWithLang = `${rootUrl}/${props.options.currentLocale}`
   const screenSize = getScreenSize()
   const federatedSearchPerspectives = []
   let noClientFSResults = true
-  perspectiveConfig.forEach(perspective => {
+  perspectiveConfigs.forEach(perspective => {
     if (perspective.searchMode === 'federated-search') {
       federatedSearchPerspectives.push(perspective)
       noClientFSResults = props.clientFSState && props.clientFSState.results === null
@@ -146,7 +145,7 @@ const SemanticPortal = props => {
           fetchFullTextResults={props.fetchFullTextResults}
           clearResults={props.clearResults}
           clientFSClearResults={props.clientFSClearResults}
-          perspectives={perspectiveConfig}
+          perspectives={perspectiveConfigs}
           currentLocale={props.options.currentLocale}
           availableLocales={props.options.availableLocales}
           loadLocales={props.loadLocales}
@@ -162,7 +161,7 @@ const SemanticPortal = props => {
         <Route exact path={`${rootUrlWithLang}`}>
           <>
             <Main
-              perspectives={perspectiveConfig}
+              perspectives={perspectiveConfigs}
               screenSize={screenSize}
               rootUrl={rootUrlWithLang}
               layoutConfig={layoutConfig}
@@ -185,7 +184,7 @@ const SemanticPortal = props => {
           />
         </Route>
         {/* create routes for faceted search perspectives and corresponding instance pages */}
-        {perspectiveConfig.map(perspective => {
+        {perspectiveConfigs.map(perspective => {
           if (!has(perspective, 'externalUrl') && perspective.searchMode === 'faceted-search') {
             return (
               <React.Fragment key={perspective.id}>
@@ -283,7 +282,7 @@ const SemanticPortal = props => {
           return null
         })}
         {/* create routes for perspectives that have only instance pages */}
-        {perspectiveConfigOnlyInfoPages.map(perspective =>
+        {perspectiveConfigsInfoOnlyPages.map(perspective =>
           <Switch key={perspective.id}>
             <Redirect
               from={`${rootUrl}/${perspective.id}/page/:id`}
@@ -398,8 +397,12 @@ const SemanticPortal = props => {
 
 // state: connect the Redux store and React components
 const mapStateToProps = state => {
+  const perspectiveConfigsInfoOnlyPages = useConfigsStore.getState().perspectiveConfigsInfoOnlyPages
+
+  const perspectiveConfigs = useConfigsStore.getState().perspectiveConfigs
+
   const stateToProps = {}
-  perspectiveConfig.forEach(perspective => {
+  perspectiveConfigs.forEach(perspective => {
     const { id, searchMode } = perspective
     if (searchMode && searchMode === 'federated-search') {
       const perspectiveState = state[id]
@@ -415,7 +418,7 @@ const mapStateToProps = state => {
       }
     }
   })
-  perspectiveConfigOnlyInfoPages.forEach(perspective => {
+  perspectiveConfigsInfoOnlyPages.forEach(perspective => {
     const { id } = perspective
     stateToProps[id] = state[id]
   })

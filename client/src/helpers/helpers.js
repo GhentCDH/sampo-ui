@@ -211,7 +211,7 @@ export const processPortalConfig = async portalConfig => {
   const { layoutConfig, mapboxConfig, portalID } = portalConfig
   if (layoutConfig.mainPage) {
     const { bannerImage, bannerBackround } = layoutConfig.mainPage
-    const {url: bannerImageURL} = await fetch(`/configs/${portalID}/assets/img/${bannerImage}`)
+    const { url: bannerImageURL } = await fetch(`/configs/${portalID}/assets/img/${bannerImage}`)
     layoutConfig.mainPage.bannerBackround = bannerBackround.replace('<BANNER_IMAGE_URL>', bannerImageURL)
   }
   const mapboxAccessToken = process.env.MAPBOX_ACCESS_TOKEN
@@ -219,11 +219,11 @@ export const processPortalConfig = async portalConfig => {
     mapboxConfig.mapboxAccessToken = mapboxAccessToken
   }
   if (layoutConfig.topBar.logoImage) {
-    const {url: image} = await fetch(`/configs/${portalID}/assets/img/${layoutConfig.topBar.logoImage}`)
+    const { url: image } = await fetch(`/configs/${portalID}/assets/img/${layoutConfig.topBar.logoImage}`)
     layoutConfig.topBar.logoImage = image
   }
   if (layoutConfig.topBar.logoImageSecondary) {
-    const {url: image} = await fetch(`/configs/${portalID}/assets/img/${layoutConfig.topBar.logoImageSecondary}`)
+    const { url: image } = await fetch(`/configs/${portalID}/assets/img/${layoutConfig.topBar.logoImageSecondary}`)
     layoutConfig.topBar.logoImageSecondary = image
   }
 }

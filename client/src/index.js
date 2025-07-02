@@ -1,5 +1,5 @@
 import React, { Suspense } from 'react'
-import { createRoot } from 'react-dom/client';
+import { createRoot } from 'react-dom/client'
 import { Provider } from 'react-redux'
 import ReduxToastr from 'react-redux-toastr'
 import { Router } from 'react-router-dom'
@@ -14,13 +14,14 @@ import './index.css'
 import '@nosferatu500/react-sortable-tree/style.css'
 import 'react-redux-toastr/lib/css/react-redux-toastr.min.css'
 import 'mapbox-gl/dist/mapbox-gl.css'
-// import portalConfig from '../../configs/portalConfig.json'
 import '@fontsource/roboto/300.css'
 import '@fontsource/roboto/400.css'
 import '@fontsource/roboto/500.css'
 import '@fontsource/roboto/700.css'
+import { useConfigsStore } from './stores/configsStore'
 
-const portalConfig = await fetch('/configs/portalConfig.json').then(res => res.json())
+await useConfigsStore.getState().initConfigs()
+const portalConfig = useConfigsStore.getState().portalConfig
 
 const { localeConfig, layoutConfig } = portalConfig
 const store = configureStore()
@@ -46,7 +47,7 @@ if (Object.prototype.hasOwnProperty.call(availableLocales, localeFromUrl)) {
   })
 }
 store.dispatch(loadLocales(locale))
-const root = createRoot(document.getElementById('root'));
+const root = createRoot(document.getElementById('root'))
 root.render(
   <Provider store={store}>
     <Router history={history}>
