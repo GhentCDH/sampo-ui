@@ -6,7 +6,7 @@ import Grid from '@mui/material/Grid'
 import Typography from '@mui/material/Typography'
 import has from 'lodash'
 import MainCard from './MainCard'
-import { getSpacing } from '../../../helpers/helpers'
+import { getSpacing } from '../../helpers/helpers'
 
 /**
  * A component for generating a front page for a semantic portal.

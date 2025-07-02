@@ -91,8 +91,8 @@ const KnowledgeGraphMetadataTable = lazy(() => import('../components/main_layout
 // ** General components end **
 
 // ** Import portal specific components **
-const Main = lazy(() => import(`../components/perspectives/${portalID}/Main`))
-const Footer = lazy(() => import(`../components/perspectives/${portalID}/Footer`))
+const Main = lazy(() => import(`../components/perspectives/Main`))
+const Footer = lazy(() => import(`../components/perspectives/Footer`))
 // ** Portal specific components end **
 
 /**
