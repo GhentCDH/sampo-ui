@@ -8,7 +8,7 @@ import 'cytoscape-panzoom/cytoscape.js-panzoom.css'
 import CircularProgress from '@mui/material/CircularProgress'
 import { library, dom } from '@fortawesome/fontawesome-svg-core'
 import { faMinus, faPlus, faExpand } from '@fortawesome/free-solid-svg-icons'
-import querystring from 'querystring'
+import qs from 'qs'
 
 const zoomControlOptions = {
   zoomFactor: 0.05, // zoom factor per zoom tick
@@ -55,8 +55,8 @@ class Network extends React.Component {
 
     // first check if page or constraints were given as url parameter
     if (this.props.location && this.props.location.search !== '') {
-      const qs = this.props.location.search.replace('?', '')
-      const parsedConstraints = querystring.parse(qs).constraints
+      const qstr = this.props.location.search.replace('?', '')
+      const parsedConstraints = qs.parse(qstr).constraints
       constraints = parsedConstraints ? JSON.parse(decodeURIComponent(parsedConstraints)) : []
     }
 

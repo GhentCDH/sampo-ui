@@ -10,7 +10,7 @@ import DeckArcLayerDialog from './DeckArcLayerDialog'
 import DeckArcLayerTooltip from './DeckArcLayerTooltip'
 import CircularProgress from '@mui/material/CircularProgress'
 import history from '../../History'
-import querystring from 'querystring'
+import qs from 'qs'
 
 /* Documentation links:
   https://deck.gl/#/documentation/getting-started/using-with-react?section=adding-a-base-map
@@ -77,8 +77,8 @@ class Deck extends React.Component {
 
     // first check if page or constraints were given as url parameter
     if (this.props.location && this.props.location.search !== '') {
-      const qs = this.props.location.search.replace('?', '')
-      const parsedConstraints = querystring.parse(qs).constraints
+      const qstr = this.props.location.search.replace('?', '')
+      const parsedConstraints = qs.parse(qstr).constraints
       constraints = parsedConstraints ? JSON.parse(decodeURIComponent(parsedConstraints)) : []
     }
 

@@ -1,7 +1,7 @@
 import React from 'react'
 import makeStyles from '@mui/styles/makeStyles'
-import { SRLWrapper, useLightbox } from 'simple-react-lightbox'
 import Button from '@mui/material/Button'
+import Lightbox from 'yet-another-react-lightbox'
 
 const useStyles = makeStyles({
   previewImage: {
@@ -9,36 +9,15 @@ const useStyles = makeStyles({
   }
 })
 
-const options = {
-  settings: {
-    hideControlsAfter: false
-  },
-  caption: {
-    captionFontFamily: 'roboto'
-  }
-}
-
-const optionsSingleImage = {
-  ...options,
-  thumbnails: {
-    showThumbnails: false
-  },
-  buttons: {
-    showPrevButton: false,
-    showNextButton: false,
-    showAutoplayButton: false
-  }
-}
-
 const ImageGallerySRL = props => {
   const classes = useStyles()
-  const { openLightbox } = useLightbox()
   let { data } = props
-  let srlOptions = options
   if (!Array.isArray(data)) {
     data = [data]
-    srlOptions = optionsSingleImage
   }
+
+  const [open, setOpen] = React.useState(false);
+
   const images = data.map(item => {
     return {
       src: item.url,
@@ -48,7 +27,7 @@ const ImageGallerySRL = props => {
   })
   return (
     <>
-      <Button aria-label='open larger image' onClick={() => openLightbox()}>
+      <Button aria-label='open larger image' onClick={() => setOpen(true)}>
         <img
           className={classes.previewImage}
           height={props.previewImageHeight}
@@ -56,7 +35,11 @@ const ImageGallerySRL = props => {
           alt='preview image'
         />
       </Button>
-      <SRLWrapper options={srlOptions} elements={images} />
+      <Lightbox
+        open={open}
+        close={() => setOpen(false)}
+        slides={images}
+      />
     </>
   )
 }
