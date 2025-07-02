@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import withStyles from '@mui/styles/withStyles'
 import Button from '@mui/material/Button'
-import querystring from 'querystring'
+import qs from 'qs'
 import intl from 'react-intl-universal'
 
 const styles = theme => ({
@@ -46,7 +46,7 @@ class Export extends React.Component {
     let yasguiUrl = ''
     const sparqlQuery = pageType === 'facetResults' ? data.paginatedResultsSparqlQuery : data.instanceSparqlQuery
     if (sparqlQuery !== null) {
-      yasguiUrl = `${yasguiBaseURL}/#query=${encodeURIComponent(sparqlQuery)}&${querystring.stringify(yasguiParams)}`
+      yasguiUrl = `${yasguiBaseURL}/#query=${encodeURIComponent(sparqlQuery)}&${qs.stringify(yasguiParams)}`
     }
     return (
       <div className={classes.root}>

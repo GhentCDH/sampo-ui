@@ -12,7 +12,7 @@ import {
 import { combineEpics, ofType } from 'redux-observable'
 import intl from 'react-intl-universal'
 import { stateToUrl, pickSelectedDatasets } from '../helpers/helpers'
-import querystring from 'querystring'
+import qs from 'qs'
 import {
   FETCH_RESULT_COUNT,
   FETCH_RESULT_COUNT_FAILED,
@@ -488,7 +488,7 @@ const fetchGeoJSONLayersBackendEpic = (action$, state$) => action$.pipe(
       // latMax,
       // longMax
     }
-    const requestUrl = `${apiUrl}/wfs?${querystring.stringify(params)}`
+    const requestUrl = `${apiUrl}/wfs?${qs.stringify(params)}`
     return ajax.getJSON(requestUrl).pipe(
       map(res => updateGeoJSONLayers({
         payload: res
@@ -541,7 +541,7 @@ const fetchGeoJSONLayer = async (layerID, bounds) => {
     bbox: boundsStr
     // outputFormat: 'application/json' for kotus layers
   }
-  const url = `${baseUrl}?${querystring.stringify(mapServerParams)}`
+  const url = `${baseUrl}?${qs.stringify(mapServerParams)}`
   const response = await axios.get(url)
   return {
     layerID: layerID,
