@@ -64,7 +64,8 @@
     "redux-observable": "^2.0.0",
     "reselect": "^4.0.0",
     "rxjs": "^7.2.0",
-    "yet-another-react-lightbox": "3.23.4"
+    "yet-another-react-lightbox": "3.23.4",
+    "zustand": "^5.0.6"
   },
   "devDependencies": {
     "@babel/cli": "^7.16.0",

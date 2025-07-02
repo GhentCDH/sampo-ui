@@ -1,5 +1,5 @@
 import React, { Suspense } from 'react'
-import { render } from 'react-dom'
+import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux'
 import ReduxToastr from 'react-redux-toastr'
 import { Router } from 'react-router-dom'
@@ -46,8 +46,8 @@ if (Object.prototype.hasOwnProperty.call(availableLocales, localeFromUrl)) {
   })
 }
 store.dispatch(loadLocales(locale))
-
-render(
+const root = createRoot(document.getElementById('root'));
+root.render(
   <Provider store={store}>
     <Router history={history}>
       <Suspense
@@ -80,6 +80,5 @@ render(
       transitionIn='fadeIn'
       transitionOut='fadeOut'
     />
-  </Provider>,
-  document.getElementById('root')
+  </Provider>
 )
