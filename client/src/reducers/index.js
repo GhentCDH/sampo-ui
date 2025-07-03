@@ -1,4 +1,3 @@
-// import portalConfig from '../../../configs/portalConfig.json'
 import { combineReducers } from 'redux'
 import { has } from 'lodash'
 import { reducer as toastrReducer } from 'react-redux-toastr'

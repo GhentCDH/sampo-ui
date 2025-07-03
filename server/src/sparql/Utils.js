@@ -1,21 +1,19 @@
-import { readFile } from 'fs/promises';
-import path from 'path';
+import { readFile } from 'fs/promises'
+import path from 'path'
 import { has } from 'lodash'
 
 export const loadConfig = async (fileName) => {
-  const configPath = path.join(__dirname, '..', '..', '..', 'configs', fileName);
-  return JSON.parse(await readFile(configPath, 'utf-8'));
+  const configPath = path.join(__dirname, '..', '..', '..', 'configs', fileName)
+  return JSON.parse(await readFile(configPath, 'utf-8'))
 }
 
 const loadQueryConfig = async (fileName) => {
-  const configPath = path.join(__dirname, '..', '..', '..', 'configs', fileName);
+  const configPath = path.join(__dirname, '..', '..', '..', 'configs', fileName)
   return await import(configPath)
 }
 
-
 export const createBackendSearchConfig = async () => {
-  const portalConfig = await loadConfig('portalConfig.json');
-
+  const portalConfig = await loadConfig('portalConfig.json')
 
   const resultMappers = await import('./Mappers')
   const { portalID } = portalConfig
@@ -311,22 +309,6 @@ export const mergeFacetConfigs = (clientFacets, serverFacets) => {
 }
 
 export const createExtraResultClassesForJSONConfig = async oldBackendSearchConfig => {
-  // const portalConfigJSON = await readFile('src/configs/portalConfig.json')
-  // const portalConfig = JSON.parse(portalConfigJSON)
-  // const { portalID } = portalConfig
-  // const newPerspectiveConfigs = {}
-  // // build initial config object
-  // for (const newResultClass in oldBackendSearchConfig) {
-  //   const resultClassConfig = oldBackendSearchConfig[newResultClass]
-  //   if (has(resultClassConfig, 'perspectiveID')) {
-  //     const { perspectiveID } = resultClassConfig
-  //     if (!has(newPerspectiveConfigs, perspectiveID)) {
-  //       const perspectiveConfigJSON = await readFile(`src/configs/${portalID}/search_perspectives/${perspectiveID}.json`)
-  //       newPerspectiveConfigs[perspectiveID] = JSON.parse(perspectiveConfigJSON)
-  //     }
-  //   }
-  // }
-
   // create resultClass configs
   const resultClasses = {}
   for (const resultClass in oldBackendSearchConfig) {

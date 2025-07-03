@@ -107,7 +107,7 @@ class TemporalMap extends Component {
         sortBy: null
       })
     }
-  };
+  }
 
   _filterData = (sliderValue, data, dates) => {
     const animationCurrentDate = Date.parse(dates[sliderValue])
@@ -178,7 +178,7 @@ class TemporalMap extends Component {
   }
 
   handleOnViewportChange = viewport =>
-    this.state.mounted && this.setState({ viewport });
+    this.state.mounted && this.setState({ viewport })
 
   render () {
     const { viewport, memory, dates } = this.state

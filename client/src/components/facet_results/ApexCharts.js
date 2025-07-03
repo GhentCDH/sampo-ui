@@ -250,7 +250,7 @@ class ApexChart extends React.Component {
       rootStyle = {
         height: this.getHeightForRootContainer({ targetHeight: height }),
         width: `calc(100% - ${2 * padding}px)`,
-        padding: padding,
+        padding,
         backgroundColor: '#fff',
         borderTop: '1px solid rgba(224, 224, 224, 1)'
       }

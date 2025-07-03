@@ -97,27 +97,27 @@ class ExportLink extends React.Component {
                 ...(v.node.children && { children: v.node.children.map(child => ({ id: child.id, prefLabel: child.prefLabel, instanceCount: child.instanceCount })) })
               }
             }
-            mappedConstraints.push({ facetId: facetId, filterType: filterType, value: value })
+            mappedConstraints.push({ facetId, filterType, value })
           }
           break
         case 'textFilter':
           value = this.props.facets[constraint.facetID].textFilter
-          mappedConstraints.push({ facetId: facetId, filterType: filterType, value: value })
+          mappedConstraints.push({ facetId, filterType, value })
           break
         case 'dateFilter':
         case 'timespanFilter':
         case 'directTimespanFilter':
           value = [this.props.facets[constraint.facetID].timespanFilter.start, this.props.facets[constraint.facetID].timespanFilter.end]
-          mappedConstraints.push({ facetId: facetId, filterType: filterType, value: value })
+          mappedConstraints.push({ facetId, filterType, value })
           break
         case 'dateNoTimespanFilter':
           value = [this.props.facets[constraint.facetID].dateNoTimespanFilter.start, this.props.facets[constraint.facetID].dateNoTimespanFilter.end]
-          mappedConstraints.push({ facetId: facetId, filterType: filterType, value: value })
+          mappedConstraints.push({ facetId, filterType, value })
           break
         case 'integerFilter':
         case 'integerFilterRange':
           value = [this.props.facets[constraint.facetID].integerFilter.start, this.props.facets[constraint.facetID].integerFilter.end]
-          mappedConstraints.push({ facetId: facetId, filterType: filterType, value: value })
+          mappedConstraints.push({ facetId, filterType, value })
           break
         default:
           break

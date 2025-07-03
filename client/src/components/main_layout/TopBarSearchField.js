@@ -13,15 +13,15 @@ import history from '../../History'
 class TopBarSearchField extends React.Component {
   state = {
     value: ''
-  };
+  }
 
   handleChange = (event) => {
     this.setState({ value: event.target.value })
-  };
+  }
 
   handleMouseDown = (event) => {
     event.preventDefault()
-  };
+  }
 
   handleOnKeyDown = (event) => {
     if (event.key === 'Enter' && this.hasValidQuery()) {
@@ -32,7 +32,7 @@ class TopBarSearchField extends React.Component {
       })
       history.push({ pathname: `${this.props.rootUrl}/full-text-search/table` })
     }
-  };
+  }
 
   handleClick = () => {
     if (this.hasValidQuery()) {
@@ -42,7 +42,7 @@ class TopBarSearchField extends React.Component {
         query: this.state.value
       })
     }
-  };
+  }
 
   hasValidQuery = () => {
     return this.state.value.length > 2

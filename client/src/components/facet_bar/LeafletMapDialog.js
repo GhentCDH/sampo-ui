@@ -33,15 +33,15 @@ class LeafletMapDialog extends React.Component {
   state = {
     open: false,
     zoomMessage: ''
-  };
+  }
 
   handleClickOpen = () => {
     this.setState({ open: true })
-  };
+  }
 
   handleClose = () => {
     this.setState({ open: false })
-  };
+  }
 
   handleSearchByArea = () => {
     if (this.props.clientFSState.maps.boundingboxSearch.zoom > 10) {

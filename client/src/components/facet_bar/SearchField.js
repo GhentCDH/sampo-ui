@@ -16,7 +16,7 @@ import Paper from '@mui/material/Paper'
 class SearchField extends React.Component {
   state = {
     value: ''
-  };
+  }
 
   componentDidUpdate = prevProps => {
     if (prevProps.search.query !== this.props.search.query) {
@@ -28,11 +28,11 @@ class SearchField extends React.Component {
 
   handleChange = (event) => {
     this.setState({ value: event.target.value })
-  };
+  }
 
   handleMouseDown = (event) => {
     event.preventDefault()
-  };
+  }
 
   handleOnKeyDown = (event) => {
     if (event.key === 'Enter' && this.hasDatasets() && this.hasValidQuery()) {
@@ -44,7 +44,7 @@ class SearchField extends React.Component {
         query: this.state.value
       })
     }
-  };
+  }
 
   handleClick = () => {
     if (this.hasDatasets() && this.hasValidQuery()) {
@@ -56,7 +56,7 @@ class SearchField extends React.Component {
         query: this.state.value
       })
     }
-  };
+  }
 
   hasDatasets = () => {
     let hasDs = false

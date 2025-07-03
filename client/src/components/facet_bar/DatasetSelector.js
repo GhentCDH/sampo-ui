@@ -51,7 +51,7 @@ const styles = theme => ({
 class DatasetSelector extends React.Component {
   handleToggleDataset = value => () => {
     this.props.clientFSToggleDataset(value)
-  };
+  }
 
   generateLabel = id => {
     const { perspectiveID } = this.props

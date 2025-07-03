@@ -1,11 +1,10 @@
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
 import qs from 'qs'
-import { has, sortBy } from 'lodash'
+import { has } from 'lodash'
 import intl from 'react-intl-universal'
 import { useTheme } from '@mui/material/styles'
 import useMediaQuery from '@mui/material/useMediaQuery'
-import MuiIcon from '../components/main_layout/MuiIcon'
 
 export const stateToUrl = ({
   perspectiveID = null,
@@ -115,10 +114,10 @@ export const boundsToValues = bounds => {
   const latMax = bounds._northEast.lat
   const longMax = bounds._northEast.lng
   return {
-    latMin: latMin,
-    longMin: longMin,
-    latMax: latMax,
-    longMax: longMax
+    latMin,
+    longMin,
+    latMax,
+    longMax
   }
 }
 

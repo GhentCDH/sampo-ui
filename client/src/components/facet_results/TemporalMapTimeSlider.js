@@ -53,7 +53,7 @@ class TemporalMapTimeSlider extends BaseControl {
     halfSpeedEnabled: false,
     regularSpeedEnabled: true,
     doubleSpeedEnabled: false
-  };
+  }
 
   componentWillUnmount () {
     clearInterval(this.state.intervalSetter)
@@ -70,13 +70,13 @@ class TemporalMapTimeSlider extends BaseControl {
         value: this.props.initialValue
       })
     }
-  };
+  }
 
   handleSliderChange = (event, newValue) => {
     const { maxValue } = this.state
     this.setState({ value: newValue })
     this.props.animateMap([newValue, maxValue])
-  };
+  }
 
   _animate = () => {
     const { value, maxValue } = this.state
@@ -96,13 +96,13 @@ class TemporalMapTimeSlider extends BaseControl {
     if (value === maxValue) {
       this.handlePause()
     }
-  };
+  }
 
   handleAnimation = () => {
     const { playOrPause } = this.state
 
     playOrPause === 'play' ? this.handlePlay() : this.handlePause()
-  };
+  }
 
   handlePlay = () => {
     const { sliderDuration } = this.state
@@ -112,21 +112,21 @@ class TemporalMapTimeSlider extends BaseControl {
       intervalSetter: intervalId,
       playOrPause: 'pause'
     })
-  };
+  }
 
   handlePause = () => {
     const { intervalSetter } = this.state
 
     clearInterval(intervalSetter)
     this.setState({ isPlaying: false, playOrPause: 'play' })
-  };
+  }
 
   handleResetSlider = () => {
     const { maxValue } = this.state
 
     this.setState({ value: 0 })
     this.props.animateMap([0, maxValue])
-  };
+  }
 
   _speed = type => {
     if (type === 'half') {
@@ -169,7 +169,7 @@ class TemporalMapTimeSlider extends BaseControl {
         }
       )
     }
-  };
+  }
 
   _containerVisibility = () => {
     const { hideContainer } = this.state
@@ -177,7 +177,7 @@ class TemporalMapTimeSlider extends BaseControl {
     this.setState({
       hideContainer: hideContainer === 'time-slider--close' ? '' : 'time-slider--close'
     })
-  };
+  }
 
   _sliderValueText = value => {
     const isoDate = this.props.dates[value]

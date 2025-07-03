@@ -1,4 +1,3 @@
-
 import intl from 'react-intl-universal'
 import { generateLabelForMissingValue } from '../../helpers/helpers'
 
@@ -103,7 +102,7 @@ export const createMultipleLineChartData = ({
       height: '100%',
       fontFamily: 'Roboto'
     },
-    series: series,
+    series,
     title: {
       text: title
     },

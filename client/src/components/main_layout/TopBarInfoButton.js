@@ -21,17 +21,17 @@ const styles = theme => ({
 class TopBarInfoButton extends React.Component {
   state = {
     anchorEl: null
-  };
+  }
 
-  AdapterLink = React.forwardRef((props, ref) => <Link innerRef={ref} {...props} />);
+  AdapterLink = React.forwardRef((props, ref) => <Link innerRef={ref} {...props} />)
 
   handleInfoMenuOpen = event => {
     this.setState({ anchorEl: event.currentTarget })
-  };
+  }
 
   handleInfoMenuClose = () => {
     this.setState({ anchorEl: null })
-  };
+  }
 
   renderInfoItem = item => {
     const { classes } = this.props

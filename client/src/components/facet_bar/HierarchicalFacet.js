@@ -174,7 +174,7 @@ class HierarchicalFacet extends Component {
       }
     })
     return nodes
-  };
+  }
 
   handleCheckboxChange = treeObj => event => {
     if (this.props.facetedSearchMode === 'clientFS') {
@@ -250,7 +250,7 @@ class HierarchicalFacet extends Component {
         />
       )
     }
-  };
+  }
 
   generateLabel = node => {
     const count = node.instanceCount

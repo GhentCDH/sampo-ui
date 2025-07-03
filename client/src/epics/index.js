@@ -112,7 +112,7 @@ const fetchPaginatedResultsEpic = (action$, state$) => action$.pipe(
       catchError(error => of({
         type: FETCH_PAGINATED_RESULTS_FAILED,
         resultClass,
-        error: error,
+        error,
         message: {
           text: backendErrorText,
           title: 'Error'
@@ -156,7 +156,7 @@ const fetchResultsEpic = (action$, state$) => action$.pipe(
       catchError(error => of({
         type: FETCH_RESULTS_FAILED,
         resultClass,
-        error: error,
+        error,
         message: {
           text: backendErrorText,
           title: 'Error'
@@ -200,7 +200,7 @@ const fetchInstanceAnalysisEpic = (action$, state$) => action$.pipe(
       catchError(error => of({
         type: FETCH_RESULTS_FAILED,
         resultClass,
-        error: error,
+        error,
         message: {
           text: backendErrorText,
           title: 'Error'
@@ -235,7 +235,7 @@ const fetchResultCountEpic = (action$, state$) => action$.pipe(
       catchError(error => of({
         type: FETCH_RESULT_COUNT_FAILED,
         resultClass,
-        error: error,
+        error,
         message: {
           text: backendErrorText,
           title: 'Error'
@@ -262,7 +262,7 @@ const fullTextSearchEpic = (action$, state$) => action$.pipe(
       catchError(error => of({
         type: FETCH_RESULTS_FAILED,
         resultClass: 'fullTextSearch',
-        error: error,
+        error,
         message: {
           text: backendErrorText,
           title: 'Error'
@@ -300,8 +300,8 @@ const fetchByURIEpic = (action$, state$) => action$.pipe(
       })),
       catchError(error => of({
         type: FETCH_BY_URI_FAILED,
-        resultClass: resultClass,
-        error: error,
+        resultClass,
+        error,
         message: {
           text: backendErrorText,
           title: 'Error'
@@ -347,7 +347,7 @@ const fetchFacetEpic = (action$, state$) => action$.pipe(
         type: FETCH_FACET_FAILED,
         facetClass,
         facetID,
-        error: error,
+        error,
         message: {
           text: backendErrorText,
           title: 'Error'
@@ -367,9 +367,9 @@ const fetchFacetConstrainSelfEpic = (action$, state$) => action$.pipe(
     const { sortBy, sortDirection } = facet
     const langTag = state.options.currentLocale
     const params = stateToUrl({
-      facets: facets,
-      sortBy: sortBy,
-      sortDirection: sortDirection,
+      facets,
+      sortBy,
+      sortDirection,
       constrainSelf: true,
       langTag
     })
@@ -393,7 +393,7 @@ const fetchFacetConstrainSelfEpic = (action$, state$) => action$.pipe(
         type: FETCH_FACET_FAILED,
         resultClass: facetClass,
         id: action.id,
-        error: error,
+        error,
         message: {
           text: backendErrorText,
           title: 'Error'
@@ -426,7 +426,7 @@ const clientFSFetchResultsEpic = (action$, state$) => action$.pipe(
       })),
       catchError(error => of({
         type: CLIENT_FS_FETCH_RESULTS_FAILED,
-        error: error,
+        error,
         message: {
           text: backendErrorText,
           title: 'Error'
@@ -465,7 +465,7 @@ const fetchSimilarDocumentsEpic = (action$, state$) => action$.pipe(
         type: FETCH_SIMILAR_DOCUMENTS_BY_ID_FAILED,
         resultClass: action.resultClass,
         id: action.id,
-        error: error,
+        error,
         message: {
           text: backendErrorText,
           title: 'Error'
@@ -495,7 +495,7 @@ const fetchGeoJSONLayersBackendEpic = (action$, state$) => action$.pipe(
       })),
       catchError(error => of({
         type: SHOW_ERROR,
-        error: error,
+        error,
         message: {
           text: backendErrorText,
           title: 'Error'
@@ -544,7 +544,7 @@ const fetchGeoJSONLayer = async (layerID, bounds) => {
   const url = `${baseUrl}?${qs.stringify(mapServerParams)}`
   const response = await axios.get(url)
   return {
-    layerID: layerID,
+    layerID,
     geoJSON: response.data
   }
 }
@@ -566,7 +566,7 @@ const fetchKnowledgeGraphMetadataEpic = (action$, state$) => action$.pipe(
       catchError(error => of({
         type: FETCH_KNOWLEDGE_GRAPH_METADATA_FAILED,
         perspectiveID: action.resultClass,
-        error: error,
+        error,
         message: {
           text: backendErrorText,
           title: 'Error'

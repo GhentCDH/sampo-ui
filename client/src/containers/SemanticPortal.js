@@ -49,7 +49,6 @@ import * as leafletConfig from '../library_configs/Leaflet/LeafletConfig'
 import * as networkToolsGeneral from '../library_configs/Cytoscape.js/NetworkToolsGeneral'
 import * as networkToolsPortalSpecific from '../library_configs/Cytoscape.js/NetworkToolsPortalSpecific'
 import { useConfigsStore } from '../stores/configsStore'
-import CircularProgress from '@mui/material/CircularProgress'
 
 // ** Import general components **
 const TopBar = lazy(() => import('../components/main_layout/TopBar'))
