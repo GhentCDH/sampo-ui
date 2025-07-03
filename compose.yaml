@@ -5,12 +5,9 @@ services:
     build:
       context: ./client
       target: client-dev
-      args:
-        API_URL: http://localhost:3001/api/v1
     command: npm run dev
     volumes:
       - ./client:/app/client
-      - ./configs:/app/configs
     ports:
       - "8080:8080"
     working_dir: /app/client
