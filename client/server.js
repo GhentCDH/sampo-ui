@@ -3,26 +3,6 @@ const path = require('path')
 const fs = require('fs').promises
 const app = express()
 
-// Serve the configs directory at /configs
-const configsPath = '/app/configs'
-app.use('/configs', async (req, res, next) => {
-  const filePath = path.join(configsPath, req.path)
-  try {
-    const stats = await fs.stat(filePath)
-    if (stats.isFile()) {
-      console.log(`Serving file: ${filePath}`)
-      return express.static(configsPath)(req, res, next)
-    } else {
-      console.log(`Requested path is not a file: ${filePath}`)
-      next()
-    }
-  } catch (err) {
-    console.log(`File not found or inaccessible: ${filePath}`)
-    console.error(`Error accessing ${filePath}:`, err.message)
-    next()
-  }
-})
-
 // Serve the React app build from dist/public
 const staticPath = path.join(__dirname, 'dist/public')
 app.use(express.static(staticPath, {
@@ -35,7 +15,6 @@ app.get('*', async (req, res, next) => {
   const indexPath = path.join(__dirname, 'dist/public', 'index.html')
   try {
     await fs.access(indexPath)
-    console.log(`Serving index.html for path: ${req.path}`)
     res.sendFile(indexPath)
   } catch (err) {
     console.error(`index.html not found at: ${indexPath}`)

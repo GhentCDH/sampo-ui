@@ -48,15 +48,6 @@ createBackendSearchConfig().then(backendSearchConfig => {
   }
   app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 
-  // Express server is used to serve the React app only in production
-  // let publicPath = null
-  // if (!isDevelopment) {
-  //   // The root directory from which to serve static assets
-  //   publicPath = path.join(__dirname, './../public/')
-  //   // app.use(express.static(publicPath))
-  //   app.use('/', expressStaticGzip(publicPath))
-  // }
-
   // React app makes requests to these api urls
   const apiPath = '/api/v1'
 
@@ -67,7 +58,6 @@ createBackendSearchConfig().then(backendSearchConfig => {
     try {
       const stats = await fs.promises.stat(filePath)
       if (stats.isFile()) {
-        console.log(`Serving file: ${filePath}`)
         return express.static(configsPath)(req, res, next)
       } else {
         console.log(`Requested path is not a file: ${filePath}`)
