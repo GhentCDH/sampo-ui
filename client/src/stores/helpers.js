@@ -30,7 +30,7 @@ export const configHelpers = (getConfigJsonFile, getConfigImgFile) => {
     }
     for (const perspective of perspectiveConfig) {
       if (has(perspective, 'frontPageImage') && perspective.frontPageImage !== null) {
-        perspective.frontPageImage = await getConfigImgFile(perspective.frontPageImage)
+        perspective.frontPageImageUrl = await getConfigImgFile(perspective.frontPageImage)
       }
       if (has(perspective, 'resultClasses')) {
         const tabs = []
