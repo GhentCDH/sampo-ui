@@ -19,7 +19,7 @@ const styles = theme => ({
 class TextFacet extends React.Component {
   state = {
     value: ''
-  };
+  }
 
   // componentDidUpdate = prevProps => {
   //   if (prevProps.search.query != this.props.search.query) {
@@ -31,11 +31,11 @@ class TextFacet extends React.Component {
 
   handleChange = (event) => {
     this.setState({ value: event.target.value })
-  };
+  }
 
   handleMouseDown = (event) => {
     event.preventDefault()
-  };
+  }
 
   handleOnKeyDown = event => {
     if (event.key === 'Enter' && this.hasValidQuery()) {
@@ -46,7 +46,7 @@ class TextFacet extends React.Component {
         value: this.state.value
       })
     }
-  };
+  }
 
   handleClick = () => {
     if (this.hasValidQuery()) {
@@ -57,7 +57,7 @@ class TextFacet extends React.Component {
         value: this.state.value
       })
     }
-  };
+  }
 
   hasValidQuery = () => {
     return this.state.value.length > 2

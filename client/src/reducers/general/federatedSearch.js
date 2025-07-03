@@ -103,7 +103,7 @@ const clientFSUpdateFacet = (state, action) => {
     facetUpdateID: ++state.facetUpdateID,
     facets: updatedFacets,
     lastlyUpdatedFacet: {
-      facetID: facetID,
+      facetID,
       values: latestValues
     }
   }

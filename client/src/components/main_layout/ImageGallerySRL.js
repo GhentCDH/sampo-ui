@@ -16,7 +16,7 @@ const ImageGallerySRL = props => {
     data = [data]
   }
 
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState(false)
 
   const images = data.map(item => {
     return {

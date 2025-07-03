@@ -1,4 +1,3 @@
-// import portalConfig from '../../../configs/portalConfig.json'
 import { combineReducers } from 'redux'
 import { has } from 'lodash'
 import { reducer as toastrReducer } from 'react-redux-toastr'
@@ -18,8 +17,9 @@ import {
   fullTextSearchInitialState,
   federatedSearchInitialState
 } from './general/initialStates'
+import { useConfigsStore } from '../stores/configsStore'
 
-const portalConfig = await fetch('/configs/portalConfig.json').then(res => res.json())
+const portalConfig = await useConfigsStore.getState().getPortalConfig()
 
 const reducers = {
   leafletMap,
@@ -31,15 +31,15 @@ const reducers = {
 }
 
 // Create portal spefic reducers based on configs:
-const { portalID, perspectives } = portalConfig
+const { perspectives } = portalConfig
 const perspectiveConfig = []
 const perspectiveConfigOnlyInfoPages = []
 for (const perspectiveID of perspectives.searchPerspectives) {
-  const perspective = await fetch(`/configs/${portalID}/search_perspectives/${perspectiveID}.json`).then(res => res.json())
+  const perspective = await useConfigsStore.getState().getConfigJsonFile(`search_perspectives/${perspectiveID}.json`)
   perspectiveConfig.push(perspective)
 }
 for (const perspectiveID of perspectives.onlyInstancePages) {
-  const perspective = await fetch(`/configs/${portalID}/only_instance_pages/${perspectiveID}.json`).then(res => res.json())
+  const perspective = await useConfigsStore.getState().getConfigJsonFile(`only_instance_pages/${perspectiveID}.json`)
   perspectiveConfigOnlyInfoPages.push(perspective)
 }
 for (const perspective of perspectiveConfig) {

@@ -48,7 +48,7 @@ class MuiVirtualizedTable extends React.PureComponent {
   static defaultProps = {
     headerHeight: 48,
     rowHeight: 40
-  };
+  }
 
   componentDidUpdate = prevProps => {
     if (prevProps.sortBy !== this.props.sortBy ||
@@ -63,7 +63,7 @@ class MuiVirtualizedTable extends React.PureComponent {
     return clsx(classes.tableRow, classes.flexContainer, {
       [classes.tableRowHover]: index !== -1 && onRowClick != null
     })
-  };
+  }
 
   cellRenderer = ({ cellData, columnIndex }) => {
     const { columns /* classes, rowHeight, onRowClick */ } = this.props
@@ -84,7 +84,7 @@ class MuiVirtualizedTable extends React.PureComponent {
         shortenLabel={false}
       />
     )
-  };
+  }
 
   headerRenderer = ({ label, columnIndex, dataKey }) => {
     const { headerHeight, columns, classes, sortBy, sortDirection } = this.props

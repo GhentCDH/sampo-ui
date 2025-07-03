@@ -4,9 +4,10 @@ import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import 'moment/locale/fi'
 import SemanticPortal from '../containers/SemanticPortal'
-// import portalConfig from '../../../configs/portalConfig.json'
+import { useConfigsStore } from '../stores/configsStore'
 
-const portalConfig = await fetch('/configs/portalConfig.json').then(res => res.json())
+await useConfigsStore.getState().initConfigs()
+const portalConfig = useConfigsStore.getState().portalConfig
 
 const { colorPalette, reducedHeightBreakpoint, hundredPercentHeightBreakPoint, topBar } = portalConfig.layoutConfig
 
@@ -113,12 +114,14 @@ const theme = createTheme({
   }
 })
 
-const App = () => (
-  <LocalizationProvider dateAdapter={AdapterMoment}>
-    <ThemeProvider theme={theme}>
-      <SemanticPortal />
-    </ThemeProvider>
-  </LocalizationProvider>
-)
+const App = () => {
+  return (
+    <LocalizationProvider dateAdapter={AdapterMoment}>
+      <ThemeProvider theme={theme}>
+        <SemanticPortal />
+      </ThemeProvider>
+    </LocalizationProvider>
+  )
+}
 
 export default App

@@ -168,7 +168,7 @@ const ResultClassRoute = props => {
         fetchFacet: props.fetchFacet,
         facetState: props.facetState,
         location: useLocation(),
-        rootUrl: rootUrl,
+        rootUrl,
         tabPath: resultClassConfig.tabPath
       }
       if (pageType === 'facetResults') {
@@ -215,7 +215,7 @@ const ResultClassRoute = props => {
         fetchFacet: props.fetchFacet,
         facetState: props.facetState,
         location: useLocation(),
-        rootUrl: rootUrl,
+        rootUrl,
         tabPath: resultClassConfig.tabPath
       }
       if (instanceAnalysisData) {
@@ -269,7 +269,7 @@ const ResultClassRoute = props => {
         fetchFacet: props.fetchFacet,
         facetState: props.facetState,
         location: useLocation(),
-        rootUrl: rootUrl
+        rootUrl
       }
       routeComponent = <ApexCharts {...apexProps} />
       break
@@ -294,7 +294,7 @@ const ResultClassRoute = props => {
         fetchFacet: props.fetchFacet,
         facetState: props.facetState,
         location: useLocation(),
-        rootUrl: rootUrl,
+        rootUrl,
         tabPath: resultClassConfig.tabPath
       }
       const upperApexProps = {
@@ -372,7 +372,7 @@ const ResultClassRoute = props => {
         fetchFacet: props.fetchFacet,
         facetState: props.facetState,
         location: useLocation(),
-        rootUrl: rootUrl,
+        rootUrl,
         tabPath: resultClassConfig.tabPath
       }
       if (pageType === 'facetResults') {

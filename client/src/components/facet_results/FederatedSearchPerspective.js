@@ -12,7 +12,7 @@ const FederatedSearchPerspective = props => {
   } = props
   const perspectiveID = perspective.id
 
-  const MainClientFS = lazy(() => import(`../../components/perspectives/${portalConfig.portalID}/MainClientFS`))
+  const MainClientFS = lazy(() => import('../../components/perspectives/MainClientFS'))
 
   return (
     <Grid

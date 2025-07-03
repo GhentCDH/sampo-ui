@@ -1,4 +1,4 @@
-name: sampo-ui
+name: sampo-ui-dev
 
 services:
   client:

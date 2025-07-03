@@ -234,27 +234,27 @@ class Deck extends React.Component {
     } */
     })
 
-    createPolygonLayer = data =>
-      new PolygonLayer({
-        id: 'polygon-layer',
-        data,
-        extruded: false,
-        pickable: true,
-        stroked: true,
-        filled: true,
-        lineWidthMinPixels: 1,
-        getPolygon: d => d.polygon,
-        getFillColor: d => d.choroplethColor,
-        getLineColor: [80, 80, 80],
-        getLineWidth: 1
-      })
+  createPolygonLayer = data =>
+    new PolygonLayer({
+      id: 'polygon-layer',
+      data,
+      extruded: false,
+      pickable: true,
+      stroked: true,
+      filled: true,
+      lineWidthMinPixels: 1,
+      getPolygon: d => d.polygon,
+      getFillColor: d => d.choroplethColor,
+      getLineColor: [80, 80, 80],
+      getLineWidth: 1
+    })
 
-    render () {
-      const { classes, layerType, fetching, results, showTooltips, portalConfig } = this.props
-      const { mapboxAccessToken, mapboxStyle } = portalConfig.mapboxConfig
-      const { hoverInfo } = this.state
-      const showTooltip = showTooltips && hoverInfo && hoverInfo.object
-      const hasData = !fetching && results && results.length > 0 &&
+  render () {
+    const { classes, layerType, fetching, results, showTooltips, portalConfig } = this.props
+    const { mapboxAccessToken, mapboxStyle } = portalConfig.mapboxConfig
+    const { hoverInfo } = this.state
+    const showTooltip = showTooltips && hoverInfo && hoverInfo.object
+    const hasData = !fetching && results && results.length > 0 &&
       (
         (results[0].lat && results[0].long) ||
         (results[0].from && results[0].to) ||
@@ -262,64 +262,64 @@ class Deck extends React.Component {
       )
       // console.log(hasData)
 
-      /* It's OK to create a new Layer instance on every render
+    /* It's OK to create a new Layer instance on every render
        https://github.com/uber/deck.gl/blob/master/docs/developer-guide/using-layers.md#should-i-be-creating-new-layers-on-every-render
       */
-      let layer = null
-      if (hasData) {
-        switch (layerType) {
-          case 'arcLayer':
-            layer = this.createArcLayer(results)
-            break
-          case 'heatmapLayer':
-            layer = this.createHeatmapLayer(results)
-            break
-          case 'hexagonLayer':
-            layer = this.createHexagonLayer(results)
-            break
-          case 'polygonLayer':
-            layer = this.createPolygonLayer(results)
-            break
-          default:
-            layer = this.createHeatmapLayer(results)
-            break
-        }
+    let layer = null
+    if (hasData) {
+      switch (layerType) {
+        case 'arcLayer':
+          layer = this.createArcLayer(results)
+          break
+        case 'heatmapLayer':
+          layer = this.createHeatmapLayer(results)
+          break
+        case 'hexagonLayer':
+          layer = this.createHexagonLayer(results)
+          break
+        case 'polygonLayer':
+          layer = this.createPolygonLayer(results)
+          break
+        default:
+          layer = this.createHeatmapLayer(results)
+          break
       }
-      return (
-        <div className={classes.root}>
-          <ReactMapGL
-            {...this.state.viewport}
-            width='100%'
-            height='100%'
-            reuseMaps
-            mapStyle={`mapbox://styles/mapbox/${mapboxStyle}`}
-            preventStyleDiffing
-            mapboxApiAccessToken={mapboxAccessToken}
-            onViewportChange={this.handleOnViewportChange}
-          >
-            <div className={classes.navigationContainer}>
-              <NavigationControl />
-              <FullscreenControl
-                className={classes.fullscreenButton}
-                container={document.querySelector('mapboxgl-map')}
-              />
-            </div>
-            {layerType === 'arcLayer' &&
-              <HTMLOverlay redraw={() =>
-                <DeckArcLayerLegend
-                  title={this.props.legendTitle}
-                  fromText={this.props.legendFromText}
-                  toText={this.props.legendToText}
-                />}
+    }
+    return (
+      <div className={classes.root}>
+        <ReactMapGL
+          {...this.state.viewport}
+          width='100%'
+          height='100%'
+          reuseMaps
+          mapStyle={`mapbox://styles/mapbox/${mapboxStyle}`}
+          preventStyleDiffing
+          mapboxApiAccessToken={mapboxAccessToken}
+          onViewportChange={this.handleOnViewportChange}
+        >
+          <div className={classes.navigationContainer}>
+            <NavigationControl />
+            <FullscreenControl
+              className={classes.fullscreenButton}
+              container={document.querySelector('mapboxgl-map')}
+            />
+          </div>
+          {layerType === 'arcLayer' &&
+            <HTMLOverlay redraw={() =>
+              <DeckArcLayerLegend
+                title={this.props.legendTitle}
+                fromText={this.props.legendFromText}
+                toText={this.props.legendToText}
               />}
-            <DeckGL
-              viewState={this.state.viewport}
-              layers={[layer]}
-              getCursor={() => 'initial'}
-              {...(layerType === 'polygonLayer'
-                ? {
-                    getTooltip: ({ object }) => object && {
-                      html: `
+            />}
+          <DeckGL
+            viewState={this.state.viewport}
+            layers={[layer]}
+            getCursor={() => 'initial'}
+            {...(layerType === 'polygonLayer'
+              ? {
+                  getTooltip: ({ object }) => object && {
+                    html: `
                       <h2>${object.prefLabel}</h2>
                       <div>${object.instanceCount}</div>
                     `
@@ -327,39 +327,39 @@ class Deck extends React.Component {
                     //   backgroundColor: '#f00',
                     //   fontSize: '0.8em'
                     // }
-                    }
                   }
-                : {})
+                }
+              : {})
               }
-            />
-            {this.renderSpinner()}
-            {layerType === 'arcLayer' && this.props.instanceAnalysisData && this.state.dialog.open &&
-              <DeckArcLayerDialog
-                onClose={this.closeDialog.bind(this)}
-                data={this.props.instanceAnalysisData}
-                from={this.state.dialog.from}
-                to={this.state.dialog.to}
-                fromText={this.props.fromText}
-                toText={this.props.toText}
-                countText={this.props.countText}
-                listHeadingSingleInstance={this.props.listHeadingSingleInstance}
-                listHeadingMultipleInstances={this.props.listHeadingMultipleInstances}
-                instanceVariable={[this.props.instanceVariable]}
-                resultClass={this.props.resultClass}
-                facetClass={this.props.facetClass}
-              />}
-            {layerType === 'arcLayer' && showTooltip &&
-              <DeckArcLayerTooltip
-                data={hoverInfo}
-                fromText={this.props.fromText}
-                toText={this.props.toText}
-                countText={this.props.countText}
-                showMoreText={this.props.showMoreText}
-              />}
-          </ReactMapGL>
-        </div>
-      )
-    }
+          />
+          {this.renderSpinner()}
+          {layerType === 'arcLayer' && this.props.instanceAnalysisData && this.state.dialog.open &&
+            <DeckArcLayerDialog
+              onClose={this.closeDialog.bind(this)}
+              data={this.props.instanceAnalysisData}
+              from={this.state.dialog.from}
+              to={this.state.dialog.to}
+              fromText={this.props.fromText}
+              toText={this.props.toText}
+              countText={this.props.countText}
+              listHeadingSingleInstance={this.props.listHeadingSingleInstance}
+              listHeadingMultipleInstances={this.props.listHeadingMultipleInstances}
+              instanceVariable={[this.props.instanceVariable]}
+              resultClass={this.props.resultClass}
+              facetClass={this.props.facetClass}
+            />}
+          {layerType === 'arcLayer' && showTooltip &&
+            <DeckArcLayerTooltip
+              data={hoverInfo}
+              fromText={this.props.fromText}
+              toText={this.props.toText}
+              countText={this.props.countText}
+              showMoreText={this.props.showMoreText}
+            />}
+        </ReactMapGL>
+      </div>
+    )
+  }
 }
 
 Deck.propTypes = {

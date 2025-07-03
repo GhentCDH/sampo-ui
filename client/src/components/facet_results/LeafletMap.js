@@ -469,10 +469,10 @@ class LeafletMap extends React.Component {
     const latMax = bounds._northEast.lat
     const longMax = bounds._northEast.lng
     return {
-      latMin: latMin,
-      longMin: longMin,
-      latMax: latMax,
-      longMax: longMax,
+      latMin,
+      longMin,
+      latMax,
+      longMax,
       center: this.leafletMap.getCenter(),
       zoom: this.leafletMap.getZoom()
     }
@@ -919,7 +919,7 @@ class LeafletMap extends React.Component {
           prefix: 'fa'
         })
         marker = L.marker(latLng, {
-          icon: icon,
+          icon,
           instanceCount: result.instanceCount ? result.instanceCount : null,
           id: result.id,
           prefLabel: result.prefLabel ? result.prefLabel : null,
@@ -986,7 +986,7 @@ class LeafletMap extends React.Component {
       facetClass: this.props.facetClass,
       uri: id
     })
-  };
+  }
 
   createOpacitySlider = overlayLayers => {
     L.control.opacity(

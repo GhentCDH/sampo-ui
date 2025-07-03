@@ -22,17 +22,17 @@ const styles = theme => ({
 class TopBarLanguageButton extends React.Component {
   state = {
     anchorEl: null
-  };
+  }
 
-  AdapterLink = React.forwardRef((props, ref) => <Link innerRef={ref} {...props} />);
+  AdapterLink = React.forwardRef((props, ref) => <Link innerRef={ref} {...props} />)
 
   handleOpen = event => {
     this.setState({ anchorEl: event.currentTarget })
-  };
+  }
 
   handleClose = () => {
     this.setState({ anchorEl: null })
-  };
+  }
 
   handleMenuItemOnClick = locale => () => {
     const { pathname } = this.props.location

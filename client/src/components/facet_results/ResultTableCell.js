@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import TableCell from '@mui/material/TableCell'
 import ObjectListCollapsible from './ObjectListCollapsible'
 import StringList from './StringList'
-import Lightbox from 'yet-another-react-lightbox';
 import ImageGallerySRL from '../main_layout/ImageGallerySRL'
 
 const ResultTableCell = props => {
