@@ -1,6 +1,8 @@
 import { create } from 'zustand'
 import { configHelpers } from './helpers'
 
+const CONFIGS_URL = '/configs'
+
 export const useConfigsStore = create((set, get) => ({
   portalConfig: null,
   perspectiveConfigs: [],
@@ -28,7 +30,7 @@ export const useConfigsStore = create((set, get) => ({
     if (get().portalConfig !== null) {
       return get().portalConfig
     } else {
-      const portal = await fetch('/configs/portalConfig.json').then(res => res.json())
+      const portal = await fetch(`${CONFIGS_URL}/portalConfig.json`).then(res => res.json())
       set({ portalConfig: portal })
       return portal
     }
@@ -41,7 +43,7 @@ export const useConfigsStore = create((set, get) => ({
     if (file in get().jsonConfigs) {
       return get().jsonConfigs[file]
     } else {
-      const jsonFile = await fetch(`/configs/${get().portalConfig.portalID}/${file}`).then(res => res.json())
+      const jsonFile = await fetch(`${CONFIGS_URL}/${get().portalConfig.portalID}/${file}`).then(res => res.json())
       set(async state => ({
         jsonConfigs: { ...state.jsonConfigs, [file]: jsonFile }
       }))
@@ -56,7 +58,7 @@ export const useConfigsStore = create((set, get) => ({
     if (file in get().imgConfigs) {
       return get().imgConfigs[file]
     } else {
-      const img = await fetch(`/configs/${get().portalConfig.portalID}/assets/img/${file}`).then(res => res.url)
+      const img = await fetch(`${CONFIGS_URL}/${get().portalConfig.portalID}/assets/img/${file}`).then(res => res.url)
       set(async state => ({
         imgConfigs: { ...state.imgConfigs, [file]: img }
       }))
