@@ -51,18 +51,19 @@ import {
   updateKnowledgeGraphMetadata,
   fetchGeoJSONLayersFailed
 } from '../actions'
+import { useConfigsStore } from '../stores/configsStore'
 
-const portalConfig = await fetch('/configs/portalConfig.json').then(res => res.json())
-const { portalID, localeConfig, documentFinderConfig } = portalConfig
+const portalConfig = await useConfigsStore.getState().getPortalConfig()
+const { localeConfig, documentFinderConfig } = portalConfig
 const { documentFinderAPIUrl } = documentFinderConfig
 export const availableLocales = {}
 for (const locale of localeConfig.availableLocales) {
   let localeObj
   if (locale.format && locale.format === 'js') {
-    const localeModule = await fetch(`/configs/${portalID}/translations/${locale.filename}`).then(res => res.json())
+    const localeModule = await useConfigsStore.getState().getConfigJsonFile(`translations/${locale.filename}`)
     localeObj = localeModule.default
   } else {
-    localeObj = await fetch(`/configs/${portalID}/translations/${locale.filename}`).then(res => res.json())
+    localeObj = await useConfigsStore.getState().getConfigJsonFile(`translations/${locale.filename}`)
   }
   availableLocales[locale.id] = localeObj
 }
