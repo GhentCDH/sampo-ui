@@ -79,16 +79,6 @@ const SemanticPortal = props => {
     perspectiveConfigsInfoOnlyPages
   } = useConfigsStore()
 
-  useEffect(() => {
-    useConfigsStore.getState().initConfigs()
-  }, [])
-
-  if (!portalConfig) {
-    return (
-      <CircularProgress />
-    )
-  }
-
   const {
     rootUrl,
     layoutConfig,

@@ -52,7 +52,6 @@ import {
   fetchGeoJSONLayersFailed
 } from '../actions'
 
-
 const portalConfig = await fetch('/configs/portalConfig.json').then(res => res.json())
 const { portalID, localeConfig, documentFinderConfig } = portalConfig
 const { documentFinderAPIUrl } = documentFinderConfig
