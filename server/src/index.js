@@ -1,10 +1,9 @@
-import fs from 'fs'
 import express from 'express'
 import path from 'path'
 import bodyParser from 'body-parser'
 import axios from 'axios'
+import fs from 'fs'
 import { has, castArray } from 'lodash'
-import expressStaticGzip from 'express-static-gzip'
 import { createBackendSearchConfig } from './sparql/Utils'
 import {
   getResultCount,
@@ -27,9 +26,6 @@ createBackendSearchConfig().then(backendSearchConfig => {
   app.set('port', process.env.SAMPO_UI_EXPRESS_PORT || DEFAULT_PORT)
   app.use(bodyParser.json())
   app.disable('x-powered-by')
-
-  // NODE_ENV is defined in package.json when running in localhost
-  const isDevelopment = process.env.NODE_ENV === 'development'
 
   // CORS middleware
   app.use(function (req, res, next) {
@@ -63,6 +59,26 @@ createBackendSearchConfig().then(backendSearchConfig => {
 
   // React app makes requests to these api urls
   const apiPath = '/api/v1'
+
+  // Serve the configs directory at /configs
+  const configsPath = '/app/configs'
+  app.use(`${apiPath}/configs`, async (req, res, next) => {
+    const filePath = path.join(configsPath, req.path)
+    try {
+      const stats = await fs.promises.stat(filePath)
+      if (stats.isFile()) {
+        console.log(`Serving file: ${filePath}`)
+        return express.static(configsPath)(req, res, next)
+      } else {
+        console.log(`Requested path is not a file: ${filePath}`)
+        next()
+      }
+    } catch (err) {
+      console.log(`File not found or inaccessible: ${filePath}`)
+      console.error(`Error accessing ${filePath}:`, err.message)
+      next()
+    }
+  })
 
   const validator = OpenApiValidator.middleware({
     apiSpec: swaggerDocument,
@@ -103,7 +119,7 @@ createBackendSearchConfig().then(backendSearchConfig => {
         facetClass: body.facetClass,
         uri: body.uri,
         constraints: body.constraints,
-        resultFormat: resultFormat,
+        resultFormat,
         limit: body.limit,
         optimize: body.optimize,
         fromID: body.fromID,
@@ -136,7 +152,7 @@ createBackendSearchConfig().then(backendSearchConfig => {
         resultClass: req.params.resultClass,
         facetClass: req.query.facetClass || null,
         constraints: req.query.constraints == null ? null : req.query.constraints,
-        resultFormat: resultFormat,
+        resultFormat,
         dynamicLangTag: req.body.langTag
       })
       if (resultFormat === 'csv') {

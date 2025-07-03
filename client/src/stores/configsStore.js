@@ -1,7 +1,14 @@
 import { create } from 'zustand'
 import { configHelpers } from './helpers'
+import axios from 'axios'
 
-const CONFIGS_URL = '/configs'
+const apiUrl = process.env.API_URL
+const CONFIGS_URL = `${apiUrl}/configs`
+
+// const requestConfig = async (file) => {
+//   const res = await axios.get(`${CONFIGS_URL}/${file}`).then(res => res.data)
+//   return res
+// }
 
 export const useConfigsStore = create((set, get) => ({
   portalConfig: null,

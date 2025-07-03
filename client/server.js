@@ -1,6 +1,6 @@
 const express = require('express')
 const path = require('path')
-const fs = require('fs').promises // Use promises for async file checks
+const fs = require('fs').promises
 const app = express()
 
 // Serve the configs directory at /configs
