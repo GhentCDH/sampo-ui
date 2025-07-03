@@ -222,10 +222,10 @@ const TopBar = props => {
             component={AdapterLink} to='/'
             onClick={() => federatedSearchMode ? props.clientFSClearResults() : null}
           >
-            {topBar.logoImage &&
+            {topBar.logoImageUrl &&
               <Box
                 component='img'
-                src={topBar.logoImage}
+                src={topBar.logoImageUrl}
                 alt={`${intl.get('appTitle.short')} logo`}
                 sx={theme => ({
                   height: props.layoutConfig.topBar.logoImageReducedHeight || 23,
@@ -256,7 +256,7 @@ const TopBar = props => {
                 {props.screenSize === 'xs' ? intl.get('appTitle.mobile') : intl.get('appTitle.short')}
               </Typography>}
           </Button>
-          {topBar.logoImageSecondary &&
+          {topBar.logoImageSecondaryUrl &&
             <a
               href={topBar.logoImageSecondaryLink}
               target='_blank'
@@ -265,7 +265,7 @@ const TopBar = props => {
               <Button>
                 <Box
                   component='img'
-                  src={topBar.logoImageSecondary}
+                  src={topBar.logoImageSecondaryUrl}
                   alt='logoSecondary'
                   sx={theme => ({
                     height: 26,

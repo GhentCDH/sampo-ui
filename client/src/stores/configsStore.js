@@ -24,7 +24,6 @@ export const useConfigsStore = create((set, get) => ({
 
   getPortalConfig: async () => {
     if (get().portalConfig !== null) {
-      console.log('not empty')
       return get().portalConfig
     } else {
       const portal = await fetch('/configs/portalConfig.json').then(res => res.json())
@@ -56,7 +55,6 @@ export const useConfigsStore = create((set, get) => ({
       return get().imgConfigs[file]
     } else {
       const img = await fetch(`/configs/${get().portalConfig.portalID}/assets/img/${file}`).then(res => res.url)
-      console.log(img)
       set(async state => ({
         imgConfigs: { ...state.imgConfigs, [file]: img }
       }))

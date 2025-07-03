@@ -15,10 +15,10 @@ export const configHelpers = (getConfigJsonFile, getConfigImgFile) => {
       mapboxConfig.mapboxAccessToken = mapboxAccessToken
     }
     if (layoutConfig.topBar.logoImage) {
-      layoutConfig.topBar.logoImage = await getConfigImgFile(layoutConfig.topBar.logoImage)
+      layoutConfig.topBar.logoImageUrl = await getConfigImgFile(layoutConfig.topBar.logoImage)
     }
     if (layoutConfig.topBar.logoImageSecondary) {
-      layoutConfig.topBar.logoImageSecondary = await getConfigImgFile(layoutConfig.topBar.logoImageSecondary)
+      layoutConfig.topBar.logoImageSecondaryUrl = await getConfigImgFile(layoutConfig.topBar.logoImageSecondary)
     }
   }
 
