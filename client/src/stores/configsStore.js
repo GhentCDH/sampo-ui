@@ -45,7 +45,7 @@ export const useConfigsStore = create((set, get) => ({
       return get().jsonConfigs[file]
     } else {
       const jsonFile = await fetch(`${CONFIGS_URL}/${get().portalConfig.portalID}/${file}`).then(res => res.json())
-      set(async state => ({
+      set(state => ({
         jsonConfigs: { ...state.jsonConfigs, [file]: jsonFile }
       }))
       return jsonFile
@@ -59,8 +59,13 @@ export const useConfigsStore = create((set, get) => ({
     if (file in get().imgConfigs) {
       return get().imgConfigs[file]
     } else {
-      const img = await fetch(`${CONFIGS_URL}/${get().portalConfig.portalID}/assets/img/${file}`).then(res => res.url)
-      set(async state => ({
+      const portalConfig = get().portalConfig
+      let staticsUrl = portalConfig.staticsUrl
+      if (staticsUrl === '') {
+        staticsUrl = `${CONFIGS_URL}/${get().portalConfig.portalID}/assets/`
+      }
+      const img = `${staticsUrl}${file}`
+      set(state => ({
         imgConfigs: { ...state.imgConfigs, [file]: img }
       }))
       return img
