@@ -59,7 +59,12 @@ export const useConfigsStore = create((set, get) => ({
     if (file in get().imgConfigs) {
       return get().imgConfigs[file]
     } else {
-      const img = await fetch(`${CONFIGS_URL}/${get().portalConfig.portalID}/assets/img/${file}`).then(res => res.url)
+      const portalConfig = get().portalConfig
+      let staticsUrl = portalConfig.staticsUrl
+      if (staticsUrl === '') {
+        staticsUrl = `${CONFIGS_URL}/${get().portalConfig.portalID}/assets/img/`
+      }
+      const img = `${staticsUrl}${file}`
       set(async state => ({
         imgConfigs: { ...state.imgConfigs, [file]: img }
       }))

@@ -1,6 +1,7 @@
 {
     "portalID": "sampo",
     "rootUrl": "",
+    "staticsUrl": "",
     "perspectives": {
         "searchPerspectives": [
             "perspective1",
