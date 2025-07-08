@@ -58,6 +58,9 @@ export const getFacet = async ({
       q = facetValuesQuery
       mapper = mapFacet
   }
+  if (facetConfig.customQueryTemplate) {
+    q = backendSearchConfig[facetClass].customQueryTemplates[facetConfig.customQueryTemplate]
+  }
   let selectedBlock = '# no selections'
   let selectedNoHitsBlock = '# no filters from other facets'
   let filterBlock
@@ -188,7 +191,7 @@ export const getFacet = async ({
   })
   if (facetConfig.facetType === 'hierarchical') {
     return ({
-      facetClass: facetClass,
+      facetClass,
       id: facetID,
       data: response.data.treeData,
       flatData: response.data.flatData,
@@ -196,7 +199,7 @@ export const getFacet = async ({
     })
   } else {
     return ({
-      facetClass: facetClass,
+      facetClass,
       id: facetID,
       data: response.data,
       sparqlQuery: response.sparqlQuery
@@ -234,7 +237,7 @@ const generateSelectedNoHitsBlock = ({
     facetClass,
     constraints,
     filterTarget: 'instance',
-    facetID: facetID,
+    facetID,
     inverse: true
   })
   const selections = literal ? `'${currentSelectionsWithoutUnknown.join(' ')}'` : `<${currentSelectionsWithoutUnknown.join('> <')}>`

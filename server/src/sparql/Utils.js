@@ -89,6 +89,13 @@ export const createBackendSearchConfig = async () => {
           ...perspectiveConfig.resultClasses[perspectiveID].instanceConfig.instancePageResultClasses
         }
       }
+
+      // Load custom query templates
+      if (perspectiveConfig.customQueryTemplates) {
+        for (const [key, customQuery] of Object.entries(perspectiveConfig.customQueryTemplates)) {
+          perspectiveConfig.customQueryTemplates[key] = sparqlQueries[customQuery]
+        }
+      }
     }
     if (perspectiveConfig.searchMode === 'federated-search') {
       for (const dataset in perspectiveConfig.datasets) {
