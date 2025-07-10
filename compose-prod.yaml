@@ -4,11 +4,11 @@ services:
   client:
     build:
       context: ./client
-      target: client-build
+      target: client-prod
     image: sampo-ui-client:prod
     container_name: sampo-ui-client-prod
     ports:
-      - "8080:8080"
+      - "8080:80"
     environment:
       - API_URL=http://localhost:3001/api/v1
 

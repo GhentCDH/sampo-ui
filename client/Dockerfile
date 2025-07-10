@@ -17,5 +17,9 @@ FROM base AS client-build
 COPY . ./client
 WORKDIR /app/client
 RUN npm run build
-EXPOSE 8080
-CMD ["node", "server.js"]
+
+FROM nginx:stable AS client-prod
+COPY --from=client-build /app/client/dist/public /usr/share/nginx/html
+COPY ./nginx.conf /etc/nginx/conf.d/default.conf
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
