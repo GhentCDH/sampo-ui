@@ -1,7 +1,7 @@
 import React from 'react'
-import withStyles from '@mui/styles/withStyles'
+import { withStyles } from 'tss-react/mui'
 
-const styles = theme => ({
+const styles = () => ({
   // https://www.w3schools.com/howto/howto_css_responsive_iframes.asp
   container: {
     position: 'relative',
@@ -97,4 +97,4 @@ class Player extends React.Component {
   }
 }
 
-export default withStyles(styles)(Player)
+export default withStyles(Player, styles)

@@ -1,10 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import withStyles from '@mui/styles/withStyles'
+import { withStyles } from 'tss-react/mui'
 import { Link } from 'react-router-dom'
 import Typography from '@mui/material/Typography'
 
-const styles = theme => ({
+const styles = (theme) => ({
   root: {
     marginTop: theme.spacing(1)
   }
@@ -49,4 +49,4 @@ InstanceList.propTypes = {
   listHeadingMultipleInstances: PropTypes.string.isRequired
 }
 
-export default withStyles(styles)(InstanceList)
+export default withStyles(InstanceList, styles)

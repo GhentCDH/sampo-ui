@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import intl from 'react-intl-universal'
 import classNames from 'classnames'
-import withStyles from '@mui/styles/withStyles'
+import { withStyles } from 'tss-react/mui'
 import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
 import TableCell from '@mui/material/TableCell'
@@ -11,7 +11,7 @@ import TableSortLabel from '@mui/material/TableSortLabel'
 import IconButton from '@mui/material/IconButton'
 import InfoIcon from '@mui/icons-material/InfoOutlined'
 
-const styles = theme => ({
+const styles = (theme) => ({
   headerCol: {
     position: 'sticky',
     top: 0,
@@ -102,4 +102,4 @@ ResultTableHead.propTypes = {
   sortDirection: PropTypes.string
 }
 
-export default withStyles(styles)(ResultTableHead)
+export default withStyles(ResultTableHead, styles)

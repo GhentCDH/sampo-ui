@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import intl from 'react-intl-universal'
-import withStyles from '@mui/styles/withStyles'
+import { withStyles } from 'tss-react/mui'
 import { has } from 'lodash'
 import SortableTree, { changeNodeAtPath } from '@nosferatu500/react-sortable-tree'
 import FileExplorerTheme from '@nosferatu500/theme-file-explorer'
@@ -438,4 +438,4 @@ HierarchicalFacet.propTypes = {
 
 export const HierarchicalFacetComponent = HierarchicalFacet
 
-export default withStyles(styles)(HierarchicalFacet)
+export default withStyles(HierarchicalFacet, styles)

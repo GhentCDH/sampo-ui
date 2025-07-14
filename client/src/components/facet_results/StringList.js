@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import withStyles from '@mui/styles/withStyles'
+import { withStyles } from 'tss-react/mui'
 import Collapse from '@mui/material/Collapse'
 import IconButton from '@mui/material/IconButton'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
@@ -8,16 +8,16 @@ import HTMLParser from '../../helpers/HTMLParser'
 import classNames from 'classnames'
 import clsx from 'clsx'
 
-const styles = theme => ({
-  resultTableList: props => ({
+const styles = (theme, props) => ({
+  resultTableList: {
     maxHeight: props.tableData && props.tableData.paginatedResultsRowContentMaxHeight
       ? props.tableData.paginatedResultsRowContentMaxHeight
       : 200,
     overflow: 'auto'
-  }),
-  valueList: props => ({
+  },
+  valueList: {
     paddingLeft: 20
-  }),
+  },
   tooltip: {
     maxWidth: 500
   },
@@ -136,4 +136,4 @@ StringList.propTypes = {
   numberedList: PropTypes.bool
 }
 
-export default withStyles(styles)(StringList)
+export default withStyles(StringList, styles)

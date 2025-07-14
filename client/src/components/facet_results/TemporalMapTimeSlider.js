@@ -1,5 +1,5 @@
 import React from 'react'
-import withStyles from '@mui/styles/withStyles'
+import { withStyles } from 'tss-react/mui'
 import PropTypes from 'prop-types'
 import Slider from '@mui/material/Slider'
 import { BaseControl } from 'react-map-gl'
@@ -292,4 +292,4 @@ TemporalMapTimeSlider.propTypes = {
   initialValue: PropTypes.number.isRequired
 }
 
-export default withStyles(styles)(TemporalMapTimeSlider)
+export default withStyles(TemporalMapTimeSlider, styles)

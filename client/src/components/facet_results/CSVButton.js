@@ -1,12 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import withStyles from '@mui/styles/withStyles'
+import { withStyles } from 'tss-react/mui'
 import { CSVLink } from 'react-csv'
 import CloudDownloadIcon from '@mui/icons-material/CloudDownload'
 import Button from '@mui/material/Button'
 import intl from 'react-intl-universal'
 
-const styles = theme => ({
+const styles = (theme) => ({
   root: {
     height: '100%',
     width: '100%',
@@ -56,4 +56,4 @@ CSVButton.propTypes = {
 
 export const CSVButtonComponent = CSVButton
 
-export default withStyles(styles)(CSVButton)
+export default withStyles(CSVButton, styles)

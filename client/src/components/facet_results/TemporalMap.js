@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import withStyles from '@mui/styles/withStyles'
+import { withStyles } from 'tss-react/mui'
 import intl from 'react-intl-universal'
 import ReactMapGL, { NavigationControl, FullscreenControl } from 'react-map-gl'
 import DeckGL, { ScatterplotLayer } from 'deck.gl'
@@ -13,7 +13,7 @@ import Moment from 'moment'
 import { extendMoment } from 'moment-range'
 const moment = extendMoment(Moment)
 
-const styles = theme => ({
+const styles = (theme) => ({
   root: {
     height: 400,
     [theme.breakpoints.up('md')]: {
@@ -259,4 +259,4 @@ TemporalMap.propTypes = {
 
 export const TemporalMapComponent = TemporalMap
 
-export default withStyles(styles)(TemporalMap)
+export default withStyles(TemporalMap, styles)
