@@ -4,6 +4,8 @@ import FederatedResults from './FederatedResults'
 import Grid from '@mui/material/Grid'
 import { getSpacing } from '../../helpers/helpers'
 
+const MainClientFS = lazy(() => import('../../components/perspectives/MainClientFS'))
+
 const FederatedSearchPerspective = props => {
   const {
     portalConfig, layoutConfig, perspective,
@@ -11,8 +13,6 @@ const FederatedSearchPerspective = props => {
     leafletConfig
   } = props
   const perspectiveID = perspective.id
-
-  const MainClientFS = lazy(() => import('../../components/perspectives/MainClientFS'))
 
   return (
     <Grid
