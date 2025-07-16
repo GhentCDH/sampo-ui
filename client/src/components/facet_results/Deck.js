@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import withStyles from '@mui/styles/withStyles'
+import { withStyles } from 'tss-react/mui'
 import DeckGL from '@deck.gl/react'
 import { ArcLayer, PolygonLayer } from '@deck.gl/layers'
 import { HeatmapLayer, HexagonLayer } from '@deck.gl/aggregation-layers'
@@ -20,13 +20,13 @@ import qs from 'qs'
   https://www.mapbox.com/mapbox-gl-js/api#map
 */
 
-const styles = theme => ({
-  root: props => ({
+const styles = (theme, props) => ({
+  root: {
     height: 400,
     [theme.breakpoints.up(props.layoutConfig.hundredPercentHeightBreakPoint)]: {
       height: `calc(100% - ${props.layoutConfig.tabHeight}px)`
     }
-  }),
+  },
   spinner: {
     height: 40,
     width: 40,
@@ -386,4 +386,4 @@ Deck.propTypes = {
 
 export const DeckComponent = Deck
 
-export default withStyles(styles)(Deck)
+export default withStyles(Deck, styles)

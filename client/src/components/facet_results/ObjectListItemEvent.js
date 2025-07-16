@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import withStyles from '@mui/styles/withStyles'
+import { withStyles } from 'tss-react/mui'
 import ObjectListItemLink from './ObjectListItemLink'
 
 const styles = () => ({
@@ -56,4 +56,4 @@ ObjectListItemEvent.propTypes = {
 
 export const ObjectListItemEventComponent = ObjectListItemEvent
 
-export default withStyles(styles)(ObjectListItemEvent)
+export default withStyles(ObjectListItemEvent, styles)

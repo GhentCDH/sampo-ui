@@ -2,13 +2,13 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import intl from 'react-intl-universal'
 import CircularProgress from '@mui/material/CircularProgress'
-import withStyles from '@mui/styles/withStyles'
+import { withStyles } from 'tss-react/mui'
 import Slider from '@mui/material/Slider'
 import TextField from '@mui/material/TextField'
 import Button from '@mui/material/Button'
 import { yearToISOString, ISOStringToYear } from './FacetHelpers'
 
-const styles = theme => ({
+const styles = (theme) => ({
   root: {
     height: '100%',
     display: 'flex',
@@ -259,4 +259,4 @@ SliderFacet.propTypes = {
 
 export const SliderFacetComponent = SliderFacet
 
-export default withStyles(styles)(SliderFacet)
+export default withStyles(SliderFacet, styles)

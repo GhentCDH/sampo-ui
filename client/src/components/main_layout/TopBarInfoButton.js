@@ -5,10 +5,10 @@ import Button from '@mui/material/Button'
 import MenuItem from '@mui/material/MenuItem'
 import Menu from '@mui/material/Menu'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
-import withStyles from '@mui/styles/withStyles'
+import { withStyles } from 'tss-react/mui'
 import { Link } from 'react-router-dom'
 
-const styles = theme => ({
+const styles = (theme) => ({
   link: {
     textDecoration: 'none'
   },
@@ -104,4 +104,4 @@ TopBarInfoButton.propTypes = {
   rootUrl: PropTypes.string.isRequired
 }
 
-export default withStyles(styles)(TopBarInfoButton)
+export default withStyles(TopBarInfoButton, styles)

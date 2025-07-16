@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import intl from 'react-intl-universal'
-import withStyles from '@mui/styles/withStyles'
+import { withStyles } from 'tss-react/mui'
 import clsx from 'clsx'
 import Table from '@mui/material/Table'
 import TableBody from '@mui/material/TableBody'
@@ -17,8 +17,8 @@ import TablePagination from '@mui/material/TablePagination'
 import ResultTablePaginationActions from './ResultTablePaginationActions'
 import history from '../../History'
 
-const styles = theme => ({
-  tableContainer: props => ({
+const styles = (theme, props) => ({
+  tableContainer: {
     overflow: 'auto',
     '& td, & th': {
       fontSize: props.layoutConfig.tableFontSize
@@ -28,7 +28,7 @@ const styles = theme => ({
     },
     backgroundColor: theme.palette.background.paper,
     borderTop: '1px solid rgba(224, 224, 224, 1);'
-  }),
+  },
   // paginationRoot: {
   //   display: 'flex',
   //   backgroundColor: '#fff',
@@ -401,4 +401,4 @@ ResultTable.propTypes = {
 
 export const ResultTableComponent = ResultTable
 
-export default withStyles(styles)(ResultTable)
+export default withStyles(ResultTable, styles)

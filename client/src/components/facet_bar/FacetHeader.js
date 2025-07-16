@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import intl from 'react-intl-universal'
-import withStyles from '@mui/styles/withStyles'
+import { withStyles } from 'tss-react/mui'
 import IconButton from '@mui/material/IconButton'
 import Tooltip from '@mui/material/Tooltip'
 import Menu from '@mui/material/Menu'
@@ -16,7 +16,7 @@ import PieChartIcon from '@mui/icons-material/PieChart'
 import LineChartIcon from '@mui/icons-material/ShowChart'
 import BarChartIcon from '@mui/icons-material/BarChart'
 
-const styles = theme => ({
+const styles = (theme) => ({
   root: {
     width: '100%',
     height: '100%'
@@ -432,4 +432,4 @@ FacetHeader.propTypes = {
 
 export const FacetHeaderComponent = FacetHeader
 
-export default withStyles(styles)(FacetHeader)
+export default withStyles(FacetHeader, styles)

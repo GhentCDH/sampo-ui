@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import intl from 'react-intl-universal'
-import withStyles from '@mui/styles/withStyles'
+import { withStyles } from 'tss-react/mui'
 import clsx from 'clsx'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import Table from '@mui/material/Table'
@@ -13,7 +13,7 @@ import Tooltip from '@mui/material/Tooltip'
 import IconButton from '@mui/material/IconButton'
 import InfoIcon from '@mui/icons-material/InfoOutlined'
 
-const styles = theme => ({
+const styles = (theme) => ({
   instanceTable: {
     maxWidth: 1200,
     width: '100%',
@@ -221,4 +221,4 @@ InstancePageTable.propTypes = {
 
 export const InstanceHomePageTableComponent = InstancePageTable
 
-export default withStyles(styles)(InstancePageTable)
+export default withStyles(InstancePageTable, styles)

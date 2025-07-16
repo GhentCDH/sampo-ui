@@ -4,12 +4,12 @@ import Button from '@mui/material/Button'
 import MenuItem from '@mui/material/MenuItem'
 import Menu from '@mui/material/Menu'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
-import withStyles from '@mui/styles/withStyles'
+import { withStyles } from 'tss-react/mui'
 import { Link } from 'react-router-dom'
 import history from '../../History'
 import { updateLocaleToPathname } from '../../helpers/helpers'
 
-const styles = theme => ({
+const styles = (theme) => ({
   link: {
     textDecoration: 'none'
   },
@@ -91,4 +91,4 @@ TopBarLanguageButton.propTypes = {
   location: PropTypes.object.isRequired
 }
 
-export default withStyles(styles)(TopBarLanguageButton)
+export default withStyles(TopBarLanguageButton, styles)

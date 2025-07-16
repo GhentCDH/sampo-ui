@@ -4,13 +4,11 @@ import IconButton from '@mui/material/IconButton'
 import Tooltip from '@mui/material/Tooltip'
 import GeneralDialog from '../main_layout/GeneralDialog'
 import ApexCharts from '../facet_results/ApexCharts'
-import makeStyles from '@mui/styles/makeStyles'
+import { styled } from '@mui/material/styles'
 
-const useStyles = makeStyles(theme => ({
-  chartContainer: {
-    height: 'calc(100% - 100px)',
-    padding: theme.spacing(1)
-  }
+const DivChartContainer = styled('div')(({ theme }) => ({
+  height: 'calc(100% - 100px)',
+  padding: theme.spacing(1)
 }))
 
 /**
@@ -22,7 +20,6 @@ const ChartDialog = props => {
     results, resultUpdateID, fetching, tooltip, resultClassConfig, fetchData,
     facetClass, resultClass = null, facetID
   } = props
-  const classes = useStyles()
   const [open, setOpen] = React.useState(false)
 
   const handleClickOpen = event => {
@@ -53,7 +50,7 @@ const ChartDialog = props => {
         onClose={handleClose}
         dialogTitle={props.dialogTitle}
       >
-        <div className={classes.chartContainer}>
+        <DivChartContainer>
           <ApexCharts
             portalConfig={props.portalConfig}
             perspectiveConfig={props.perspectiveConfig}
@@ -67,7 +64,7 @@ const ChartDialog = props => {
             facetID={facetID}
             resultClassConfig={resultClassConfig}
           />
-        </div>
+        </DivChartContainer>;
       </GeneralDialog>
     </>
   )

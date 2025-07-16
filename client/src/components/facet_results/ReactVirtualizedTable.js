@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import clsx from 'clsx'
-import withStyles from '@mui/styles/withStyles'
+import { withStyles } from 'tss-react/mui'
 import TableCell from '@mui/material/TableCell'
 import TableSortLabel from '@mui/material/TableSortLabel'
 import Tooltip from '@mui/material/Tooltip'
@@ -11,7 +11,7 @@ import { AutoSizer, Column, Table } from 'react-virtualized'
 import intl from 'react-intl-universal'
 import CircularProgress from '@mui/material/CircularProgress'
 
-const styles = theme => ({
+const styles = (theme) => ({
   flexContainer: {
     display: 'flex',
     alignItems: 'center',
@@ -184,7 +184,7 @@ MuiVirtualizedTable.propTypes = {
   rowHeight: PropTypes.number
 }
 
-const VirtualizedTable = withStyles(styles)(MuiVirtualizedTable)
+const VirtualizedTable = withStyles(MuiVirtualizedTable, styles)
 
 const rootStyle = {
   height: 'calc(100% - 58px)',

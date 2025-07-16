@@ -1,5 +1,5 @@
 import React from 'react'
-import withStyles from '@mui/styles/withStyles'
+import { withStyles } from 'tss-react/mui'
 import Accordion from '@mui/material/Accordion'
 import AccordionDetails from '@mui/material/AccordionDetails'
 import AccordionSummary from '@mui/material/AccordionSummary'
@@ -12,7 +12,7 @@ import { has } from 'lodash'
 import parse from 'html-react-parser'
 import { arrayToObject } from '../../helpers/helpers'
 
-const styles = theme => ({
+const styles = (theme) => ({
   root: {
     width: '100%',
     marginTop: theme.spacing(1)
@@ -397,4 +397,4 @@ class VideoTableOfContents extends React.Component {
   }
 }
 
-export default withStyles(styles)(VideoTableOfContents)
+export default withStyles(VideoTableOfContents, styles)

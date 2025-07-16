@@ -1,16 +1,13 @@
 import React from 'react'
-import makeStyles from '@mui/styles/makeStyles'
+import { styled } from '@mui/material/styles'
 import Button from '@mui/material/Button'
 import Lightbox from 'yet-another-react-lightbox'
 
-const useStyles = makeStyles({
-  previewImage: {
-    border: '1px solid lightgray'
-  }
+const ImgPreviewImage = styled('img')({
+  border: '1px solid lightgray'
 })
 
 const ImageGallerySRL = props => {
-  const classes = useStyles()
   let { data } = props
   if (!Array.isArray(data)) {
     data = [data]
@@ -28,18 +25,13 @@ const ImageGallerySRL = props => {
   return (
     <>
       <Button aria-label='open larger image' onClick={() => setOpen(true)}>
-        <img
-          className={classes.previewImage}
+        <ImgPreviewImage
           height={props.previewImageHeight}
           src={images[0].src}
           alt='preview image'
         />
       </Button>
-      <Lightbox
-        open={open}
-        close={() => setOpen(false)}
-        slides={images}
-      />
+      <Lightbox open={open} close={() => setOpen(false)} slides={images} />
     </>
   )
 }
