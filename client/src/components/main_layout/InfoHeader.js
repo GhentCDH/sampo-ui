@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import makeStyles from '@mui/styles/makeStyles'
-import { useTheme } from '@mui/material/styles'
+import { styled, useTheme } from '@mui/material/styles'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import Accordion from '@mui/material/Accordion'
 import AccordionSummary from '@mui/material/AccordionSummary'
@@ -15,25 +14,9 @@ import InfoIcon from '@mui/icons-material/InfoOutlined'
 import Tooltip from '@mui/material/Tooltip'
 import intl from 'react-intl-universal'
 
-const useStyles = makeStyles(theme => ({
-  headingContainer: {
-    display: 'flex'
-  },
-  heading: {
-    flexShrink: 1
-  },
-  infoIconButton: {
-    padding: 0,
-    marginLeft: theme.spacing(0.5)
-  },
-  label: {
-    marginTop: theme.spacing(1),
-    height: 32,
-    overflow: 'auto'
-  },
-  expandedContent: props => ({
-
-  })
+const IconButtonInfoIconButton = styled(IconButton)(({ theme }) => ({
+  padding: 0,
+  marginLeft: theme.spacing(0.5)
 }))
 
 /**
@@ -72,15 +55,12 @@ const InfoHeader = props => {
     return variant
   }
 
-  const classes = useStyles(props)
-
   return (
     <Box
-      sx={theme => ({
+      sx={(theme) => ({
         marginTop: theme.spacing(0.5),
         marginLeft: theme.spacing(0.5),
         marginRight: theme.spacing(0.5)
-
       })}
     >
       <Accordion expanded={props.expanded} onChange={handleAccordionChange()}>
@@ -88,7 +68,7 @@ const InfoHeader = props => {
           expandIcon={<ExpandMoreIcon />}
           aria-controls='infoheader-content'
           id='infoheader-header'
-          sx={theme => ({
+          sx={(theme) => ({
             paddingLeft: theme.spacing(1),
             minHeight: props.layoutConfig.infoHeader.reducedHeight.height,
             [theme.breakpoints.up(props.layoutConfig.reducedHeightBreakpoint)]: {
@@ -119,46 +99,51 @@ const InfoHeader = props => {
                 intl.get(`perspectives.${props.resultClass}.instancePage.label`)}
             </Typography>
             <Tooltip title={intl.get('infoHeader.toggleInstructions')}>
-              <IconButton
+              <IconButtonInfoIconButton
                 aria-label='toggle instructions'
-                className={classes.infoIconButton}
                 size='large'
-                sx={theme => ({
+                sx={(theme) => ({
                   padding: 0,
                   marginLeft: '4px !important',
                   '& .MuiSvgIcon-root': {
-                    fontSize: props.layoutConfig.infoHeader.reducedHeight.infoIconFontSize,
-                    [theme.breakpoints.up(props.layoutConfig.reducedHeightBreakpoint)]: {
-                      fontSize: props.layoutConfig.infoHeader.default.infoIconFontSize
+                    fontSize:
+                    props.layoutConfig.infoHeader.reducedHeight.infoIconFontSize,
+                    [theme.breakpoints.up(
+                      props.layoutConfig.reducedHeightBreakpoint
+                    )]: {
+                      fontSize:
+                      props.layoutConfig.infoHeader.default.infoIconFontSize
                     }
                   }
                 })}
               >
-                <InfoIcon className={classes.infoIcon} />
-              </IconButton>
+                <InfoIcon />
+              </IconButtonInfoIconButton>
             </Tooltip>
           </Box>
-          {props.pageType === 'instancePage' &&
+          {props.pageType === 'instancePage' && (
             <Typography
               component='h1'
               variant='h6'
-              sx={theme => ({
+              sx={(theme) => ({
                 marginTop: theme.spacing(1),
                 height: 32,
                 overflow: 'auto'
               })}
             >
               {generateLabel()}
-            </Typography>}
+            </Typography>
+          )}
         </AccordionSummary>
         <AccordionDetails
           // className={classes.expandedContent}
-          sx={theme => ({
+          sx={(theme) => ({
             paddingTop: 0,
             paddingLeft: theme.spacing(1),
             paddingBottom: theme.spacing(1),
             marginBottom: theme.spacing(0),
-            height: props.layoutConfig.infoHeader.reducedHeight.expandedContentHeight,
+            height:
+            props.layoutConfig.infoHeader.reducedHeight.expandedContentHeight,
             overflow: 'auto',
             display: 'block',
             '& p, & ul': {
@@ -181,14 +166,21 @@ const InfoHeader = props => {
             }
           })}
         >
-          {props.pageType === 'facetResults' && intl.getHTML(`perspectives.${props.resultClass}.longDescription`)}
-          {props.pageType === 'instancePage' &&
+          {props.pageType === 'facetResults' &&
+            intl.getHTML(`perspectives.${props.resultClass}.longDescription`)}
+          {props.pageType === 'instancePage' && (
             <>
-              {intl.getHTML('instancePageGeneral.introduction',
-                { entity: intl.get(`perspectives.${props.resultClass}.instancePage.label`) })}
-              {intl.getHTML(`perspectives.${props.resultClass}.instancePage.description`)}
+              {intl.getHTML('instancePageGeneral.introduction', {
+                entity: intl.get(
+                  `perspectives.${props.resultClass}.instancePage.label`
+                )
+              })}
+              {intl.getHTML(
+                `perspectives.${props.resultClass}.instancePage.description`
+              )}
               {intl.getHTML('instancePageGeneral.repetition')}
-            </>}
+            </>
+          )}
         </AccordionDetails>
       </Accordion>
     </Box>

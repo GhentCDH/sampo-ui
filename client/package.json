@@ -23,7 +23,6 @@
     "@mui/icons-material": "^5.5.1",
     "@mui/lab": "^5.0.0-alpha.73",
     "@mui/material": "^5.5.1",
-    "@mui/styles": "^5.5.1",
     "@mui/x-date-pickers": "v5.0.0-alpha.1",
     "@nosferatu500/react-sortable-tree": "^4.4.0",
     "@nosferatu500/theme-file-explorer": "3.0.21",
