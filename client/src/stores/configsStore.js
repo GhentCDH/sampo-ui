@@ -66,7 +66,7 @@ export const useConfigsStore = create((set, get) => ({
     } else {
       const portalConfig = get().portalConfig
       let staticsUrl = portalConfig.staticsUrl
-      if (staticsUrl === '') {
+      if (!staticsUrl || staticsUrl === '') {
         staticsUrl = `${CONFIGS_URL}/${get().portalConfig.portalID}/assets/`
       }
       const img = `${staticsUrl}${file}`
