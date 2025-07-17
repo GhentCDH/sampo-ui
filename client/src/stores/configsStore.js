@@ -13,17 +13,22 @@ export const useConfigsStore = create((set, get) => ({
 
   initConfigs: async () => {
     if (!get().portalConfig && get().perspectiveConfigs.length === 0 && get().perspectiveConfigsInfoOnlyPages.length === 0) {
-      const helpers = configHelpers(get().getConfigJsonFile, get().getConfigImgFile)
-      const portalConfig = await get().getPortalConfig()
-      await helpers.processPortalConfig(portalConfig)
-      const perspectiveConfigs = await helpers.createPerspectiveConfigs(portalConfig.perspectives.searchPerspectives)
-      set({
-        perspectiveConfigs
-      })
-      const perspectiveConfigsInfoOnlyPages = await helpers.createPerspectiveConfigOnlyInfoPages(portalConfig.perspectives.onlyInstancePages)
-      set({
-        perspectiveConfigsInfoOnlyPages
-      })
+      try {
+        const helpers = configHelpers(get().getConfigJsonFile, get().getConfigImgFile)
+        const portalConfig = await get().getPortalConfig()
+        await helpers.processPortalConfig(portalConfig)
+        const perspectiveConfigs = await helpers.createPerspectiveConfigs(portalConfig.perspectives.searchPerspectives)
+        set({
+          perspectiveConfigs
+        })
+        const perspectiveConfigsInfoOnlyPages = await helpers.createPerspectiveConfigOnlyInfoPages(portalConfig.perspectives.onlyInstancePages)
+        set({
+          perspectiveConfigsInfoOnlyPages
+        })
+      } catch (e) {
+        throw e
+      }
+
     }
   },
 
