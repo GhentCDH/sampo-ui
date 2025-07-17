@@ -13,9 +13,9 @@ services:
       - "8080:8080"
     working_dir: /app/client
     environment:
-      - BABEL_ENV=browser
-      - NODE_ENV=development
-      - API_URL=http://localhost:3001/api/v1
+      BABEL_ENV: ${BABEL_ENV}
+      NODE_ENV: ${NODE_ENV}
+      API_URL: ${API_URL}
     depends_on:
       - server
 
@@ -32,8 +32,8 @@ services:
       - "3001:3001"
     working_dir: /app/server
     environment:
-      - BABEL_ENV=node
-      - NODE_ENV=development
+      BABEL_ENV: ${SERVER_BABEL_ENV}
+      NODE_ENV: ${NODE_ENV}
 
 
 volumes:
