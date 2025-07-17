@@ -6,6 +6,9 @@ services:
       context: ./client
       target: client-dev
     command: npm run dev
+    volumes:
+      - ./client:/app/client
+      - client_node_modules:/app/client/node_modules # Prevent overwrite of deps
     ports:
       - "8080:8080"
     working_dir: /app/client
@@ -22,10 +25,17 @@ services:
       target: server-dev
     command: npm run dev
     volumes:
+      - ./server:/app/server
       - ./configs:/app/configs
+      - server_node_modules:/app/server/node_modules # Prevent overwrite of deps
     ports:
       - "3001:3001"
     working_dir: /app/server
     environment:
       - BABEL_ENV=node
       - NODE_ENV=development
+
+
+volumes:
+  client_node_modules:
+  server_node_modules:
