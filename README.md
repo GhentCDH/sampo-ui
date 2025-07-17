@@ -4,6 +4,9 @@
 This fork of Sampo-UI has as main purpose to modernise the framework to make it more usable for new projects.
 Secondly, it also tries to move as much customisation as possible to configs to make it more robust and future-proof.
 
+See the [wiki page](https://github.com/GhentCDH/sampo-ui/wiki/Sampo%E2%80%90UI-updates-by-GhentCDH) for detailed
+explanations on changes made.
+
 ## Running development and production
 
 ### Development
