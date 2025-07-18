@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import withStyles from '@mui/styles/withStyles'
+import { withStyles } from 'tss-react/mui'
 import Button from '@mui/material/Button'
 import Paper from '@mui/material/Paper'
 import { stateToUrl } from '../../helpers/helpers'
@@ -8,7 +8,7 @@ import { Alert, AlertTitle, FormControl, FormHelperText, InputLabel, MenuItem, S
 import intl from 'react-intl-universal'
 import parse from 'html-react-parser'
 
-const styles = theme => ({
+const styles = (theme) => ({
   root: {
     height: 'calc(100% - 72px)',
     width: '100%',
@@ -195,4 +195,4 @@ ExportLink.propTypes = {
 
 export const ExportLinkComponent = ExportLink
 
-export default withStyles(styles)(ExportLink)
+export default withStyles(ExportLink, styles)

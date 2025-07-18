@@ -1,13 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import withStyles from '@mui/styles/withStyles'
+import { withStyles } from 'tss-react/mui'
 import Chip from '@mui/material/Chip'
 import Tooltip from '@mui/material/Tooltip'
 import { ISOStringToYear } from './FacetHelpers'
 import { format } from 'date-fns'
 import intl from 'react-intl-universal'
 
-const styles = theme => ({
+const styles = (theme) => ({
   root: {
     display: 'flex',
     justifyContent: 'center',
@@ -132,4 +132,4 @@ ChipsArray.propTypes = {
 
 export const ChipsArrayComponent = ChipsArray
 
-export default withStyles(styles)(ChipsArray)
+export default withStyles(ChipsArray, styles)

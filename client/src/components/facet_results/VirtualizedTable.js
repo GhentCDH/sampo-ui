@@ -2,7 +2,7 @@ import React from 'react'
 import Immutable from 'immutable'
 import PropTypes from 'prop-types'
 import intl from 'react-intl-universal'
-import withStyles from '@mui/styles/withStyles'
+import { withStyles } from 'tss-react/mui'
 import IconButton from '@mui/material/IconButton'
 import PlaceIcon from '@mui/icons-material/Place'
 import { has } from 'lodash'
@@ -16,8 +16,8 @@ import {
 // https://github.com/bvaughn/react-virtualized/issues/650
 // https://github.com/bvaughn/react-virtualized/blob/master/docs/usingAutoSizer.md
 
-const styles = theme => ({
-  root: props => ({
+const styles = (theme, props) => ({
+  root: {
     height: 500,
     [theme.breakpoints.up(props.layoutConfig.hundredPercentHeightBreakPoint)]: {
       height: `calc(100% - ${props.layoutConfig.tabHeight}px)`
@@ -27,7 +27,7 @@ const styles = theme => ({
     '& a': {
       textDecoration: 'underline'
     }
-  }),
+  },
   resultsInfo: {
     flexGrow: 0
   }
@@ -286,4 +286,4 @@ VirtualizedTable.propTypes = {
 
 export const VirtualizedTableComponent = VirtualizedTable
 
-export default withStyles(styles)(VirtualizedTable)
+export default withStyles(VirtualizedTable, styles)

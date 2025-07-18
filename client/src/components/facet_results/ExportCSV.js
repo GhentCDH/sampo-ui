@@ -1,13 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import withStyles from '@mui/styles/withStyles'
+import { withStyles } from 'tss-react/mui'
 import Button from '@mui/material/Button'
 import Paper from '@mui/material/Paper'
 import { stateToUrl } from '../../helpers/helpers'
 
 const apiUrl = process.env.API_URL
 
-const styles = theme => ({
+const styles = (theme) => ({
   root: {
     height: 'calc(100% - 72px)',
     width: '100%',
@@ -93,4 +93,4 @@ ExportCSV.propTypes = {
 
 export const ExportCSVComponent = ExportCSV
 
-export default withStyles(styles)(ExportCSV)
+export default withStyles(ExportCSV, styles)

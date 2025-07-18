@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import withStyles from '@mui/styles/withStyles'
+import { withStyles } from 'tss-react/mui'
 import Typography from '@mui/material/Typography'
 
 const styles = () => ({
@@ -27,4 +27,4 @@ ResultInfo.propTypes = {
   message: PropTypes.string
 }
 
-export default withStyles(styles)(ResultInfo)
+export default withStyles(ResultInfo, styles)

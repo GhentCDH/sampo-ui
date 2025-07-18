@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import withStyles from '@mui/styles/withStyles'
+import { withStyles } from 'tss-react/mui'
 import intl from 'react-intl-universal'
 import Button from '@mui/material/Button'
 import Dialog from '@mui/material/Dialog'
@@ -11,7 +11,7 @@ import LeafletMap from '../facet_results/LeafletMap'
 import CircularProgress from '@mui/material/CircularProgress'
 import Paper from '@mui/material/Paper'
 
-const styles = theme => ({
+const styles = (theme) => ({
   dialogContainer: {
     height: '100%',
     width: '100%'
@@ -139,4 +139,4 @@ LeafletMapDialog.propTypes = {
 
 export const LeafletMapDialogComponent = LeafletMapDialog
 
-export default withStyles(styles)(LeafletMapDialog)
+export default withStyles(LeafletMapDialog, styles)

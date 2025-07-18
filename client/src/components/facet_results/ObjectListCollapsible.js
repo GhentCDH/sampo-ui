@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import withStyles from '@mui/styles/withStyles'
+import { withStyles } from 'tss-react/mui'
 import Collapse from '@mui/material/Collapse'
 import { ISOStringToDate } from './Dates'
 import { orderBy, has } from 'lodash'
@@ -9,16 +9,16 @@ import ObjectListItemSources from './ObjectListItemSources'
 import ObjectListItemEvent from './ObjectListItemEvent'
 import classNames from 'classnames'
 
-const styles = () => ({
-  resultTableList: props => ({
+const styles = (theme, props) => ({
+  resultTableList: {
     maxHeight: props.tableData && props.tableData.paginatedResultsRowContentMaxHeight
       ? props.tableData.paginatedResultsRowContentMaxHeight
       : 200,
     overflow: 'auto'
-  }),
-  valueList: props => ({
+  },
+  valueList: {
     paddingLeft: 20
-  }),
+  },
   dateContainer: {
     width: 180,
     display: 'inline-block'
@@ -145,4 +145,4 @@ ObjectListCollapsible.propTypes = {
   shortenLabel: PropTypes.bool.isRequired
 }
 
-export default withStyles(styles)(ObjectListCollapsible)
+export default withStyles(ObjectListCollapsible, styles)

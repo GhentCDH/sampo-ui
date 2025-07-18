@@ -1,13 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import withStyles from '@mui/styles/withStyles'
+import { withStyles } from 'tss-react/mui'
+import { useTheme } from '@mui/material/styles'
 import IconButton from '@mui/material/IconButton'
 import FirstPageIcon from '@mui/icons-material/FirstPage'
 import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft'
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight'
 import LastPageIcon from '@mui/icons-material/LastPage'
 
-const styles = theme => ({
+const styles = (theme) => ({
   root: {
     flexShrink: 0,
     color: theme.palette.text.secondary
@@ -15,7 +16,8 @@ const styles = theme => ({
 })
 
 const ResultTablePaginationActions = props => {
-  const { theme, classes, count, page, rowsPerPage, onPageChange } = props
+  const { classes, count, page, rowsPerPage, onPageChange } = props
+  const theme = useTheme()
   const handleFirstPageButtonClick = event => {
     onPageChange(event, 0)
   }
@@ -71,8 +73,7 @@ ResultTablePaginationActions.propTypes = {
   count: PropTypes.number.isRequired,
   onPageChange: PropTypes.func.isRequired,
   page: PropTypes.number.isRequired,
-  rowsPerPage: PropTypes.number.isRequired,
-  theme: PropTypes.object.isRequired
+  rowsPerPage: PropTypes.number.isRequired
 }
 
-export default withStyles(styles, { withTheme: true })(ResultTablePaginationActions)
+export default withStyles(ResultTablePaginationActions, styles)

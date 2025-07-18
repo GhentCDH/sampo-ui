@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import CircularProgress from '@mui/material/CircularProgress'
-import withStyles from '@mui/styles/withStyles'
+import { withStyles } from 'tss-react/mui'
 import TextField from '@mui/material/TextField'
 import Button from '@mui/material/Button'
 import InputAdornment from '@mui/material/InputAdornment'
 import { has } from 'lodash'
 
-const styles = theme => ({
+const styles = (theme) => ({
   root: {
     height: '100%',
     display: 'flex'
@@ -175,4 +175,4 @@ RangeFacet.propTypes = {
 
 export const RangeFacetComponent = RangeFacet
 
-export default withStyles(styles)(RangeFacet)
+export default withStyles(RangeFacet, styles)

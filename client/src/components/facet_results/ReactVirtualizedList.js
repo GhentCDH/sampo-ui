@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { List, AutoSizer } from 'react-virtualized'
-import makeStyles from '@mui/styles/makeStyles'
+import { styled } from '@mui/material/styles'
 import Card from '@mui/material/Card'
 import CardActionArea from '@mui/material/CardActionArea'
 import CardContent from '@mui/material/CardContent'
@@ -10,125 +10,109 @@ import intl from 'react-intl-universal'
 import { Link } from 'react-router-dom'
 import CircularProgress from '@mui/material/CircularProgress'
 
-const useStyles = makeStyles(theme => ({
-  root: props => {
-    return {
-      marginTop: theme.spacing(1),
-      maxWidth: 350,
-      height: window.innerHeight - props.layoutConfig.topBar.reducedHeight - props.layoutConfig.tabHeight - 139,
-      [theme.breakpoints.up(600)]: {
-        height: window.innerHeight - props.layoutConfig.topBar.reducedHeight - props.layoutConfig.tabHeight - 256
-      },
-      [theme.breakpoints.up(props.layoutConfig.hundredPercentHeightBreakPoint)]: {
-        height: window.innerHeight - props.layoutConfig.topBar.reducedHeight - props.layoutConfig.tabHeight - 178
-      },
-      [theme.breakpoints.up(1100)]: {
-        height: window.innerHeight - props.layoutConfig.topBar.reducedHeight - props.layoutConfig.tabHeight - 196
-      },
-      [theme.breakpoints.up(props.layoutConfig.reducedHeightBreakpoint)]: {
-        height: window.innerHeight - props.layoutConfig.topBar.reducedHeight - props.layoutConfig.tabHeight - 265
-      },
-      fontFamily: 'Roboto'
-    }
-  },
-  list: {
-    [theme.breakpoints.up('md')]: {
-      paddingRight: 4
-    }
-  },
-  link: {
-    textDecoration: 'none'
-  },
-  progressContainer: {
-    width: '100%',
-    height: 600,
-    [theme.breakpoints.up('md')]: {
-      height: 'calc(100% - 80px)'
-    },
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center'
+const Root = styled('div', {
+  shouldForwardProp: prop => prop !== 'layoutConfig'
+})(({ theme, layoutConfig }) => {
+  const baseHeight = window.innerHeight -
+    layoutConfig.topBar.reducedHeight -
+    layoutConfig.tabHeight
+
+  let height = baseHeight - 139
+  if (window.innerWidth >= 600) height = baseHeight - 256
+  if (window.innerWidth >= layoutConfig.hundredPercentHeightBreakPoint) height = baseHeight - 178
+  if (window.innerWidth >= 1100) height = baseHeight - 196
+  if (window.innerWidth >= layoutConfig.reducedHeightBreakpoint) height = baseHeight - 265
+
+  return {
+    marginTop: theme.spacing(1),
+    maxWidth: 350,
+    height,
+    fontFamily: 'Roboto'
+  }
+})
+
+const StyledList = styled('div')(({ theme }) => ({
+  [theme.breakpoints.up('md')]: {
+    paddingRight: 4
+  }
+}))
+
+const StyledLink = styled(Link)({
+  textDecoration: 'none'
+})
+
+const ProgressContainer = styled('div')(({ theme }) => ({
+  width: '100%',
+  height: 600,
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  [theme.breakpoints.up('md')]: {
+    height: 'calc(100% - 80px)'
   }
 }))
 
 const ReactVirtualizedList = props => {
-  const classes = useStyles(props)
   const { results } = props.perspectiveState
 
   useEffect(() => {
-    props.fetchResults({
-      resultClass: props.resultClass,
-      facetClass: props.facetClass
-    })
+    props.fetchResults({ resultClass: props.resultClass, facetClass: props.facetClass })
   }, [])
 
   useEffect(() => {
-    const { facetUpdateID } = props
-    if (facetUpdateID > 0) {
-      props.fetchResults({
-        resultClass: props.resultClass,
-        facetClass: props.facetClass
-      })
+    if (props.facetUpdateID > 0) {
+      props.fetchResults({ resultClass: props.resultClass, facetClass: props.facetClass })
     }
   }, [props.facetUpdateID])
 
-  const rowRenderer = ({
-    key, // Unique key within array of rows
-    index, // Index of row within collection
-    isScrolling, // The List is currently being scrolled
-    isVisible, // This row is visible within the List (eg it is not an overscanned row)
-    style // Style object to be applied to row (to position it)
-  }) => {
-    const data = props.perspectiveState.results[index]
-    let image = null
-    if (data.imageURL) {
-      const { imageURL } = data
-      image = imageURL.includes(', ') ? imageURL.split(', ')[0] : imageURL
-    }
+  const rowRenderer = ({ key, index, style }) => {
+    const data = results[index]
+    const image = data.imageURL?.split(', ')[0] || null
+
     return (
-      <div className={classes.rowRoot} key={key} style={style}>
-        <Link className={classes.link} to={data.dataProviderUrl}>
+      <div key={key} style={style}>
+        <StyledLink to={data.dataProviderUrl}>
           <Card>
             <CardActionArea>
-              {image &&
+              {image && (
                 <CardMedia
                   component='img'
                   alt='Kuva löydöstä'
                   height='140'
                   image={image}
                   title='Kuva löydöstä'
-                />}
+                />
+              )}
               <CardContent>
                 <Typography gutterBottom variant='h5' component='h2'>
                   {data.findName}
                 </Typography>
-                <Typography variant='body2' color='textSecondary' component='p'>
+                <Typography variant='body2' color='textSecondary'>
                   <strong>{intl.get('perspectives.finds.properties.objectType.label')}: </strong>
                   {data.objectType}
                 </Typography>
-                <Typography variant='body2' color='textSecondary' component='p'>
+                <Typography variant='body2' color='textSecondary'>
                   <strong>{intl.get('perspectives.finds.properties.material.label')}: </strong>
                   {data.material}
                 </Typography>
-                <Typography variant='body2' color='textSecondary' component='p'>
+                <Typography variant='body2' color='textSecondary'>
                   <strong>{intl.get('perspectives.finds.properties.period.label')}: </strong>
                   {data.period}
                 </Typography>
-                <Typography variant='body2' color='textSecondary' component='p'>
+                <Typography variant='body2' color='textSecondary'>
                   <strong>{intl.get('perspectives.finds.properties.municipality.label')}: </strong>
                   {data.municipality}
                 </Typography>
               </CardContent>
             </CardActionArea>
           </Card>
-        </Link>
-
+        </StyledLink>
       </div>
     )
   }
 
   const getRowHeight = ({ index }) => {
-    const data = props.perspectiveState.results[index]
+    const data = results[index]
     let height = 300
     if (!data.imageURL) {
       height -= 140
@@ -150,33 +134,22 @@ const ReactVirtualizedList = props => {
 
   const validResults = () => {
     const { results, resultClass } = props.perspectiveState
-    if (resultClass !== props.resultClass) { return false }
-    if (results == null) { return false }
-    if (results.length < 1) { return false }
-    return true
+    return resultClass === props.resultClass && results && results.length > 0
   }
 
-  // if (props.perspectiveState.results) {
-  //   props.perspectiveState.results.map(r => {
-  //     if (r.period && r.period.length > 33) {
-  //       console.log(r)
-  //     }
-  //   })
-  // }
-
   return (
-    <div className={classes.root}>
+    <Root layoutConfig={props.layoutConfig}>
       {(!validResults() || props.perspectiveState.results.fetching)
         ? (
-          <div className={classes.progressContainer}>
+          <ProgressContainer>
             <CircularProgress />
-          </div>
+          </ProgressContainer>
           )
         : (
           <AutoSizer>
             {({ height, width }) => (
               <List
-                className={classes.list}
+                className={StyledList}
                 height={height}
                 width={width}
                 rowCount={results.length}
@@ -186,7 +159,7 @@ const ReactVirtualizedList = props => {
             )}
           </AutoSizer>
           )}
-    </div>
+    </Root>
   )
 }
 

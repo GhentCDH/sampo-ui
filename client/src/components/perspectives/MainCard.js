@@ -8,118 +8,140 @@ import Card from '@mui/material/Card'
 import CardActionArea from '@mui/material/CardActionArea'
 import CardContent from '@mui/material/CardContent'
 import CardMedia from '@mui/material/CardMedia'
-import makeStyles from '@mui/styles/makeStyles'
+import { styled } from '@mui/material/styles'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import { Link } from 'react-router-dom'
 import { has } from 'lodash'
 import defaultImage from '../../img/main_page/thumb.png'
 
-const useStyles = makeStyles(theme => ({
-  gridItem: props => ({
+const GridItem = styled(Grid, {
+  shouldForwardProp: prop => prop !== 'perspective'
+})(({ theme, perspective }) => {
+  const isCard = perspective.frontPageElement === 'card'
+
+  return {
     textDecoration: 'none',
+    height: 228,
     [theme.breakpoints.down('sm')]: {
       justifyContent: 'center'
     },
-    height: 228,
     [theme.breakpoints.down('md')]: {
       height: 170,
       maxWidth: 300
     },
-    [props.perspective.frontPageElement === 'card']: {
+    ...(isCard && {
       height: 'inherit',
       maxWidth: 269,
       minWidth: 269
-    }
-  }),
-  perspectiveCardPaper: props => ({
+    })
+  }
+})
+
+const PerspectiveCardPaper = styled(Paper, {
+  shouldForwardProp: prop => prop !== 'perspective'
+})(({ theme, perspective }) => {
+  const imageUrl = perspective.frontPageImageUrl || ''
+  return {
     padding: theme.spacing(1.5),
     boxSizing: 'border-box',
     color: '#fff',
-    background: `linear-gradient( rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4) ), url(${props.perspective.frontPageImageUrl})`,
+    background: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url(${imageUrl})`,
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'cover',
     backgroundPosition: 'center',
     '&:hover': {
-      background: `linear-gradient( rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8) ), url(${props.perspective.frontPageImageUrl})`,
+      background: `linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url(${imageUrl})`,
       backgroundRepeat: 'no-repeat',
       backgroundSize: 'cover',
       backgroundPosition: 'center'
     },
     height: '100%',
     width: '100%'
-  }),
-  cardMedia: {
-    height: 100
-  },
-  cardContent: {
-    height: 90
-  },
-  card: {
-    width: '100%'
   }
-}))
+})
+
+const StyledCard = styled(Card)({
+  width: '100%'
+})
+
+const StyledCardMedia = styled(CardMedia)({
+  height: 100
+})
+
+const StyledCardContent = styled(CardContent)({
+  height: 90
+})
 
 /**
  * A component for generating a Material-UI Card for a perspective on the portal's landing page.
  */
 const MainCard = props => {
-  const classes = useStyles(props)
-  const { perspective, cardHeadingVariant } = props
+  const { perspective, cardHeadingVariant, rootUrl } = props
   const xsScreen = useMediaQuery(theme => theme.breakpoints.down('sm'))
-  // const smScreen = useMediaQuery(theme => theme.breakpoints.between('sm', 'md'))
   const externalPerspective = has(perspective, 'externalUrl')
-  const card = has(perspective, 'frontPageElement') && perspective.frontPageElement === 'card'
+  const isCard = perspective.frontPageElement === 'card'
   const searchMode = has(perspective, 'searchMode') ? perspective.searchMode : 'faceted-search'
 
+  const linkProps = externalPerspective
+    ? {
+        component: 'a',
+        href: perspective.externalUrl,
+        target: '_blank'
+      }
+    : {
+        component: Link,
+        to: `${rootUrl}/${perspective.id}/${searchMode}`
+      }
+
   return (
-    <Grid
-      className={classes.gridItem}
+    <GridItem
+      {...linkProps}
       key={perspective.id}
-      item xs={12} sm={6} // optimized for four perspectives
-      component={externalPerspective ? 'a' : Link}
-      to={externalPerspective ? null : `${props.rootUrl}/${perspective.id}/${searchMode}`}
+      item
+      xs={12}
+      sm={6}
       container={xsScreen}
-      href={externalPerspective ? perspective.externalUrl : null}
-      target={externalPerspective ? '_blank' : null}
+      perspective={perspective}
     >
-      {!card &&
-        <Paper className={classes.perspectiveCardPaper}>
-          <Typography
-            gutterBottom
-            variant={cardHeadingVariant}
-            component='h2'
-            sx={{ color: '#fff' }}
-          >
-            {intl.get(`perspectives.${perspective.id}.label`)}
-          </Typography>
-          <Typography
-            component='p'
-            sx={{ color: '#fff' }}
-          >
-            {intl.get(`perspectives.${perspective.id}.shortDescription`)}
-          </Typography>
-        </Paper>}
-      {card &&
-        <Card className={classes.card}>
-          <CardActionArea>
-            <CardMedia
-              className={classes.cardMedia}
-              image={has(perspective, 'frontPageImageUrl')
-                ? perspective.frontPageImageUrl
-                : defaultImage}
-              title={intl.get(`perspectives.${perspective.id}.label`)}
-            />
-            <CardContent className={classes.cardContent}>
-              <Typography gutterBottom variant='h5' component='h2'>
-                {intl.get(`perspectives.${perspective.id}.label`)}
-              </Typography>
-              <Typography component='p'>
-                {intl.get(`perspectives.${perspective.id}.shortDescription`)}
-              </Typography>
-            </CardContent>
-          </CardActionArea>
-        </Card>}
-    </Grid>
+      {!isCard
+        ? (
+          <PerspectiveCardPaper perspective={perspective}>
+            <Typography
+              gutterBottom
+              variant={cardHeadingVariant}
+              component='h2'
+              sx={{ color: '#fff' }}
+            >
+              {intl.get(`perspectives.${perspective.id}.label`)}
+            </Typography>
+            <Typography component='p' sx={{ color: '#fff' }}>
+              {intl.get(`perspectives.${perspective.id}.shortDescription`)}
+            </Typography>
+          </PerspectiveCardPaper>
+          )
+        : (
+          <StyledCard>
+            <CardActionArea>
+              <StyledCardMedia
+                image={
+                has(perspective, 'frontPageImageUrl')
+                  ? perspective.frontPageImageUrl
+                  : defaultImage
+              }
+                title={intl.get(`perspectives.${perspective.id}.label`)}
+              />
+              <StyledCardContent>
+                <Typography gutterBottom variant='h5' component='h2'>
+                  {intl.get(`perspectives.${perspective.id}.label`)}
+                </Typography>
+                <Typography component='p'>
+                  {intl.get(`perspectives.${perspective.id}.shortDescription`)}
+                </Typography>
+              </StyledCardContent>
+            </CardActionArea>
+          </StyledCard>
+          )}
+    </GridItem>
   )
 }
 

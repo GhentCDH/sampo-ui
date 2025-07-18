@@ -4,9 +4,9 @@ import Dialog from '@mui/material/Dialog'
 import MuiDialogTitle from '@mui/material/DialogTitle'
 import IconButton from '@mui/material/IconButton'
 import CloseIcon from '@mui/icons-material/Close'
-import withStyles from '@mui/styles/withStyles'
+import { withStyles } from 'tss-react/mui'
 
-const styles = theme => ({
+const styles = (theme) => ({
   dialogPaper: {
     height: '100%'
   },
@@ -18,32 +18,35 @@ const styles = theme => ({
   }
 })
 
-const DialogTitle = withStyles(styles)((props) => {
-  const { children, classes, onClose, ...other } = props
-  return (
-    <MuiDialogTitle
-      sx={theme => ({
-        paddingTop: theme.spacing(1),
-        paddingBottom: 0
-      })}
-      {...other}
-    >
-      {children}
-      {onClose
-        ? (
-          <IconButton
-            aria-label='close'
-            className={classes.closeButton}
-            onClick={onClose}
-            size='large'
-          >
-            <CloseIcon />
-          </IconButton>
-          )
-        : null}
-    </MuiDialogTitle>
-  )
-})
+const DialogTitle = withStyles(
+  (props) => {
+    const { children, classes, onClose, ...other } = props
+    return (
+      <MuiDialogTitle
+        sx={theme => ({
+          paddingTop: theme.spacing(1),
+          paddingBottom: 0
+        })}
+        {...other}
+      >
+        {children}
+        {onClose
+          ? (
+            <IconButton
+              aria-label='close'
+              className={classes.closeButton}
+              onClick={onClose}
+              size='large'
+            >
+              <CloseIcon />
+            </IconButton>
+            )
+          : null}
+      </MuiDialogTitle>
+    )
+  },
+  styles
+)
 
 const GeneralDialog = props => {
   const { onClose, open, children, classes, dialogTitle = '' } = props
@@ -75,4 +78,4 @@ GeneralDialog.propTypes = {
   children: PropTypes.node
 }
 
-export default withStyles(styles)(GeneralDialog)
+export default withStyles(GeneralDialog, styles)

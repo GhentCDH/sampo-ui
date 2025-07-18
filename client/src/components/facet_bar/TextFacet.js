@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import intl from 'react-intl-universal'
-import withStyles from '@mui/styles/withStyles'
+import { withStyles } from 'tss-react/mui'
 import IconButton from '@mui/material/IconButton'
 import SearchIcon from '@mui/icons-material/Search'
 import Input from '@mui/material/Input'
@@ -10,7 +10,7 @@ import InputAdornment from '@mui/material/InputAdornment'
 import FormControl from '@mui/material/FormControl'
 import CircularProgress from '@mui/material/CircularProgress'
 
-const styles = theme => ({
+const styles = (theme) => ({
   textSearch: {
     margin: theme.spacing(1)
   }
@@ -125,4 +125,4 @@ TextFacet.propTypes = {
 
 export const TextFacetComponent = TextFacet
 
-export default withStyles(styles)(TextFacet)
+export default withStyles(TextFacet, styles)

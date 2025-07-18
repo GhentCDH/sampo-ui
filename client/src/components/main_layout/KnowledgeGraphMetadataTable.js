@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
-import makeStyles from '@mui/styles/makeStyles'
+import { styled } from '@mui/material/styles'
 import Table from '@mui/material/Table'
 import TableBody from '@mui/material/TableBody'
 import TableCell from '@mui/material/TableCell'
@@ -9,20 +9,18 @@ import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
 import Paper from '@mui/material/Paper'
 
-const useStyles = makeStyles(theme => ({
-  root: {
-    display: 'flex',
-    padding: theme.spacing(3)
-  },
-  tableContainer: {
-    maxWidth: 550
-  }
+const DivRoot = styled('div')(({ theme }) => ({
+  display: 'flex',
+  padding: theme.spacing(3)
+}))
+
+const StyledTableContainer = styled(TableContainer)(({ theme }) => ({
+  maxWidth: 550
 }))
 
 const KnowledgeGraphMetadataTable = props => {
-  const classes = useStyles()
-
   useEffect(() => {
+    console.log('load knowledgegraph')
     if (props.fetchKnowledgeGraphMetadata) {
       const { perspectiveID, resultClass } = props
       props.fetchKnowledgeGraphMetadata({
@@ -35,9 +33,9 @@ const KnowledgeGraphMetadataTable = props => {
   const data = props.knowledgeGraphMetadata ? props.knowledgeGraphMetadata.databaseDump : []
 
   return (
-    <div className={classes.root}>
-      <TableContainer className={classes.tableContainer} component={Paper}>
-        <Table className={classes.table} aria-label='simple table'>
+    <DivRoot>
+      <StyledTableContainer component={Paper}>
+        <Table aria-label='simple table'>
           <TableHead>
             <TableRow>
               <TableCell>Database</TableCell>
@@ -49,7 +47,8 @@ const KnowledgeGraphMetadataTable = props => {
               <TableRow key={row.id}>
                 <TableCell component='th' scope='row'>
                   <a
-                    target='_blank' rel='noopener noreferrer'
+                    target='_blank'
+                    rel='noopener noreferrer'
                     href={row.dataProviderUrl}
                   >
                     {row.prefLabel}
@@ -60,8 +59,8 @@ const KnowledgeGraphMetadataTable = props => {
             ))}
           </TableBody>
         </Table>
-      </TableContainer>
-    </div>
+      </StyledTableContainer>
+    </DivRoot>
   )
 }
 

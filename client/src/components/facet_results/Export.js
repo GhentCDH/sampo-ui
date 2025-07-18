@@ -1,12 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import withStyles from '@mui/styles/withStyles'
+import { withStyles } from 'tss-react/mui'
 import Button from '@mui/material/Button'
 import qs from 'qs'
 import intl from 'react-intl-universal'
 
-const styles = theme => ({
-  root: props => ({
+const styles = (theme, props) => ({
+  root: {
     minHeight: 400,
     [theme.breakpoints.up(props.layoutConfig.hundredPercentHeightBreakPoint)]: {
       height: `calc(100% - ${props.layoutConfig.tabHeight}px)`
@@ -14,7 +14,7 @@ const styles = theme => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center'
-  }),
+  },
   link: {
     textDecoration: 'none'
   },
@@ -87,4 +87,4 @@ Export.propTypes = {
   sparqlQuery: PropTypes.string
 }
 
-export default withStyles(styles)(Export)
+export default withStyles(Export, styles)

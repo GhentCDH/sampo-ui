@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Dialog from '@mui/material/Dialog'
 import DialogContent from '@mui/material/DialogContent'
-import withStyles from '@mui/styles/withStyles'
+import { withStyles } from 'tss-react/mui'
 import Typography from '@mui/material/Typography'
 import InstanceList from '../main_layout/InstanceList'
 import { Link } from 'react-router-dom'
@@ -61,4 +61,4 @@ DeckArcLayerDialog.propTypes = {
   listHeadingMultipleInstances: PropTypes.string.isRequired
 }
 
-export default withStyles(styles)(DeckArcLayerDialog)
+export default withStyles(DeckArcLayerDialog, styles)

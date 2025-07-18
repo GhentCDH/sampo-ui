@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import withStyles from '@mui/styles/withStyles'
+import { withStyles } from 'tss-react/mui'
 import Paper from '@mui/material/Paper'
 import Typography from '@mui/material/Typography'
 import CircularProgress from '@mui/material/CircularProgress'
@@ -10,17 +10,17 @@ import { getLocalIDFromAppLocation, createURIfromLocalID } from '../../helpers/h
 import { Route, Redirect } from 'react-router-dom'
 import { has } from 'lodash'
 
-const styles = () => ({
+const styles = (theme, props) => ({
   root: {
     width: '100%',
     height: '100%'
   },
-  content: props => ({
+  content: {
     padding: 0,
     width: '100%',
     height: `calc(100% - ${props.layoutConfig.tabHeight}px)`,
     overflow: 'auto'
-  }),
+  },
   spinnerContainer: {
     display: 'flex',
     width: '100%',
@@ -270,4 +270,4 @@ InstancePage.propTypes = {
 
 export const InstanceHomePageComponent = InstancePage
 
-export default withStyles(styles)(InstancePage)
+export default withStyles(InstancePage, styles)

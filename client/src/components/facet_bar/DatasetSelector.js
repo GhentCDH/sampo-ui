@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import withStyles from '@mui/styles/withStyles'
+import { withStyles } from 'tss-react/mui'
 import intl from 'react-intl-universal'
 import FormControlLabel from '@mui/material/FormControlLabel'
 import FormControl from '@mui/material/FormControl'
@@ -9,7 +9,7 @@ import FormGroup from '@mui/material/FormGroup'
 import Checkbox from '@mui/material/Checkbox'
 import InfoIcon from '@mui/icons-material/Info'
 
-const styles = theme => ({
+const styles = (theme) => ({
   root: {
     display: 'flex',
     flexWrap: 'wrap',
@@ -123,4 +123,4 @@ DatasetSelector.propTypes = {
 
 export const DatasetSelectorComponent = DatasetSelector
 
-export default withStyles(styles)(DatasetSelector)
+export default withStyles(DatasetSelector, styles)

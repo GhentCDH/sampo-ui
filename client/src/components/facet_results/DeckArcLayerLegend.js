@@ -1,11 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import withStyles from '@mui/styles/withStyles'
+import { withStyles } from 'tss-react/mui'
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import Typography from '@mui/material/Typography'
 
-const styles = theme => ({
+const styles = (theme) => ({
   legend: {
     position: 'absolute',
     right: theme.spacing(1),
@@ -43,4 +43,4 @@ DeckArcLayerLegend.propTypes = {
   toText: PropTypes.string.isRequired
 }
 
-export default withStyles(styles)(DeckArcLayerLegend)
+export default withStyles(DeckArcLayerLegend, styles)

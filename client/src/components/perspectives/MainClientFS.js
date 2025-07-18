@@ -1,12 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import withStyles from '@mui/styles/withStyles'
+import { withStyles } from 'tss-react/mui'
 import Typography from '@mui/material/Typography'
 import Paper from '@mui/material/Paper'
 import intl from 'react-intl-universal'
 import bgImage from '../../img/main_page/bg2.jpg'
 
-const styles = theme => ({
+const styles = (theme) => ({
   paper: {
     height: '100%',
     display: 'flex',
@@ -68,4 +68,4 @@ MainClientFS.propTypes = {
   classes: PropTypes.object
 }
 
-export default withStyles(styles)(MainClientFS)
+export default withStyles(MainClientFS, styles)
