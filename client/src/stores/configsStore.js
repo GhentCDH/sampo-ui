@@ -28,7 +28,6 @@ export const useConfigsStore = create((set, get) => ({
       } catch (e) {
         throw e
       }
-
     }
   },
 

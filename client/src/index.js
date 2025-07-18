@@ -5,7 +5,7 @@ import ReduxToastr from 'react-redux-toastr'
 import { Router } from 'react-router-dom'
 import history from './History'
 import CircularProgress from '@mui/material/CircularProgress'
-import Alert from '@mui/material/Alert';
+import Alert from '@mui/material/Alert'
 import './index.css'
 import '@nosferatu500/react-sortable-tree/style.css'
 import 'react-redux-toastr/lib/css/react-redux-toastr.min.css'
@@ -26,7 +26,8 @@ const FullscreenCentered = ({ children }) => (
     alignItems: 'center',
     justifyContent: 'center',
     fontSize: 20
-  }}>
+  }}
+  >
     {children}
   </div>
 )
@@ -34,7 +35,7 @@ const FullscreenCentered = ({ children }) => (
 const renderLoading = () => {
   root.render(
     <FullscreenCentered>
-      <CircularProgress sx={{ color: 'black' }} thickness={5}/>
+      <CircularProgress sx={{ color: 'black' }} thickness={5} />
     </FullscreenCentered>
   )
 }
@@ -42,7 +43,7 @@ const renderLoading = () => {
 const renderError = (error) => {
   root.render(
     <FullscreenCentered>
-      <Alert severity="error">Failed to load config: {error.message}</Alert>
+      <Alert severity='error'>Failed to load config: {error.message}</Alert>
     </FullscreenCentered>
   )
 }
@@ -51,10 +52,10 @@ const renderApp = async () => {
   const App = lazy(() => import('./components/App'))
   const [
     { default: configureStore },
-      { availableLocales },
-      { loadLocales },
-      { updateLocaleToPathname }
-    ] = await Promise.all([
+    { availableLocales },
+    { loadLocales },
+    { updateLocaleToPathname }
+  ] = await Promise.all([
     import('./configureStore'),
     import('./epics'),
     import('./actions'),
@@ -83,7 +84,8 @@ const renderApp = async () => {
           <FullscreenCentered>
             <CircularProgress sx={{ color: layoutConfig.colorPalette.primary.main }} thickness={5} />
           </FullscreenCentered>
-        }>
+        }
+        >
           <App />
         </Suspense>
       </Router>
