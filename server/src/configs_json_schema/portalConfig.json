@@ -1,0 +1,119 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties":{
+
+    "portalID": {
+      "type": "string",
+      "minLength": 1
+    },
+
+    "rootUrl": {
+      "type": "string"
+    },
+
+    "staticsUrl": {
+      "type": "string"
+    },
+
+    "perspectives": {
+      "type": "object",
+      "properties": {
+        "searchPerspectives": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1
+        },
+        "onlyInstancePages": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": ["searchPerspectives", "onlyInstancePages"],
+      "additionalProperties": false
+    },
+
+    "localeConfig": {
+      "type": "object",
+      "properties": {
+        "defaultLocale": {
+          "type": "string"
+        },
+        "readTranslationsFromGoogleSheets": {
+          "type": "boolean"
+        },
+        "availableLocales": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "label": {
+                "type": "string",
+                "minLength": 1
+              },
+              "filename": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "required": ["id", "label", "filename"]
+          },
+          "minItems": 1
+        }
+      },
+      "required": ["defaultLocale", "readTranslationsFromGoogleSheets", "availableLocales"]
+    },
+
+    "sitemapConfig": {
+      "type": "object",
+      "properties": {
+        "baseUrl": {
+          "type": "string",
+          "format": "uri"
+        },
+        "langPrimary": {
+          "type": "string"
+        },
+        "langSecondary": {
+          "type": "string"
+        },
+        "outputDir": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sitemapUrl": {
+          "type": "string",
+          "format": "uri"
+        },
+        "sitemapInstancePageQuery": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": ["baseUrl", "langPrimary", "langSecondary", "outputDir", "sitemapUrl", "sitemapInstancePageQuery"]
+    },
+
+    "knowledgeGraphMetadataConfig": {
+      "type": "object",
+      "properties": {
+        "showTable": {
+          "type": "boolean"
+        },
+        "perspective": {
+          "type": "string"
+        }
+      },
+      "required": ["showTable", "perspective"],
+      "additionalProperties": false
+    }
+  },
+  "required": ["portalID", "rootUrl", "staticsUrl", "perspectives", "localeConfig"]
+}

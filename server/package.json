@@ -20,6 +20,8 @@
   "dependencies": {
     "@babel/runtime": "^7.15.4",
     "@nosferatu500/react-sortable-tree": "^3.0.5",
+    "ajv": "^8.17.1",
+    "ajv-formats": "^3.0.1",
     "axios": "^1.10.0",
     "date-fns": "^2.19.0",
     "deck.gl": "^8.6.0",

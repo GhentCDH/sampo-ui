@@ -1,6 +1,9 @@
 import { readFile } from 'fs/promises'
 import path from 'path'
 import { has } from 'lodash'
+import portalConfigSchema from '../configs_json_schema/portalConfig.json'
+import Ajv from 'ajv/dist/2020'
+import addFormats from 'ajv-formats'
 
 export const loadConfig = async (fileName) => {
   const configPath = path.join(__dirname, '..', '..', '..', 'configs', fileName)
@@ -12,8 +15,23 @@ const loadQueryConfig = async (fileName) => {
   return await import(configPath)
 }
 
+const validatePortalConfig = (portalConfig) => {
+  const ajv = new Ajv({ allErrors: true, strict: false })
+  addFormats(ajv)
+  const validate = ajv.compile(portalConfigSchema)
+  return {
+    valid: validate(portalConfig),
+    errors: validate.errors
+  }
+}
+
 export const createBackendSearchConfig = async () => {
   const portalConfig = await loadConfig('portalConfig.json')
+  const validate = validatePortalConfig(portalConfig)
+  if (!validate.valid) {
+    console.log(validate.errors)
+    throw new Error(`invalid portalConfig.json:\n ${validate.errors.map(e => `${e.message}\n`)}`)
+  }
 
   const resultMappers = await import('./Mappers')
   const { portalID } = portalConfig

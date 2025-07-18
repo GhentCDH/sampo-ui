@@ -408,4 +408,7 @@ createBackendSearchConfig().then(backendSearchConfig => {
           API path is ${apiPath}
         `)
   )
+}).catch(e => {
+  console.log('Failed to start server, incorrect config files')
+  console.error(e)
 })
