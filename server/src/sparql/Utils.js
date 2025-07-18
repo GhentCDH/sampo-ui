@@ -29,7 +29,6 @@ export const createBackendSearchConfig = async () => {
   const portalConfig = await loadConfig('portalConfig.json')
   const validate = validatePortalConfig(portalConfig)
   if (!validate.valid) {
-    console.log(validate.errors)
     throw new Error(`invalid portalConfig.json:\n ${validate.errors.map(e => `${e.message}\n`)}`)
   }
 
