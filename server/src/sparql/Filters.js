@@ -278,14 +278,14 @@ const generateDateNoTimespanFilter = ({
   const { start, end } = values
   let datefilter = ''
   if (start === '') {
-    datefilter = `?value <= "${end}"^^xsd:date`
+    datefilter = `?${facetID}Value <= "${end}"^^xsd:date`
   } else if (end === '') {
-    datefilter = `?value >= "${start}"^^xsd:date`
+    datefilter = `?${facetID}Value  >= "${start}"^^xsd:date`
   } else {
-    datefilter = `?value >= "${start}"^^xsd:date && ?value <= "${end}"^^xsd:date`
+    datefilter = `?${facetID}Value  >= "${start}"^^xsd:date && ?${facetID}Value  <= "${end}"^^xsd:date`
   }
   const filterStr = `
-    ?${filterTarget} ${facetConfig.predicate} ?value .
+    ?${filterTarget} ${facetConfig.predicate} ?${facetID}Value  .
     FILTER(
       ${datefilter}
     )
