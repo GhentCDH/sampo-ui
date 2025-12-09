@@ -245,14 +245,16 @@ export const mapTimelineChart = ({sparqlBindings, config}) => {
 
   if (!dateColumn) throw new Error('No valid date column found')
 
-  const valueColumns = Object.keys(rows[0])
-    .filter(col => col !== dateColumn)
-    .filter(col => {
-      return rows.some(row => {
-        const val = parseFloat(row[col])
-        return !isNaN(val)
-      })
+  const uniqueColumns = new Set()
+  rows.forEach((row) => {
+    Object.keys(row).forEach(key => {
+      if (key !== dateColumn) {
+        uniqueColumns.add(key)
+      }
     })
+  })
+
+  const valueColumns = Array.from(uniqueColumns)
 
   if (valueColumns.length === 0) return {}
 
