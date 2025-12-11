@@ -20,8 +20,9 @@ COPY . ./client
 WORKDIR /app/client
 RUN npm run build
 
-FROM nginx:stable AS client-prod
+FROM nginx:alpine AS client-prod
+
 COPY --from=client-build /app/client/dist/public /usr/share/nginx/html
-COPY ./nginx.conf /etc/nginx/conf.d/default.conf
-EXPOSE 80
-CMD ["nginx", "-g", "daemon off;"]
+COPY ./nginx.conf /etc/nginx/templates/default.conf.template
+
+CMD ["/bin/sh", "-c", "PORT=${PORT:-80} envsubst '$PORT' < /etc/nginx/templates/default.conf.template > /etc/nginx/conf.d/default.conf && exec nginx -g 'daemon off;'"]
