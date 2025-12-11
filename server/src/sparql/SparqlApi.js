@@ -1,5 +1,6 @@
 import axios from 'axios'
 import querystring from 'querystring'
+import {isValidUrl} from "./Utils";
 
 export const runSelectQuery = async ({
   query,
@@ -11,6 +12,9 @@ export const runSelectQuery = async ({
   resultFormat,
   useAuth = false
 }) => {
+  if (!isValidUrl(endpoint)) {
+    endpoint = process.env.SPARQL_ENDPOINT
+  }
   const MIMEtype = resultFormat === 'json'
     ? 'application/sparql-results+json; charset=utf-8'
     : 'text/csv; charset=utf-8'

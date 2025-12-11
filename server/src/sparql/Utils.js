@@ -422,6 +422,12 @@ export class Counter {
   }
 }
 
+export function isValidUrl(str) {
+  const regex = /^(https?:\/\/)[\w.-]+(\.[\w.-]+)+[/\w .-]*$/;
+  return regex.test(str);
+}
+
+
 /**
  export class DefaultDict {
   proxy;
