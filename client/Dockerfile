@@ -1,9 +1,11 @@
 # Base stage for client setup
 FROM node:22.17-slim AS base
-WORKDIR /app
+
+RUN mkdir -p /app/client
+WORKDIR /app/client
 # Install dependencies
-COPY package*.json ./client/
-RUN cd client && npm install
+COPY package*.json .
+RUN npm install
 
 # Client development stage
 FROM base AS client-dev
