@@ -2,7 +2,7 @@
 FROM node:22.17-slim AS base
 
 RUN mkdir -p /app/client
-WORKDIR /app/client
+WORKDIR /app
 # Install dependencies
 COPY package*.json .
 RUN npm install
