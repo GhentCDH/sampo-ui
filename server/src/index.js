@@ -39,6 +39,22 @@ createBackendSearchConfig().then(backendSearchConfig => {
     next()
   })
 
+  // ==============================================
+  // STATIC FILES - serve before API routes: static files include frontend React app files
+  // ==============================================
+  const staticPath = process.env.STATIC_PATH || path.join(__dirname, '../../public')
+  
+  // Serve static files (JS, CSS, images, etc.)
+  app.use(express.static(staticPath, {
+    // Optional: cache static assets for 1 year in production
+    maxAge: process.env.NODE_ENV === 'production' ? '1y' : 0,
+    index: ["index.html"]  // Don't serve index.html automatically, we handle SPA routing below
+  }))
+
+  // ==============================================
+  // API ROUTES - all /api/* requests handled here
+  // ==============================================
+
   // Generate API docs from YAML file with Swagger UI
   let swaggerDocument
   try {

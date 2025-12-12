@@ -25,4 +25,4 @@ FROM nginx:alpine AS client-prod
 COPY --from=client-build /app/client/dist/public /usr/share/nginx/html
 COPY ./nginx.conf /etc/nginx/templates/default.conf.template
 
-CMD ["/bin/sh", "-c", "PORT=${PORT:-80} envsubst '$PORT' < /etc/nginx/templates/default.conf.template > /etc/nginx/conf.d/default.conf && exec nginx -g 'daemon off;'"]
+CMD ["/bin/sh", "-c", "SAMPO_UI_CLIENT_PORT=${SAMPO_UI_CLIENT_PORT:-80} envsubst '$SAMPO_UI_CLIENT_PORT' < /etc/nginx/templates/default.conf.template > /etc/nginx/conf.d/default.conf && exec nginx -g 'daemon off;'"]
