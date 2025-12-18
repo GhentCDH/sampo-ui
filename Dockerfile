@@ -8,6 +8,9 @@ WORKDIR /app/client
 COPY client/package*.json ./
 RUN npm install
 COPY client/ ./
+
+ENV API_URL=/api/v1
+
 RUN npm run build
 
 
