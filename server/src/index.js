@@ -409,7 +409,7 @@ createBackendSearchConfig().then(backendSearchConfig => {
      /*  Routes are matched to a url in order of their definition
          Redirect all the the rest for react-router to handle */
      app.get('*', function (request, response) {
-      response.sendFile(path.join(publicPath, 'index.html'))
+      response.sendFile(path.resolve(__dirname, '../../public/index.html'))
     })
   }
 
