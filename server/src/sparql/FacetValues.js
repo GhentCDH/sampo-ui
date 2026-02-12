@@ -232,7 +232,7 @@ const generateSelectedNoHitsBlock = ({
     facetID: facetID,
     inverse: true
   })
-  const selections = literal ? `'${currentSelectionsWithoutUnknown.join(' ')}'` : `<${currentSelectionsWithoutUnknown.join('> <')}>`
+  const selections = literal ? `'${currentSelectionsWithoutUnknown.join("' '")}'` : `<${currentSelectionsWithoutUnknown.join('> <')}>`
   return `
   UNION
   # facet values that have been selected but return no results
@@ -282,7 +282,7 @@ export const generateSelectedFilter = ({
   inverse,
   literal
 }) => {
-  const selections = literal ? `'${currentSelectionsWithoutUnknown.join(', ')}'` : `<${currentSelectionsWithoutUnknown.join('>, <')}>`
+  const selections = literal ? `'${currentSelectionsWithoutUnknown.join("', '")}'` : `<${currentSelectionsWithoutUnknown.join('>, <')}>`
   return (`
           FILTER(?id ${inverse ? 'NOT' : ''} IN ( ${selections} ))
   `)
