@@ -78,22 +78,25 @@ class TopBarInfoButton extends React.Component {
         >
           {intl.get('topBar.info.info')}
         </Button>
-        <Menu
-          anchorEl={this.state.anchorEl}
-          anchorOrigin={{
-            vertical: 'bottom',
-            horizontal: 'center'
-          }}
-          transformOrigin={{
-            vertical: 'top',
-            horizontal: 'center'
-          }}
-          keepMounted
-          open={Boolean(this.state.anchorEl)}
-          onClose={this.handleInfoMenuClose}
-        >
-          {infoDropdown.map(item => this.renderInfoItem(item))}
-        </Menu>
+        {
+          infoDropdown &&
+            <Menu
+              anchorEl={this.state.anchorEl}
+              anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'center'
+              }}
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'center'
+              }}
+              keepMounted
+              open={Boolean(this.state.anchorEl)}
+              onClose={this.handleInfoMenuClose}
+            >
+              {infoDropdown.map(item => this.renderInfoItem(item))}
+            </Menu>
+        }
       </>
     )
   }

@@ -35,6 +35,7 @@ const TopBar = props => {
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl)
   const { perspectives, currentLocale, availableLocales, rootUrl, layoutConfig } = props
   const { topBar } = layoutConfig
+  const { infoDropdown } = topBar
   const handleMobileMenuOpen = event => setMobileMoreAnchorEl(event.currentTarget)
   const handleMobileMenuClose = () => setMobileMoreAnchorEl(null)
   const federatedSearchMode = props.location.pathname.indexOf('federated-search') !== -1
@@ -187,7 +188,7 @@ const TopBar = props => {
           externalUrl: props.layoutConfig.topBar.feedbackLink,
           label: intl.get('topBar.feedback')
         })}
-        {infoDropdown.map(item => renderInfoItem(item))}
+        {infoDropdown?.map(item => renderInfoItem(item))}
         {topBar.externalInstructions && renderMobileMenuItem({
           id: 'instructions',
           externalUrl: intl.get('topBar.instructionsUrl'),
@@ -312,7 +313,7 @@ const TopBar = props => {
               externalUrl: props.layoutConfig.topBar.feedbackLink,
               label: intl.get('topBar.feedback')
             })}
-            <TopBarInfoButton rootUrl={props.rootUrl} layoutConfig={layoutConfig} />
+            {infoDropdown && <TopBarInfoButton rootUrl={props.rootUrl} layoutConfig={layoutConfig} />}
             {topBar.externalInstructions && renderDesktopTopMenuItem({
               id: 'instructions',
               externalUrl: intl.get('topBar.instructionsUrl'),
