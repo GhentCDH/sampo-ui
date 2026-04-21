@@ -24,7 +24,6 @@ export const configHelpers = (getConfigJsonFile, getConfigImgFile) => {
       for (const image of layoutConfig.footer.images) {
         image.image = await getConfigImgFile(image.image)
       }
-      console.log(layoutConfig.footer.images)
     }
   }
 
