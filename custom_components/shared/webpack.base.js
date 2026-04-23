@@ -6,11 +6,14 @@ const simpleExternals = {
   'react-intl-universal': ['__sharedLibraries', 'intl'],
   'tss-react/mui': ['__sharedLibraries', 'tssReactMui'],
   'react-redux': ['__sharedLibraries', 'reactRedux'],
+  'react-router-dom': ['__sharedLibraries', 'reactRouterDom'],
   'prop-types': ['__sharedLibraries', 'PropTypes'],
   lodash: ['__sharedLibraries', '_'],
   qs: ['__sharedLibraries', 'qs'],
+  history: ['__sharedLibraries', 'history'],
   '@sampo-ui/components': ['__sharedLibraries', 'components'],
-  '@sampo-ui/helpers': ['__sharedLibraries', 'helpers']
+  '@sampo-ui/helpers': ['__sharedLibraries', 'helpers'],
+  '@sampo-ui/configsStore': ['__sharedLibraries', 'configsStore']
 }
 
 module.exports = (componentName) => ({

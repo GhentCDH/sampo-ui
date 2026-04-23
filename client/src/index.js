@@ -2,7 +2,7 @@ import React, { Suspense, lazy } from 'react'
 import ReactDOM from 'react-dom'
 import { createRoot } from 'react-dom/client'
 import ReduxToastr from 'react-redux-toastr'
-import { Router } from 'react-router-dom'
+import { Router, Link, NavLink, useHistory, useLocation, useParams, Switch, Route, Redirect, BrowserRouter } from 'react-router-dom'
 import history from './History'
 import CircularProgress from '@mui/material/CircularProgress'
 import Alert from '@mui/material/Alert'
@@ -37,11 +37,20 @@ window.__sharedLibraries = {
   intl,
   tssReactMui: { withStyles },
   reactRedux: { useSelector, useDispatch, connect },
+  reactRouterDom: { Link, NavLink, useHistory, useLocation, useParams, Switch, Route, Redirect, BrowserRouter },
   PropTypes,
   _,
   qs,
+  history,
   components,
-  helpers
+  helpers,
+  configsStore: {
+    useConfigsStore,
+    getPortalConfig: useConfigsStore.getState().getPortalConfig,
+    getConfigJsonFile: useConfigsStore.getState().getConfigJsonFile,
+    getConfigImgFile: useConfigsStore.getState().getConfigImgFile,
+    getStaticFileUrl: useConfigsStore.getState().getStaticFileUrl
+  }
 }
 
 const FullscreenCentered = ({ children }) => (

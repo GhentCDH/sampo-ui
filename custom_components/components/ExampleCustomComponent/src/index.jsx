@@ -46,6 +46,7 @@ ExampleCustomComponent.propTypes = {
   fetchResults: PropTypes.func,
   fetchByURI: PropTypes.func,
   fetchFacet: PropTypes.func,
+  fetchInstanceAnalysis: PropTypes.func,
   updatePage: PropTypes.func.isRequired,
   updateRowsPerPage: PropTypes.func,
   updateFacetOption: PropTypes.func,
