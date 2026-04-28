@@ -24,18 +24,44 @@ COPY server/ ./
 RUN npm run build
 
 
-FROM node:22.20-slim AS combo-prd
-# Make sure necessary directories exist
-RUN mkdir -p /app/server /app/public
-# Set working directory
-WORKDIR /app/server
-# Copy built client and server files
-COPY --from=client-build /app/client/dist /app/
+# ---------------------------------------------------------------------------
+# combo-prd: single container — nginx (port 80) + Express (port 3001)
+# ---------------------------------------------------------------------------
+FROM node:22-alpine AS combo-prd
+
+# nginx: Alpine apk (uses /etc/nginx/http.d/ for server blocks)
+# gettext: provides envsubst for nginx config templating
+# wget: busybox wget is already present on alpine
+RUN apk add --no-cache nginx gettext \
+    && rm -f /etc/nginx/http.d/default.conf \
+    && mkdir -p /etc/nginx/http.d /etc/nginx/templates
+
+# Client static files → nginx webroot (same path as standalone client-prod stage)
+COPY --from=client-build /app/client/dist/public /usr/share/nginx/html
+
+# nginx config template (combo version adds /api/ proxy to Express)
+COPY combo-nginx.conf /etc/nginx/templates/default.conf.template
+
+# Express server (compiled JS + node_modules)
 COPY --from=server-build /app/server /app/server
 
-# Config should be replaced or mounted in your production environment
+# Default configs (override with -v ./configs:/app/configs at runtime)
 COPY ./configs /app/configs
 
-# Expose server port and start the server
-EXPOSE 3001
-CMD ["node", "dist/index.js"]
+# Custom components dir (bind-mount a volume here at runtime if needed)
+RUN mkdir -p /app/custom-components
+
+# Combo startup entrypoint
+COPY combo-entrypoint.sh /combo-entrypoint.sh
+RUN chmod +x /combo-entrypoint.sh
+
+# 80:   nginx serving the React SPA
+# 3001: Express API (direct access, also proxied through nginx at /api/)
+EXPOSE 80 3001
+
+# Tests through nginx (/health is proxied to Express), so a crash in either
+# service causes the container to report unhealthy.
+HEALTHCHECK --interval=30s --timeout=10s --start-period=60s --retries=3 \
+  CMD wget -q --spider http://localhost:3001/health || exit 1
+
+ENTRYPOINT ["/combo-entrypoint.sh"]

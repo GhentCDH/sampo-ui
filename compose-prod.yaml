@@ -30,8 +30,7 @@ services:
     image: sampo-ui-combo:prod
     container_name: sampo-ui-combo-prod
     ports:
-      - "3002:3001"
-    environment:
-      API_URL: ${API_URL}
+      - "3002:80"
     volumes:
       - ./configs:/app/configs
+      - ./custom_components/dist:/app/custom-components
