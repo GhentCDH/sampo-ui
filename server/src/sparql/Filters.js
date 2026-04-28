@@ -114,6 +114,14 @@ const generateTextFilter = ({
     : queryTargetVariable
   let queryObject = ''
   let textQueryMaxInstances = ''
+
+  if (facetConfig.textQueryType === 'regex') {
+    return `
+    ${queryTargetVariable} ${facetConfig.textQueryProperty} ?regexTarget .
+    FILTER(REGEX(STR(?regexTarget), "${queryString}", "i"))
+    `
+  }
+
   if (facetConfig.textQueryMaxInstances) {
     textQueryMaxInstances = facetConfig.textQueryMaxInstances
   }
