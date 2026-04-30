@@ -81,7 +81,7 @@ createBackendSearchConfig().then(backendSearchConfig => {
       }
     } catch (err) {
       console.log(`File not found or inaccessible: ${filePath}`)
-      console.error(`Error accessing ${filePath}:`, err.message)
+      // console.error(`Error accessing ${filePath}:`, err.message)
       next()
     }
   })
