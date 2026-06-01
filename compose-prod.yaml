@@ -1,7 +1,7 @@
 name: sampo-ui-prod
 
 services:
-  cient:
+  client:
     build:
       context: ./client
       target: client-prod
