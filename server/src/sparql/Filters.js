@@ -86,6 +86,21 @@ export const generateConstraintsBlock = ({
             inverse
           })
           break
+        case 'customFilter': {
+          const facetConfig = backendSearchConfig[facetClass]?.facets?.[c.facetID]
+          const customFilterFunc = backendSearchConfig.customFilters?.[facetConfig?.customFilterName]
+          if (customFilterFunc) {
+            filterStr += customFilterFunc({
+              backendSearchConfig,
+              facetClass,
+              facetID: c.facetID,
+              filterTarget,
+              values: c.values,
+              inverse
+            })
+          }
+          break
+        }
       }
     })
   }

@@ -39,7 +39,15 @@ export const createBackendSearchConfig = async () => {
   } catch (e) {
   }
 
+  const customFilters = {}
+  try {
+    const customFilterModule = await loadQueryConfig(`${portalID}/filters.js`)
+    Object.assign(customFilters, customFilterModule)
+  } catch (e) {
+  }
+
   const backendSearchConfig = {}
+  backendSearchConfig.customFilters = customFilters
   for (const perspectiveID of portalConfig.perspectives.searchPerspectives) {
     const perspectiveConfig = await loadConfig(`${portalID}/search_perspectives/${perspectiveID}.json`)
     if (!has(perspectiveConfig, 'sparqlQueriesFile')) { continue } // skip dummy perspectives

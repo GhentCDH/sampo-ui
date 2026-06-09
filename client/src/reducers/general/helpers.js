@@ -115,6 +115,18 @@ export const updateSortBy = (state, action) => {
 
 export const updateFacetOption = (state, action) => {
   const { facetID, option, value } = action
+  if (option === 'customFilter') {
+    return {
+      ...state,
+      updatedFacet: facetID,
+      facetUpdateID: ++state.facetUpdateID,
+      updatedFilter: value,
+      facets: {
+        ...state.facets,
+        [facetID]: { ...state.facets[facetID], customFilter: value }
+      }
+    }
+  }
   const filterTypes = [
     'uriFilter',
     'spatialFilter',
@@ -280,7 +292,8 @@ export const clearFacet = (state, action) => {
       ...state.facets,
       [action.facetID]: {
         ...state.facets[action.facetID],
-        uriFilter: null
+        uriFilter: null,
+        customFilter: null
       }
     }
   }

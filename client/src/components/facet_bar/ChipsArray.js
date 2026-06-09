@@ -55,6 +55,14 @@ const ChipsArray = props => {
             facetClass: props.facetClass,
             facetID: item.facetID
           })
+          break
+        case 'customFilter':
+          props.updateFacetOption({
+            facetClass: props.facetClass,
+            facetID: item.facetID,
+            option: 'customFilter',
+            value: null
+          })
       }
     }
   }
@@ -101,6 +109,10 @@ const ChipsArray = props => {
           valueLabel = `
               ${start !== '' ? start : '-'}
               to ${end !== '' ? end : '-'}`
+        }
+        if (item.filterType === 'customFilter') {
+          key = item.facetID
+          valueLabel = 'active'
         }
         return (
           <Tooltip key={key} title={`${item.facetLabel}: ${valueLabel}`}>
