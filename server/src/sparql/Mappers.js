@@ -371,6 +371,7 @@ export const mapPieChart = sparqlBindings => {
 }
 
 export const linearScale = ({ data, config }) => {
+  if (data.length === 0) return data
   const { variable, minAllowed, maxAllowed } = config
   const length = data.length
   const min = Number(data[length - 1][variable])
