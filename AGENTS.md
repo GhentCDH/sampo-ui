@@ -315,6 +315,35 @@ A separate `prefixes.js` exports the string of PREFIX declarations shared across
 
 Property IDs in `properties` must match the facet IDs and result column IDs used in configs.
 
+### Dummy-internal pages (static content pages)
+
+A portal can add static content pages — declared as a perspective with
+`"searchMode": "dummy-internal"` in `search_perspectives/{id}.json`, plus an `internalLink`.
+They surface as main-page cards, top-bar buttons, and/or `topBar.infoDropdown` entries, and are
+rendered by `client/src/components/main_layout/InternalPage.js` at the matching route in
+`SemanticPortal.js`.
+
+The page's content is looked up by **locale key** (the dropdown item / page `id`) in the
+translation files. The value at that key can be either:
+
+- **inline HTML** — `"myPage": "<p class=\"...\">…</p>"` (rendered via `intl.getHTML`), or
+- **a reference to an external HTML file** — marked with the `htmlFile:` prefix, resolved
+  relative to the portal config root and fetched at runtime:
+
+```json
+// localeEN.json
+{ "myPage": "htmlFile:pages/myPage_en.html" }
+// localeFI.json
+{ "myPage": "htmlFile:pages/myPage_fi.html" }
+```
+
+Place the files under `{portalID}/pages/` (any path under `{portalID}/` works); they are served
+by the existing `/api/v1/configs/*` static route, so no server change is needed. Because the
+reference lives in the per-locale translation file, each language points to its own HTML file.
+`<a href="/…">` links in the file are turned into in-app router links (`HTMLParser`,
+`HTMLParserTask: 'addReactRouterLinks'`). Omitting the `htmlFile:` prefix keeps the old inline
+behavior.
+
 ### mappers.js
 
 Export functions that transform SPARQL bindings. They are merged with and can override core mappers:

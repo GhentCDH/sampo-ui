@@ -82,6 +82,10 @@ const MainCard = props => {
   const isCard = perspective.frontPageElement === 'card'
   const searchMode = has(perspective, 'searchMode') ? (perspective.searchMode === 'dummy-internal' ? '' : perspective.searchMode) : 'faceted-search'
 
+  const internalTo = perspective.searchMode === 'dummy-internal'
+    ? `${rootUrl}${perspective.internalLink}`
+    : `${rootUrl}/${perspective.id}/${searchMode}`
+
   const linkProps = externalPerspective
     ? {
         component: 'a',
@@ -90,7 +94,7 @@ const MainCard = props => {
       }
     : {
         component: Link,
-        to: `${rootUrl}/${perspective.id}/${searchMode}`
+        to: internalTo
       }
 
   return (

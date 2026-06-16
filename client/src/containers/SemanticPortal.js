@@ -53,6 +53,7 @@ import { useConfigsStore } from '../stores/configsStore'
 // ** Import general components **
 const TopBar = lazy(() => import('../components/main_layout/TopBar'))
 const TextPage = lazy(() => import('../components/main_layout/TextPage'))
+const InternalPage = lazy(() => import('../components/main_layout/InternalPage'))
 const Message = lazy(() => import('../components/main_layout/Message'))
 const FullTextSearch = lazy(() => import('../components/main_layout/FullTextSearch'))
 const FacetedSearchPerspective = lazy(() => import('../components/facet_results/FacetedSearchPerspective'))
@@ -359,9 +360,7 @@ const SemanticPortal = props => {
           }
           return (
             <Route path={`${rootUrlWithLang}/${dropdownItem.internalLink?.replace(/^\//, '')}`} key={dropdownItem.id}>
-              <TextPage layoutConfig={layoutConfig}>
-                {intl.getHTML(dropdownItem.id)}
-              </TextPage>
+              <InternalPage id={dropdownItem.id} layoutConfig={layoutConfig} />
             </Route>
           )
         })}
@@ -387,9 +386,7 @@ const SemanticPortal = props => {
         {/* create a route for instructions page */}
         {!layoutConfig.topBar.externalInstructions &&
           <Route path={`${rootUrlWithLang}/instructions`}>
-            <TextPage layoutConfig={layoutConfig}>
-              {intl.getHTML('instructions')}
-            </TextPage>
+            <InternalPage id='instructions' layoutConfig={layoutConfig} />
           </Route>}
       </>
     </Box>

@@ -9,6 +9,7 @@ export const useConfigsStore = create((set, get) => ({
   perspectiveConfigs: [],
   perspectiveConfigsInfoOnlyPages: [],
   jsonConfigs: {},
+  textConfigs: {},
   imgConfigs: {},
 
   initConfigs: async () => {
@@ -53,6 +54,21 @@ export const useConfigsStore = create((set, get) => ({
         jsonConfigs: { ...state.jsonConfigs, [file]: jsonFile }
       }))
       return jsonFile
+    }
+  },
+
+  getConfigTextFile: async (file) => {
+    if (!get().portalConfig) {
+      await get().getPortalConfig()
+    }
+    if (file in get().textConfigs) {
+      return get().textConfigs[file]
+    } else {
+      const textFile = await fetch(`${CONFIGS_URL}/${get().portalConfig.portalID}/${file}`).then(res => res.text())
+      set(state => ({
+        textConfigs: { ...state.textConfigs, [file]: textFile }
+      }))
+      return textFile
     }
   },
 
