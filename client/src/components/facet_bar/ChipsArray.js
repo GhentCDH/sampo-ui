@@ -112,7 +112,9 @@ const ChipsArray = props => {
         }
         if (item.filterType === 'customFilter') {
           key = item.facetID
-          valueLabel = 'active'
+          valueLabel = item.value == null
+            ? 'active'
+            : (typeof item.value === 'object' ? JSON.stringify(item.value) : String(item.value))
         }
         return (
           <Tooltip key={key} title={`${item.facetLabel}: ${valueLabel}`}>
