@@ -185,7 +185,8 @@ class FacetHeader extends React.Component {
       selectAlsoSubconceptsButton = false,
       selectAlsoSubconcepts,
       useConjunctionButton = false,
-      useConjunction
+      useConjunction,
+      sliceVisibilityThreshold
     } = this.props.facet
     const open = Boolean(anchorEl)
     const menuButtons = []
@@ -327,7 +328,8 @@ class FacetHeader extends React.Component {
               title: intl.get(`facetBar.barChart.${this.props.facetID}.title`),
               xaxisTitle: intl.get(`facetBar.barChart.${this.props.facetID}.xaxisTitle`),
               yaxisTitle: intl.get(`facetBar.barChart.${this.props.facetID}.yaxisTitle`),
-              seriesTitle: intl.get(`facetBar.barChart.${this.props.facetID}.seriesTitle`)
+              seriesTitle: intl.get(`facetBar.barChart.${this.props.facetID}.seriesTitle`),
+              ...(sliceVisibilityThreshold !== undefined && { sliceVisibilityThreshold })
             }}
           />}
         {lineChartButton &&
