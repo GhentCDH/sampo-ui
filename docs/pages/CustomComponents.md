@@ -136,3 +136,14 @@ perspective's sparql queries file and putting a `generalQueries` object in the p
   "facetValuesQuery": "customFacetValuesQuery"
 }
 ```
+
+## robots.txt and index.html
+To use a custom `robots.txt` file you can simply add a `robots.txt` file in the root of your configs. When the 
+`docker-entrypoint.sh` script of the client for production runs, it will replace the default `robots.txt` by your custom 
+one (if one is available).
+
+
+Unfortunately `index.html` is not as easy to replace. Since at build time the react app gets built into it. What we can 
+do however is choose to only replace part of the `<head>` tag. So to allow for a custom `index.html` without breaking 
+the app you can still add one in your configs. The entrypoint script will replace the start of the `<head>` tag until 
+the end of the `</title>` tag by whatever is there in your custom `index.html`. 
