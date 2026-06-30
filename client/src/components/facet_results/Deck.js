@@ -4,8 +4,9 @@ import { withStyles } from 'tss-react/mui'
 import DeckGL from '@deck.gl/react'
 import { ArcLayer, PolygonLayer } from '@deck.gl/layers'
 import { HeatmapLayer, HexagonLayer } from '@deck.gl/aggregation-layers'
+import { MapboxOverlay as DeckOverlay } from '@deck.gl/mapbox'
 
-import ReactMapGL, { FullscreenControl, NavigationControl } from 'react-map-gl/maplibre'
+import { Map, useControl, FullscreenControl, NavigationControl, AttributionControl } from 'react-map-gl/maplibre'
 import 'maplibre-gl/dist/maplibre-gl.css'
 
 import maplibregl from 'maplibre-gl'
@@ -65,6 +66,13 @@ const styles = (theme, props) => ({
     }
   }
 })
+
+// https://github.com/visgl/deck.gl/blob/master/examples/website/maplibre/app.tsx
+function DeckGLOverlay(props) {
+  const overlay = useControl(() => new DeckOverlay(props))
+  overlay.setProps(props)
+  return null
+}
 
 /**
  * A component for WebGL maps using deck.gl and ReactMapGL.
@@ -368,37 +376,34 @@ class Deck extends React.Component {
     const { layerType } = this.props
 
     return (
-      <DeckGL
-        viewState={this.state.viewport}
-        controller
-        layers={[layer]}
-        onViewStateChange={({ viewState }) => this.handleOnViewportChange(viewState)}
-        style={{ width: '100%', height: '100%', position: 'relative' }}
-        getCursor={({ isDragging, isHovering }) => {
-          if (isDragging) return 'grabbing'
-          if (isHovering) return 'pointer'
-          return 'grab'
-        }}
-        {...(layerType === 'polygonLayer'
-          ? {
-              getTooltip: ({ object }) => object && {
-                html: `<h2>${object.prefLabel}</h2><div>${object.instanceCount}</div>`
-              }
-            }
-          : {})
-        }
-      >
-        {/* ReactMapGL as a child — DeckGL passes it the map context automatically */}
-        <ReactMapGL
+      <>
+        <Map
           reuseMaps
           mapStyle={this.getMapStyle()}
-          preventStyleDiffing
-          style={{ width: '100%', height: '100%' }}
+          initialViewState={this.state.viewport}
+          onMove={(evt) => this.handleOnViewportChange(evt.viewState)}
+          attributionControl={false}
+          style={{ width: '100%', height: '100%', zIndex: '0' }}
         >
-          <NavigationControl position='top-left' />
-          <FullscreenControl position='top-left' containerId='map-root' />
-        </ReactMapGL>
+          <DeckGLOverlay
+            layers={[layer]}
+            controller={true}
+            {...(layerType === 'polygonLayer'
+              ? {
+                  getTooltip: ({ object }) =>
+                    object && {
+                      html: `<h2>${object.prefLabel}</h2><div>${object.instanceCount}</div>`
+                    }
+                }
+              : {})}
+          />
 
+          <NavigationControl position="top-left" />
+          <FullscreenControl position="top-left" />
+          <AttributionControl compact={false} position="bottom-right" />
+          
+          {this.renderSpinner()}
+        </Map>
         {layerType === 'arcLayer' &&
           <DeckArcLayerLegend
             title={this.props.legendTitle}
@@ -430,9 +435,7 @@ class Deck extends React.Component {
             countText={this.props.countText}
             showMoreText={this.props.showMoreText}
           />}
-
-        {this.renderSpinner()}
-      </DeckGL>
+      </>
     )
   }
 
@@ -447,7 +450,6 @@ class Deck extends React.Component {
         (results[0].from && results[0].to) ||
         results[0].polygon
       )
-    // console.log(hasData)
 
     /* It's OK to create a new Layer instance on every render
        https://github.com/uber/deck.gl/blob/master/docs/developer-guide/using-layers.md#should-i-be-creating-new-layers-on-every-render
