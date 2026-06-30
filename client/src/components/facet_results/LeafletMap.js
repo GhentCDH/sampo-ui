@@ -324,12 +324,18 @@ class LeafletMap extends React.Component {
     const { mapboxAccessToken, mapboxStyle } = mapboxConfig
 
     // Base layer(s)
-    let mapboxBaseLayer
+    let baseLayer
     if (mapboxAccessToken) {
-      mapboxBaseLayer = L.tileLayer(`https://api.mapbox.com/styles/v1/mapbox/${mapboxStyle}/tiles/{z}/{x}/{y}?access_token=${mapboxAccessToken}`, {
+      baseLayer = L.tileLayer(`https://api.mapbox.com/styles/v1/mapbox/${mapboxStyle}/tiles/{z}/{x}/{y}?access_token=${mapboxAccessToken}`, {
         attribution: '&copy; <a href="https://www.mapbox.com/map-feedback/" target="_blank" rel="noopener">Mapbox</a> &copy; <a href="http://osm.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> <strong><a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a></strong> contributors',
         tileSize: 512,
         zoomOffset: -1
+      })
+    } else {
+      baseLayer = L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+        tileSize: 256,
+        zoomOffset: 0
       })
     }
 
@@ -347,8 +353,8 @@ class LeafletMap extends React.Component {
         })
         layers.push(layer)
       }
-    } else if (mapboxBaseLayer) {
-      layers.push(mapboxBaseLayer)
+    } else if (baseLayer) {
+      layers.push(baseLayer)
     }
 
     // layer for markers
@@ -390,9 +396,9 @@ class LeafletMap extends React.Component {
     }
 
     // initialize layers from external sources
-    if (this.props.showExternalLayers && mapboxBaseLayer) {
+    if (this.props.showExternalLayers && baseLayer) {
       const basemaps = {
-        [intl.get(`leafletMap.basemaps.mapbox.${mapboxStyle}`)]: mapboxBaseLayer
+        [intl.get(`leafletMap.basemaps.mapbox.${mapboxStyle}`)]: baseLayer
         // [intl.get('leafletMap.basemaps.backgroundMapNLS')]: nlsVectortilesBackgroundmap,
         // [intl.get('leafletMap.basemaps.topographicalMapNLS')]: topographicalMapNLS,
         // [intl.get('leafletMap.basemaps.airMapNLS')]: airMapNLS

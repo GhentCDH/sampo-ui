@@ -334,12 +334,34 @@ class Deck extends React.Component {
       }
     }
 
-    // fallback gray base
+    // fallback OSM tiles base
     return {
+      version: 8,
+      sources: {
+        'osm-tiles': {
+          type: 'raster',
+          tiles: [
+            `https://tile.openstreetmap.org/{z}/{x}/{y}.png`
+          ],
+          tileSize: 256,
+          attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }
+      },
+      layers: [{
+        id: 'osm-tiles-layer',
+        type: 'raster',
+        source: 'osm-tiles',
+        minzoom: 0,
+        maxzoom: 22
+      }]
+    }
+
+    // fallback gray base
+    /*return {
       version: 8,
       sources: {},
       layers: [{ id: 'background', type: 'background', paint: { 'background-color': '#e0e0e0' } }]
-    }
+    }*/
   }
 
   renderMap = (layer, showTooltip, hoverInfo) => {
