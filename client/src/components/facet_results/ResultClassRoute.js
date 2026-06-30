@@ -140,7 +140,8 @@ const ResultClassRoute = props => {
         resultClass,
         fetchResults: props.fetchResults,
         properties,
-        screenSize
+        screenSize,
+        fetching: perspectiveState.fetching
       }
       if (resultClassConfig.fetchResultsWhenMounted) {
         instanceTableProps = {

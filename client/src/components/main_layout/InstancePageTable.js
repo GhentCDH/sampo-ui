@@ -12,6 +12,7 @@ import ResultTableCell from 'components/facet_results/ResultTableCell'
 import Tooltip from '@mui/material/Tooltip'
 import IconButton from '@mui/material/IconButton'
 import InfoIcon from '@mui/icons-material/InfoOutlined'
+import CircularProgress from '@mui/material/CircularProgress'
 
 const styles = (theme) => ({
   instanceTable: {
@@ -132,6 +133,10 @@ class InstancePageTable extends React.Component {
     const perspectiveID = perspectiveConfig.id
     return (
       <>
+        {this.props.fetching &&
+          <div className={classes.spinnerContainer}>
+            <CircularProgress />
+          </div>}
         {data &&
           <Table className={classes.instanceTable} size='small'>
             <TableBody>
