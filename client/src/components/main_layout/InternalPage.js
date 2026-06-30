@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import intl from 'react-intl-universal'
-import TextPage from './TextPage'
-import HTMLParser from '../../helpers/HTMLParser'
-import { useConfigsStore } from '../../stores/configsStore'
+import TextPage from 'components/main_layout/TextPage'
+import HTMLParser from 'helpers/HTMLParser'
+import { useConfigsStore } from 'stores/configsStore'
 
 const HTML_FILE_PREFIX = 'htmlFile:'
 

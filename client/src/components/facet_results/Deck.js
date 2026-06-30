@@ -12,13 +12,13 @@ import maplibregl from 'maplibre-gl'
 import { Protocol } from 'pmtiles'
 import { layers, namedFlavor } from '@protomaps/basemaps'
 
-import DeckArcLayerLegend from './DeckArcLayerLegend'
-import DeckArcLayerDialog from './DeckArcLayerDialog'
-import DeckArcLayerTooltip from './DeckArcLayerTooltip'
+import DeckArcLayerLegend from 'components/facet_results/DeckArcLayerLegend'
+import DeckArcLayerDialog from 'components/facet_results/DeckArcLayerDialog'
+import DeckArcLayerTooltip from 'components/facet_results/DeckArcLayerTooltip'
 import CircularProgress from '@mui/material/CircularProgress'
-import history from '../../History'
+import history from 'History'
 import qs from 'qs'
-import { useConfigsStore } from '../../stores/configsStore'
+import { useConfigsStore } from 'stores/configsStore'
 
 /* Documentation links:
   https://deck.gl/#/documentation/getting-started/using-with-react?section=adding-a-base-map

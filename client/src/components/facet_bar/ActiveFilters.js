@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import intl from 'react-intl-universal'
-import ChipsArray from './ChipsArray'
+import ChipsArray from 'components/facet_bar/ChipsArray'
 
 const ActiveFilters = props => {
   const {

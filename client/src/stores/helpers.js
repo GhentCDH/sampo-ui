@@ -1,5 +1,5 @@
 import { has, sortBy } from 'lodash'
-import MuiIcon from '../components/main_layout/MuiIcon'
+import MuiIcon from 'components/main_layout/MuiIcon'
 import React from 'react'
 
 export const configHelpers = (getConfigJsonFile, getConfigImgFile) => {

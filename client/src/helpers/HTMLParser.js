@@ -2,7 +2,7 @@ import React from 'react'
 import parse from 'html-react-parser'
 import { Link } from 'react-router-dom'
 import Tooltip from '@mui/material/Tooltip'
-import { arrayToObject } from './helpers'
+import { arrayToObject } from 'helpers/helpers'
 import { findAll, prependChild } from 'domutils'
 
 export default class HTMLParser {

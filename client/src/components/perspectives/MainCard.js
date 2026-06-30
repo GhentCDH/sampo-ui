@@ -12,7 +12,7 @@ import { styled } from '@mui/material/styles'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import { Link } from 'react-router-dom'
 import { has } from 'lodash'
-import defaultImage from '../../img/main_page/thumb.png'
+import defaultImage from 'img/main_page/thumb.png'
 
 const GridItem = styled(Grid, {
   shouldForwardProp: prop => prop !== 'perspective'

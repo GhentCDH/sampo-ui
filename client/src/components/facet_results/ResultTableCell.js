@@ -1,9 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import TableCell from '@mui/material/TableCell'
-import ObjectListCollapsible from './ObjectListCollapsible'
-import StringList from './StringList'
-import ImageGallerySRL from '../main_layout/ImageGallerySRL'
+import ObjectListCollapsible from 'components/facet_results/ObjectListCollapsible'
+import StringList from 'components/facet_results/StringList'
+import ImageGallerySRL from 'components/main_layout/ImageGallerySRL'
 
 const ResultTableCell = props => {
   const {

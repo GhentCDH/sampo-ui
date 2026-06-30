@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { withStyles } from 'tss-react/mui'
 import Chip from '@mui/material/Chip'
 import Tooltip from '@mui/material/Tooltip'
-import { ISOStringToYear } from './FacetHelpers'
+import { ISOStringToYear } from 'components/facet_bar/FacetHelpers'
 import { format } from 'date-fns'
 import intl from 'react-intl-universal'
 

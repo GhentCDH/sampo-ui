@@ -1,5 +1,5 @@
 import { has, orderBy } from 'lodash'
-import history from '../../History'
+import history from 'History'
 import intl from 'react-intl-universal'
 import moment from 'moment'
 

@@ -4,7 +4,7 @@ import Dialog from '@mui/material/Dialog'
 import DialogContent from '@mui/material/DialogContent'
 import { withStyles } from 'tss-react/mui'
 import Typography from '@mui/material/Typography'
-import InstanceList from '../main_layout/InstanceList'
+import InstanceList from 'components/main_layout/InstanceList'
 import { Link } from 'react-router-dom'
 
 const styles = () => ({

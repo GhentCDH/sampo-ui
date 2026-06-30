@@ -5,7 +5,7 @@ import L from 'leaflet'
 import { has } from 'lodash'
 import CircularProgress from '@mui/material/CircularProgress'
 import Box from '@mui/material/Box'
-import history from '../../History'
+import history from 'History'
 import qs from 'qs'
 import 'leaflet/dist/leaflet.css' // Official Leaflet styles
 import * as protomapsL from 'protomaps-leaflet'
@@ -30,16 +30,16 @@ import 'leaflet.zoominfo/dist/L.Control.Zoominfo.css'
 import 'leaflet-usermarker/src/leaflet.usermarker.js'
 import 'leaflet-usermarker/src/leaflet.usermarker.css'
 
-import markerShadowIcon from '../../img/markers/marker-shadow.png'
-import markerIconViolet from '../../img/markers/marker-icon-violet.png'
-import markerIconGreen from '../../img/markers/marker-icon-green.png'
-import markerIconRed from '../../img/markers/marker-icon-red.png'
-import markerIconOrange from '../../img/markers/marker-icon-orange.png'
-import markerIconYellow from '../../img/markers/marker-icon-yellow.png'
+import markerShadowIcon from 'img/markers/marker-shadow.png'
+import markerIconViolet from 'img/markers/marker-icon-violet.png'
+import markerIconGreen from 'img/markers/marker-icon-green.png'
+import markerIconRed from 'img/markers/marker-icon-red.png'
+import markerIconOrange from 'img/markers/marker-icon-orange.png'
+import markerIconYellow from 'img/markers/marker-icon-yellow.png'
 
-import mapboxLogo from '../../img/logos/mapbox-logo-black.png'
+import mapboxLogo from 'img/logos/mapbox-logo-black.png'
 
-import { useConfigsStore } from '../../stores/configsStore'
+import { useConfigsStore } from 'stores/configsStore'
 
 // const buffer = lazy(() => import('@turf/buffer'))
 import buffer from '@turf/buffer'

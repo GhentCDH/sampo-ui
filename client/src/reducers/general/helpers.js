@@ -1,5 +1,5 @@
 import { has, isEmpty } from 'lodash'
-import { UPDATE_FACET_VALUES_CONSTRAIN_SELF } from '../../actions'
+import { UPDATE_FACET_VALUES_CONSTRAIN_SELF } from 'actions'
 
 export const fetchResults = (state, action, initialState) => {
   const { reason } = action
