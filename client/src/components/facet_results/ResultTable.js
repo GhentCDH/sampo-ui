@@ -221,7 +221,7 @@ class ResultTable extends React.Component {
     const dataCells = this.props.data.properties.map(column => {
       const {
         id, valueType, makeLink, externalLink, sortValues, sortBy, sortByConvertDataTypeTo, numberedList, minWidth,
-        height, linkAsButton, collapsedMaxWords, showExtraCollapseButton, sourceExternalLink, renderAsHTML, HTMLParserTask
+        height, maxHeight, linkAsButton, collapsedMaxWords, showExtraCollapseButton, sourceExternalLink, renderAsHTML, HTMLParserTask
       } = column
       let { previewImageHeight } = column
       if (screenSize === 'xs' || screenSize === 'sm') {
@@ -269,6 +269,7 @@ class ResultTable extends React.Component {
           numberedList={numberedList}
           height={height}
           minWidth={minWidth}
+          maxHeight={maxHeight}
           previewImageHeight={previewImageHeight}
           container='cell'
           expanded={expanded}
