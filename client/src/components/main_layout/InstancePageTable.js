@@ -156,15 +156,16 @@ class InstancePageTable extends React.Component {
                   <TableRow key={row.id}>
                     <TableCell className={classes.labelCell}>
                       {label}
-                      <Tooltip
-                        className={classes.tooltip}
-                        title={description}
-                        enterDelay={300}
-                      >
-                        <IconButton size='large'>
-                          <InfoIcon />
-                        </IconButton>
-                      </Tooltip>
+                      {description &&
+                        <Tooltip
+                          className={classes.tooltip}
+                          title={description}
+                          enterDelay={300}
+                        >
+                          <IconButton size='large'>
+                            <InfoIcon />
+                          </IconButton>
+                        </Tooltip>}
                     </TableCell>
                     <TableCell className={classes.expandCell}>
                       {this.hasExpandableContent({ data: data[id], config: row }) &&
