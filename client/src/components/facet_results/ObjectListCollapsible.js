@@ -72,7 +72,7 @@ const ObjectListCollapsible = props => {
       )
     } else {
       return (
-        <>
+        <div style={{ color: itemData.color ? itemData.color : '' }}>
           <ObjectListItem
             data={itemData}
             shortenLabel={shortenLabel}
@@ -90,7 +90,7 @@ const ObjectListCollapsible = props => {
               shortenLabel={shortenLabel}
               externalLink={sourceExternalLink}
             />}
-        </>
+        </div>
       )
     }
   }
