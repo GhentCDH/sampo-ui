@@ -31,14 +31,26 @@ const DeckArcLayerDialog = props => {
       <DialogContent>
         <>
           <Typography>{fromText} &nbsp;
-            <Link to={from.dataProviderUrl}>
-              {Array.isArray(from.prefLabel) ? from.prefLabel[0] : from.prefLabel}
-            </Link>
+            {from.dataProviderUrl ?  
+              <Link to={from.dataProviderUrl}>
+                {Array.isArray(from.prefLabel) ? from.prefLabel[0] : from.prefLabel}
+              </Link>
+              :
+              <span>
+                {Array.isArray(from.prefLabel) ? from.prefLabel[0] : from.prefLabel}
+              </span>
+            }
           </Typography>
           <Typography>{toText} &nbsp;
-            <Link to={to.dataProviderUrl}>
-              {Array.isArray(to.prefLabel) ? to.prefLabel[0] : to.prefLabel}
-            </Link>
+            {to.dataProviderUrl ?
+              <Link to={to.dataProviderUrl}>
+                {Array.isArray(to.prefLabel) ? to.prefLabel[0] : to.prefLabel}
+              </Link>
+              :
+              <span>
+                {Array.isArray(to.prefLabel) ? to.prefLabel[0] : to.prefLabel}
+              </span>
+            }
           </Typography>
           <InstanceList
             data={data}
