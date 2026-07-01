@@ -282,9 +282,9 @@ export const generateSelectedFilter = ({
   inverse,
   literal
 }) => {
-  const selections = literal ? `'${currentSelectionsWithoutUnknown.join("', '")}'` : `<${currentSelectionsWithoutUnknown.join('>, <')}>`
+  const selections = literal ? `'${currentSelectionsWithoutUnknown.join("' '")}'` : `<${currentSelectionsWithoutUnknown.join('> <')}>`
   return (`
-          FILTER(?id ${inverse ? 'NOT' : ''} IN ( ${selections} ))
+          VALUES ?id { ${selections} }
   `)
 }
 

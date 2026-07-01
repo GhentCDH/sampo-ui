@@ -1,5 +1,5 @@
 import { create } from 'zustand'
-import { configHelpers } from './helpers'
+import { configHelpers } from 'stores/helpers'
 
 const apiUrl = process.env.API_URL
 const CONFIGS_URL = `${apiUrl}/configs`

@@ -10,8 +10,8 @@ import MoreVertIcon from '@mui/icons-material/MoreVert'
 import Typography from '@mui/material/Typography'
 import InfoIcon from '@mui/icons-material/InfoOutlined'
 import ListSubheader from '@mui/material/ListSubheader'
-import history from '../../History'
-import ChartDialog from './ChartDialog'
+import history from 'History'
+import ChartDialog from 'components/facet_bar/ChartDialog'
 import PieChartIcon from '@mui/icons-material/PieChart'
 import LineChartIcon from '@mui/icons-material/ShowChart'
 import BarChartIcon from '@mui/icons-material/BarChart'
@@ -393,14 +393,15 @@ class FacetHeader extends React.Component {
         >
           {facetLabel}
         </Typography>
-        <Tooltip
-          title={facetDescription}
-          enterDelay={300}
-        >
-          <IconButton aria-label='description' size='large'>
-            <InfoIcon />
-          </IconButton>
-        </Tooltip>
+        {facetDescription &&
+          <Tooltip
+            title={facetDescription}
+            enterDelay={300}
+          >
+            <IconButton aria-label='description' size='large'>
+              <InfoIcon />
+            </IconButton>
+          </Tooltip>}
         {showButtons &&
           <div className={classes.facetHeaderButtons}>
             {this.renderFacetMenu()}

@@ -1,5 +1,5 @@
 import intl from 'react-intl-universal'
-import { generateLabelForMissingValue } from '../../helpers/helpers'
+import { generateLabelForMissingValue } from 'helpers/helpers'
 
 // list of colors generated with http://phrogz.net/css/distinct-colors.html
 const pieChartColors = ['#a12a3c', '#0f00b5', '#81c7a4', '#ffdea6', '#ff0033', '#424cff', '#1b6935', '#ff9d00', '#5c3c43',
