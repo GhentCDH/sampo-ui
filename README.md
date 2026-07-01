@@ -31,15 +31,18 @@ docker compose -f compose-prod.yaml build
 Sampo can be run as split client and server containers where the `API_URL` of the server can be set. The combo image can
 be used to run sampo as one container where the server is hosted on `/api`.
 
+## Documentation
+
+[docs page](docs/README.md)
+
 ## Developer guide
 
 ### Coding style
 
-The [JavaScript style guide, linter, and formatter](https://standardjs.com) module (named "standard" in package.json) is installed by default as development dependency. Do not install or create any additional style definitions or configurations. Instead, install an appropriate [plugin](https://standardjs.com/index.html#are-there-text-editor-plugins) for your text editor. If there are no plugins  available for your favorite editor, it is highly recommended to switch into a supported editor. 
-
-## Documentation
-
-[docs page](docs/README.md)
+The [JavaScript style guide, linter, and formatter](https://standardjs.com) module (named "standard" in package.json) is installed by 
+default as development dependency. Do not install or create any additional style definitions or configurations. 
+Instead, install an appropriate [plugin](https://standardjs.com/index.html#are-there-text-editor-plugins) for your text editor. If there are no plugins  available for your favorite 
+editor, it is highly recommended to switch into a supported editor.
 
 ## Version 3.0.0 vs v4.0.0 onwards
 Version 4 is a very major refactoring update that changed the way sampo portals get built. See docs page for more info.
