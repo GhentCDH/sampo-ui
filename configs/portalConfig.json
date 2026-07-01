@@ -115,9 +115,6 @@
             "defaultHeight": 64
         }
     },
-    "mapboxConfig": {
-        "mapboxStyle": "light-v10"
-    },
     "yasguiConfig": {
         "yasguiBaseURL": "https://yasgui.triply.cc",
         "yasguiParams": {

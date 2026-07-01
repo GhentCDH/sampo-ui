@@ -208,32 +208,7 @@ class TemporalMap extends Component {
 
   getMapStyle = () => {
     const { portalConfig } = this.props
-    const { mapboxAccessToken, mapboxStyle } = portalConfig.mapboxConfig
 
-    if (mapboxAccessToken) {
-      return {
-        version: 8,
-        sources: {
-          'mapbox-tiles': {
-            type: 'raster',
-            tiles: [
-              `https://api.mapbox.com/styles/v1/mapbox/${mapboxStyle}/tiles/256/{z}/{x}/{y}?access_token=${mapboxAccessToken}`
-            ],
-            tileSize: 256,
-            attribution: '&copy; <a href="https://www.mapbox.com/map-feedback/" target="_blank">Mapbox</a> &copy; <a href="http://osm.org/copyright" target="_blank">OpenStreetMap</a>'
-          }
-        },
-        layers: [{
-          id: 'mapbox-tiles-layer',
-          type: 'raster',
-          source: 'mapbox-tiles',
-          minzoom: 0,
-          maxzoom: 22
-        }]
-      }
-    }
-
-    // fallback OSM tiles base
     return {
       version: 8,
       sources: {
@@ -280,7 +255,6 @@ class TemporalMap extends Component {
   render () {
     const { viewport, memory, dates } = this.state
     const { classes, animateMap, portalConfig } = this.props
-    const { mapboxAccessToken, mapboxStyle } = portalConfig.mapboxConfig
     return (
       <div id='temporal-map-root' ref={this.mapElementRef} className={classes.root}>
         <Map

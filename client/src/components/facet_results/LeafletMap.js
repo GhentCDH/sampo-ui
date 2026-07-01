@@ -37,8 +37,6 @@ import markerIconRed from 'img/markers/marker-icon-red.png'
 import markerIconOrange from 'img/markers/marker-icon-orange.png'
 import markerIconYellow from 'img/markers/marker-icon-yellow.png'
 
-import mapboxLogo from 'img/logos/mapbox-logo-black.png'
-
 import { useConfigsStore } from 'stores/configsStore'
 
 // const buffer = lazy(() => import('@turf/buffer'))
@@ -321,24 +319,12 @@ class LeafletMap extends React.Component {
   }
 
   initMap = () => {
-    const { mapboxConfig } = this.props.portalConfig
-    const { mapboxAccessToken, mapboxStyle } = mapboxConfig
-
     // Base layer(s)
-    let baseLayer
-    if (mapboxAccessToken) {
-      baseLayer = L.tileLayer(`https://api.mapbox.com/styles/v1/mapbox/${mapboxStyle}/tiles/{z}/{x}/{y}?access_token=${mapboxAccessToken}`, {
-        attribution: '&copy; <a href="https://www.mapbox.com/map-feedback/" target="_blank" rel="noopener">Mapbox</a> &copy; <a href="http://osm.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> <strong><a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a></strong> contributors',
-        tileSize: 512,
-        zoomOffset: -1
-      })
-    } else {
-      baseLayer = L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-        tileSize: 256,
-        zoomOffset: 0
-      })
-    }
+    const baseLayer = L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+      tileSize: 256,
+      zoomOffset: 0
+    })
 
     const layers = []
 
@@ -399,7 +385,7 @@ class LeafletMap extends React.Component {
     // initialize layers from external sources
     if (this.props.showExternalLayers && baseLayer) {
       const basemaps = {
-        [intl.get(`leafletMap.basemaps.mapbox.${mapboxStyle}`)]: baseLayer
+        [intl.get(`leafletMap.basemaps.openStreetMap`)]: baseLayer
         // [intl.get('leafletMap.basemaps.backgroundMapNLS')]: nlsVectortilesBackgroundmap,
         // [intl.get('leafletMap.basemaps.topographicalMapNLS')]: topographicalMapNLS,
         // [intl.get('leafletMap.basemaps.airMapNLS')]: airMapNLS
@@ -1065,17 +1051,6 @@ class LeafletMap extends React.Component {
               height: '100%'
             }}
           >
-            <Box
-              component='img'
-              src={mapboxLogo}
-              sx={{
-                height: 20,
-                ml: 6,
-                mt: 1,
-                position: 'absolute',
-                zIndex: 1000
-              }}
-            />
             {(this.props.fetching ||
                 (this.props.showExternalLayers && this.props.leafletMapState.fetching)) &&
                   <Box

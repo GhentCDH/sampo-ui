@@ -301,7 +301,6 @@ class Deck extends React.Component {
 
   getMapStyle = () => {
     const { customTilesLayer, portalConfig } = this.props
-    const { mapboxAccessToken, mapboxStyle } = portalConfig.mapboxConfig
 
     if (customTilesLayer?.type === 'pmtiles') {
       const url = customTilesLayer.inConfig
@@ -319,30 +318,6 @@ class Deck extends React.Component {
       }
     }
 
-    if (mapboxAccessToken) {
-      return {
-        version: 8,
-        sources: {
-          'mapbox-tiles': {
-            type: 'raster',
-            tiles: [
-              `https://api.mapbox.com/styles/v1/mapbox/${mapboxStyle}/tiles/256/{z}/{x}/{y}?access_token=${mapboxAccessToken}`
-            ],
-            tileSize: 256,
-            attribution: '&copy; <a href="https://www.mapbox.com/map-feedback/" target="_blank">Mapbox</a> &copy; <a href="http://osm.org/copyright" target="_blank">OpenStreetMap</a>'
-          }
-        },
-        layers: [{
-          id: 'mapbox-tiles-layer',
-          type: 'raster',
-          source: 'mapbox-tiles',
-          minzoom: 0,
-          maxzoom: 22
-        }]
-      }
-    }
-
-    // fallback OSM tiles base
     return {
       version: 8,
       sources: {
@@ -441,7 +416,6 @@ class Deck extends React.Component {
 
   render () {
     const { classes, layerType, fetching, results, showTooltips, portalConfig } = this.props
-    const { mapboxAccessToken, mapboxStyle } = portalConfig.mapboxConfig
     const { hoverInfo } = this.state
     const showTooltip = showTooltips && hoverInfo && hoverInfo.object
     const hasData = !fetching && results && results.length > 0 &&
