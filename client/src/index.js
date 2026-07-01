@@ -25,6 +25,7 @@ import '@fontsource/roboto/400.css'
 import '@fontsource/roboto/500.css'
 import '@fontsource/roboto/700.css'
 import { useConfigsStore } from 'stores/configsStore'
+import { loadCustomCss } from 'helpers/loadCustomCss'
 
 const root = createRoot(document.getElementById('root'))
 
@@ -96,8 +97,13 @@ const renderApp = async () => {
     import('actions'),
     import('helpers/helpers')
   ])
-  const portalConfig = useConfigsStore.getState().portalConfig
+  const { portalConfig, getStaticFileUrl } = useConfigsStore.getState()
   const { localeConfig, layoutConfig } = portalConfig
+
+  // load custom css file
+  if (layoutConfig.customCssFile) {
+    loadCustomCss(getStaticFileUrl(layoutConfig.customCssFile))
+  }
   const store = configureStore()
 
   let locale
